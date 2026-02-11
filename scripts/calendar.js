@@ -3,56 +3,85 @@ const weekdays = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
 const months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
 
 const monthList = document.getElementById("m")
-const dayList  = document.getElementById("d")
 const yearField = document.getElementById("y")
 
-const btn = document.getElementById("b")
+const calendarSheet = document.getElementById("c1")
+const test  = document.getElementById("test")
 
-let cal  = new table(5, weekdays)
+const calendarTable  = new table(6, weekdays)
 
-setMonthValue()
-updateSheetTitle()
-monthList.addEventListener("change",() => {
-        setMonthValue()
-    }
-)
+let currentDate = new Date()
+setMonthAndYear()
 
-btn.addEventListener("click", ()=>{
-    updateSheetTitle()
+monthList.addEventListener("change", ()=>{
+    currentDate = setMonthAndYear()
+})
+yearField.addEventListener("change", ()=>{
+    currentDate = setMonthAndYear()
 })
 
+calendarSheet.innerHTML = calendarTable.toHtml()
 
 
-document.getElementById("c1").innerHTML = cal.toHtml()
 
 
-
-function setMonthValue(){
-    let index = parseInt(monthList.selectedOptions [0].value)
-
-    let daySelect = document.getElementById("d")
-    let numDays;
-    if (index === 1) {
-        numDays = 28;
-    } else if (index === 3 || index === 5 || index === 8 || index === 10) {
-        numDays = 30;
-    } else {
-        numDays = 31;
-    }
-    daySelect.innerHTML = "";
-    for (let i = 1; i <= numDays; i++) {
-        let option = document.createElement("option");
-        option.value = i;
-        option.innerText = i;
-        daySelect.appendChild(option);
-    }
+function setMonthAndYear(){
+    let m = parseInt(monthList.selectedOptions[0].value)
+    let y = parseInt(yearField.value)
+    
+    currentDate =  date(m, y)
+    updateHeader()
+    updateSheet()
 }
 
-function updateSheetTitle(){
-    let day = dayList.selectedOptions[0].value
-    let month = months[parseInt(monthList.selectedOptions [0].value)]
-    let year = parseInt(yearField.value)
+function date(m, y){
+    return new Date(`${y}-${m+1}`)
+}
 
-    document.getElementById("my").innerText = `${day}.${month} ${year}`
+function updateHeader(){
+    let txt = `${months[currentDate.getMonth()]} ${currentDate.getFullYear()}`
     
+
+    document.getElementById("my").innerText = txt
+}
+
+function updateSheet(){
+    let startIndex = currentDate.getDay()
+    calendarTable.clear();
+    let day = 1
+    let maxDays = getDaysOfMonth()
+   for(let i = 0; i < calendarTable.rows; i++){
+        let jStart = 0;
+        if(i === 0){
+            jStart = startIndex-1
+            if(jStart < 0 ){
+                jStart = 6
+            }
+        }
+        for(let j = jStart; j < calendarTable.cols; j++){
+            calendarTable.writeCell(i, j, day)
+            if(++day > maxDays){
+                calendarSheet.innerHTML = calendarTable.toHtml()
+                return
+            }
+        }
+   }
+    
+    
+}
+
+function getDaysOfMonth(){
+    let m = currentDate.getMonth()
+
+    if(m === 0 || m === 2 || m === 4 || m === 6 || m === 7 || m  === 9 || m === 11){
+        return 31
+    }else if(m === 1){
+        if(currentDate.getFullYear() % 4 === 0){
+            return 29
+        }else{
+            return 28
+        }
+    }else{
+        return 30
+    }
 }

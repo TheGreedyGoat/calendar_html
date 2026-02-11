@@ -4,6 +4,8 @@ class table{
 constructor(rows, header){
         this.header = header
         this.createTable(header.length, rows)
+        this.rows = rows
+        this.cols = header.length
     }
     createTable(cols, rows){
         this.content = []
@@ -11,7 +13,7 @@ constructor(rows, header){
 
             let row = []
             for(let j = 0; j < cols; j++){
-                row.push(i +", " + j)
+                row.push("")
             }
             this.content.push(row)
         }
@@ -46,12 +48,16 @@ constructor(rows, header){
         return this.content[i]
     }
 
-    getCell(i, j){
-        return this.content[i][j]
+    getCell(row, col){
+        return this.content[row][col]
     }
 
-    writeCell(i, j, text){
-        this.content[i][j] = text
+    writeCell(row, col, text){
+        this.content[row][col] = text
+    }
+    
+    clear(){
+        this.createTable(this.cols, this.rows)
     }
 }
 
