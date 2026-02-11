@@ -6,6 +6,7 @@ function setup() {
 
 let a = 0;
 let step  = 1.1;
+let lines = 10
 
 function draw() {
     let sinA = sin(a);
@@ -13,10 +14,10 @@ function draw() {
     let y = - (13 * cos(a) - 5 * cos(2*a) - 2 * cos(3*a) - cos(4*a));
     translate(width/2, height/2);
     strokeWeight(3)
-    for(let i = 0; i <= 10; i++){
-    let gb = map(i, 0, 10, 255, 0)
-    stroke(255, gb,gb);
-        point(x * i, y * i)
+    for(let i = 0; i <= lines; i++){
+        let gb = map(i, 0, lines, 255, 0)
+        stroke(255, gb,gb);
+            point(x * i, y * i)
     }
     //point(x*10, y*10);
     a += step;
