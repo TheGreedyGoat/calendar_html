@@ -1,17 +1,13 @@
 
 
 class table{
-    constructor(cols, rows, addHeader){
-        if(addHeader){
-            this.header = []
-            for(let i  = 0; i < cols; i++){
-                this.header.push("H" + i.toString())
-            }
-        }
-
+constructor(rows, header){
+        this.header = header
+        this.createTable(header.length, rows)
+    }
+    createTable(cols, rows){
         this.content = []
         for(let i = 0; i < rows; i++){
-            //this.content.push([])
 
             let row = []
             for(let j = 0; j < cols; j++){
@@ -21,8 +17,19 @@ class table{
         }
     }
 
+    
+
+
     toHtml(){
         let rows = ""
+
+        if(this.header){
+            let cells = ""
+            for(let i = 0; i < this.header.length; i++){
+                cells += element("th", this.header[i])
+            }
+            rows += element("tr", cells)
+        }
         for(let i = 0; i < this.content.length; i++){
             let cells = ""
             for(let j  = 0; j < this.content[i].length; j++){
