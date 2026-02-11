@@ -38,7 +38,7 @@ constructor(rows, header){
             rows += element("tr", cells)
         }
 
-        return rows
+        //return rows
         return element("table", rows)
     }
 
@@ -49,19 +49,34 @@ constructor(rows, header){
     getCell(i, j){
         return this.content[i][j]
     }
+
+    writeCell(i, j, text){
+        this.content[i][j] = text
+    }
 }
 
 
-function tag(type, closing){
+function tag(type, closing, attributes, values){
     let res ="<"
     if(closing){
         res += "/"
     }
 
-    res += type + ">"
+    res += type
+
+    if(!closing  && attributes && values && attributes.length == values.length){
+        for(let i = 0; i < attributes.length; i++){
+            if(i > 0){
+                res += ","
+            }
+            res += " " + attributes[i] + '= "' + values[i] + '"'
+        }
+    }
+
+    res += ">"
     return res
 }
 
-function element(type, content){
-    return tag(type, false) + content + tag(type, true)
+function element(type, content, attributes, values){
+    return tag(type, false, attributes, values) + content + tag(type, true)
 }
