@@ -3,3 +3,11 @@ img {
   height: auto;
 }
 
+/*Quelle: p5js.org*/
+html, body {
+  margin: 0;
+  padding: 0;
+}
+canvas {
+  display: block;
+}
