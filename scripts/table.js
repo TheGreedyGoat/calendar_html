@@ -98,14 +98,14 @@ class tableCell{
         if(!this.attValues) this.attValues = []
 
         for(let i = 0; i < this.attributes.length; i++){
-            if(this.attValues[i] == type){
+            if(this.attributes[i] == type){
                 this.attValues[i] = value
                 return
             }
         }
 
         this.attributes.push(type)
-        this.attValues.push(type)
+        this.attValues.push(value)
         
     }
 
@@ -123,7 +123,7 @@ class tableCell{
     toHTML(){
         let tagType = "td"
         if(this.isHeader) tagType = "th"
-        return element(tagType, this.content, this.attributes, this.values) + "\n"
+        return element(tagType, this.content, this.attributes, this.attValues) + "\n"
     }
 }
 
@@ -134,7 +134,6 @@ function tag(type = "div", closing = false, attributes, values){
     }
 
     res += type
-
     if(!closing  && attributes && values && attributes.length == values.length){
         for(let i = 0; i < attributes.length; i++){
             res += " " + attributes[i] + '= "' + values[i] + '"'
