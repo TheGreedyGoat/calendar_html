@@ -45,8 +45,9 @@ function updateSheet(){
     let startIndex = currentDate.getDay()
     calendarTable.clear();
     let day = 1
-    let maxDays = getDaysOfMonth(currentDate.getMonth)
-    //let maxLastMonth = getDaysOfMonth(currentDate.getMonth-1)
+    let maxDays = getDaysOfMonth(currentDate.getMonth())
+    let maxLastMonth = getDaysOfMonth(currentDate.getMonth()-1)
+
    for(let i = 0; i < calendarTable.rows; i++){
         let first = 0;
         if(i === 0){ // make sure to start at the right weekday
@@ -55,12 +56,21 @@ function updateSheet(){
                 first = 6
             }
         }
-        for(let j = first; j < calendarTable.cols; j++){ // 
-            calendarTable.writeCell(i, j, day)
-            if(++day > maxDays){
-                calendarSheet.innerHTML = calendarTable.toHtml(true, 0, i + 1)
-                return
+        for(let j = 0; j < calendarTable.cols; j++){ // 
+            let cDay = day - first
+            if(cDay <= 0){
+                cDay += maxLastMonth
+            }else if(cDay > maxDays){
+                cDay -= maxDays
             }
+            calendarTable.writeCell(i, j, cDay)
+            day++
+            
+        }
+        
+        if(day > maxDays){
+            calendarSheet.innerHTML = calendarTable.toHtml(true, 0, i + 1)
+            return
         }
    }
     
@@ -68,18 +78,21 @@ function updateSheet(){
 }
 
 function getDaysOfMonth(m){
-
     if(m < 0) m +=12
     if (m > 11) m -= 12
+
+    let res
     if(m === 0 || m === 2 || m === 4 || m === 6 || m === 7 || m  === 9 || m === 11){
-        return 31
+        res = 31
     }else if(m === 1){
         if(currentDate.getFullYear() % 4 === 0){
-            return 29
+            res = 29
         }else{
-            return 28
+            res = 28
         }
     }else{
-        return 30
+        res = 30
     }
+    console.log(`m: ${m}, month: ${months[m]} days: ${res}`)
+    return res
 }
