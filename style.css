@@ -1,13 +1,11 @@
-img {
-  width: 200px;
-  height: auto;
+p{
+  border: "1";
+  border-color: red;
+  font-size: 75%;
 }
 
-/*Quelle: p5js.org*/
-html, body {
-  margin: 0;
-  padding: 0;
-}
-canvas {
-  display: block;
+iframe{
+  width:fit-content;
+  height :500px;
+  background-color: rgb(49, 49, 49);
 }
