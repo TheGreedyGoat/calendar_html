@@ -1,5 +1,5 @@
 
-const weekdays = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
+const weekdays = ["Mo", "Di", "Mi", "Do", "Fr", "Sa","So"]
 const months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
 
 const monthList = document.getElementById("m")
@@ -8,40 +8,65 @@ const yearField = document.getElementById("y")
 const calendarSheet = document.getElementById("c1")
 const test  = document.getElementById("test")
 
-const calendarTable  = new table(6, weekdays)
+const calendarTable  = new table(6, weekdays.length)
 
-let currentDate = new Date()
-setMonthAndYear()
+calendarTable.setHeader(weekdays)
+
+setDate()
 
 monthList.addEventListener("change", ()=>{
-    currentDate = setMonthAndYear()
+    setDate()
 })
 yearField.addEventListener("change", ()=>{
-    currentDate = setMonthAndYear()
+    setDate()
 })
 
 
-function setMonthAndYear(){
+function setDate(){
     let m = parseInt(monthList.selectedOptions[0].value)
     let y = parseInt(yearField.value)
     
-    currentDate =  date(m, y)
+    currentDate =  date(y, m, 1)
     updateHeader()
-    updateSheet()
+    updateTable()
 }
 
-function date(m, y){
-    return new Date(`${y}-${m+1}`)
-}
 
 function updateHeader(){
-    let txt = `${months[currentDate.getMonth()]} ${currentDate.getFullYear()}`
-    
+    let txt = `${months[currentDate.getMonth()]} ${currentDate.getFullYear()}` // eg. 'Januar 2025'
 
     document.getElementById("my").innerText = txt
 }
 
-function updateSheet(){
+function updateTable(){
+    
+    calendarTable.clear();
+
+    let cellDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate())
+    
+    let daysSinceLastMonday = cellDate.getDay() -1
+    if(daysSinceLastMonday < 0){
+        daysSinceLastMonday += 7
+    }
+    cellDate.setDate(currentDate.getDate() - daysSinceLastMonday)
+
+    for(let i = 0; i < calendarTable.height; i++){
+
+        for(let j = 0; j < calendarTable.width; j++){
+            calendarTable.writeCell(i, j, cellDate.getDate())
+            if(cellDate.getDay() === 0){ // => sunday
+                calendarTable.getCell(i,j).setAttribute("class", "sunday")
+            }
+            cellDate.setDate(cellDate.getDate() + 1)
+        }
+    }
+    
+    let tmp = calendarTable.toHTML(true)
+    console.log(tmp)
+    calendarSheet.innerHTML = tmp
+}
+
+/*function updateSheet(){
     let startIndex = currentDate.getDay()
     calendarTable.clear();
     let day = 1
@@ -69,13 +94,13 @@ function updateSheet(){
         }
         
         if(day > maxDays){
-            calendarSheet.innerHTML = calendarTable.toHtml(true, 0, i + 1)
+            calendarSheet.innerHTML = calendarTable.toHTML(true, 0, i + 1)
             return
         }
    }
     
     
-}
+}/**/
 
 function getDaysOfMonth(m){
     if(m < 0) m +=12
@@ -95,4 +120,7 @@ function getDaysOfMonth(m){
     }
     console.log(`m: ${m}, month: ${months[m]} days: ${res}`)
     return res
+}
+function date(y = 2026, m = 0, d = 1){
+    return new Date(y, m, d)
 }

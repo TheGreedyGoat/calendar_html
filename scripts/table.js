@@ -1,74 +1,133 @@
-
-
 class table{
-constructor(rows, header){
-        this.header = header
-        this.createTable(header.length, rows)
-        this.rows = rows
-        this.cols = header.length
-    }
-    createTable(cols, rows){
-        this.content = []
-        for(let i = 0; i < rows; i++){
-
-            let row = []
-            for(let j = 0; j < cols; j++){
-                row.push("")
-            }
-            this.content.push(row)
-        }
+constructor(tHeight, tWidth){
+        this.createTable(tHeight, tWidth)
+        this.height = tHeight
+        this.width = tWidth
     }
 
-    
+    createTable(tHeight, tWidth){
+        this.rows = []
+        for(let i = 0; i < tHeight; i++){
 
-
-    toHtml(addHeader = true, from, to){
-        if(!from){
-            from = 0
-        }
-        if(!to){
-            to = this.rows
-        }
-
-        let rows = ""
-        if(this.header && addHeader){
-            let cells = ""
-            for(let i = 0; i < this.header.length; i++){
-                cells += element("th", this.header[i])
+            let row = new tableRow(tWidth)
+            for(let j = 0; j < tWidth; j++){
+                row.writeCell(j)
             }
-            rows += element("tr", cells)
+            this.rows.push(row)
         }
-        for(let i = from; i < to; i++){
-            let cells = ""
-            for(let j  = 0; j < this.content[i].length; j++){
-                cells += element("td", this.content[i][j])
-            }
-            rows += element("tr", cells)
-        }
+    }
 
-        //return rows
-        return element("table", rows)
+    setHeader(head){
+        this.header = new tableRow(this.width, true)
+        for(let i = 0; i < this.width && i < head.length; i++){
+            this.header.writeCell(i, head[i])
+        }
+    }
+
+
+    toHTML(addHeader = true){
+        let rowsHTML = "\n"
+        if(addHeader && this.header) rowsHTML = this.header.toHTML()
+        for(let i = 0; i < this.rows.length; i++){
+            rowsHTML += this.rows[i].toHTML() 
+        }
+        return element("table", rowsHTML) + "\n"
     }
 
     getRow(i){
-        return this.content[i]
+        return this.rows[i]
     }
 
     getCell(row, col){
-        return this.content[row][col]
+        return this.getRow(row).getCell(col)
+    }
+    getCellContent(row, col){
+        return this.getCell(row, col).content
+    }
+    writeCell(row, col, text){
+        this.getRow(row).getCell(col).content  = text
     }
 
-    writeCell(row, col, text){
-        this.content[row][col] = text
-    }
-    
     clear(){
-        this.createTable(this.cols, this.rows)
+        this.createTable(this.height, this.width)
     }
 }
 
+class tableRow{
+    constructor(size = 1, isHeader = false){
+        this.cells = []
+        for(let i = 0; i< size; i++){
+            this.cells.push(new tableCell(isHeader))
+        }
+    }
 
-function tag(type, closing, attributes, values){
+    size(){ return this.cells.length}
+    getCell(i){ return this.cells[i]}
+    getCellContent(i){ return this.cells[i].content}
+    
+    writeCell(i, text = ""){ 
+        this.getCell(i).content = text 
+    }
+
+    toHTML(){
+        let cellsHTML = "\n"
+        for(let i = 0; i < this.cells.length; i++){
+            cellsHTML += this.cells[i].toHTML();
+        }
+        return element("tr", cellsHTML) + "\n"
+    }
+}
+
+class tableCell{
+    constructor(isHeader = false, content = ""){
+        this.isHeader = isHeader
+        this.content = content
+    }
+
+    getAttribute(type){
+        if(!this.attributes) return
+        for(let i = 0; i < this.attributes.length; i++){
+            if(this.attributes[i] == type) return this.attValues[i]
+        }
+        
+    }
+
+    setAttribute(type, value){
+        console.log(`adding attribute ${type} with value ${value}`)
+        if(!this.attributes) this.attributes = []
+        if(!this.attValues) this.attValues = []
+
+        for(let i = 0; i < this.attributes.length; i++){
+            if(this.attValues[i] == type){
+                this.attValues[i] = value
+                return
+            }
+        }
+
+        this.attributes.push(type)
+        this.attValues.push(type)
+        
+    }
+
+    removeAttribute(type){
+        if(!this.attributes) return
+        for(let i = 0; i < this.attributes.length; i++){
+            if(this.attributes[i] == type){
+                this.attributes.slice(i)
+                this.attValues.slice(i)
+            }
+        }
+
+    }
+
+    toHTML(){
+        let tagType = "td"
+        if(this.isHeader) tagType = "th"
+        return element(tagType, this.content, this.attributes, this.values) + "\n"
+    }
+}
+
+function tag(type = "div", closing = false, attributes, values){
     let res ="<"
     if(closing){
         res += "/"
@@ -78,9 +137,6 @@ function tag(type, closing, attributes, values){
 
     if(!closing  && attributes && values && attributes.length == values.length){
         for(let i = 0; i < attributes.length; i++){
-            if(i > 0){
-                res += ","
-            }
             res += " " + attributes[i] + '= "' + values[i] + '"'
         }
     }
@@ -89,6 +145,6 @@ function tag(type, closing, attributes, values){
     return res
 }
 
-function element(type, content, attributes, values){
+function element(type = "div", content = "", attributes, values){
     return tag(type, false, attributes, values) + content + tag(type, true)
 }

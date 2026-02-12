@@ -5,7 +5,11 @@ p{
 }
 
 iframe{
-  width:fit-content;
+  width:1000px;
   height :500px;
   background-color: rgb(49, 49, 49);
+}
+
+td.sunday{
+  background-color: red;
 }
