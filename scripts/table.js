@@ -22,17 +22,23 @@ constructor(rows, header){
     
 
 
-    toHtml(){
-        let rows = ""
+    toHtml(addHeader = true, from, to){
+        if(!from){
+            from = 0
+        }
+        if(!to){
+            to = this.rows
+        }
 
-        if(this.header){
+        let rows = ""
+        if(this.header && addHeader){
             let cells = ""
             for(let i = 0; i < this.header.length; i++){
                 cells += element("th", this.header[i])
             }
             rows += element("tr", cells)
         }
-        for(let i = 0; i < this.content.length; i++){
+        for(let i = from; i < to; i++){
             let cells = ""
             for(let j  = 0; j < this.content[i].length; j++){
                 cells += element("td", this.content[i][j])

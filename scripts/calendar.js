@@ -20,10 +20,6 @@ yearField.addEventListener("change", ()=>{
     currentDate = setMonthAndYear()
 })
 
-calendarSheet.innerHTML = calendarTable.toHtml()
-
-
-
 
 function setMonthAndYear(){
     let m = parseInt(monthList.selectedOptions[0].value)
@@ -49,19 +45,20 @@ function updateSheet(){
     let startIndex = currentDate.getDay()
     calendarTable.clear();
     let day = 1
-    let maxDays = getDaysOfMonth()
+    let maxDays = getDaysOfMonth(currentDate.getMonth)
+    //let maxLastMonth = getDaysOfMonth(currentDate.getMonth-1)
    for(let i = 0; i < calendarTable.rows; i++){
-        let jStart = 0;
-        if(i === 0){
-            jStart = startIndex-1
-            if(jStart < 0 ){
-                jStart = 6
+        let first = 0;
+        if(i === 0){ // make sure to start at the right weekday
+            first = startIndex-1
+            if(first < 0 ){
+                first = 6
             }
         }
-        for(let j = jStart; j < calendarTable.cols; j++){
+        for(let j = first; j < calendarTable.cols; j++){ // 
             calendarTable.writeCell(i, j, day)
             if(++day > maxDays){
-                calendarSheet.innerHTML = calendarTable.toHtml()
+                calendarSheet.innerHTML = calendarTable.toHtml(true, 0, i + 1)
                 return
             }
         }
@@ -70,9 +67,10 @@ function updateSheet(){
     
 }
 
-function getDaysOfMonth(){
-    let m = currentDate.getMonth()
+function getDaysOfMonth(m){
 
+    if(m < 0) m +=12
+    if (m > 11) m -= 12
     if(m === 0 || m === 2 || m === 4 || m === 6 || m === 7 || m  === 9 || m === 11){
         return 31
     }else if(m === 1){
