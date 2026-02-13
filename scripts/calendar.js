@@ -1,5 +1,5 @@
 
-const weekdays = ["Mo", "Di", "Mi", "Do", "Fr", "Sa","So"]
+const weekdays = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
 const months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
 
 const monthList = document.getElementById("m")
@@ -12,7 +12,13 @@ const calendarTable  = new table(6, weekdays.length)
 
 calendarTable.setHeader(weekdays)
 
+
 setDate()
+
+calendarSheet.addEventListener("hover", () =>{
+        console.log("HOVER!")
+    }
+)
 
 monthList.addEventListener("change", ()=>{
     setDate()
@@ -69,45 +75,9 @@ function updateTable(){
     }
     
     let tmp = calendarTable.toHTML(true)
-    console.log(tmp)
     calendarSheet.innerHTML = tmp
+    window.parent.postMessage(`${months[currentDate.getMonth()]} ${currentDate.getFullYear()}`, "*")
 }
-
-/*function updateSheet(){
-    let startIndex = currentDate.getDay()
-    calendarTable.clear();
-    let day = 1
-    let maxDays = getDaysOfMonth(currentDate.getMonth())
-    let maxLastMonth = getDaysOfMonth(currentDate.getMonth()-1)
-
-   for(let i = 0; i < calendarTable.rows; i++){
-        let first = 0;
-        if(i === 0){ // make sure to start at the right weekday
-            first = startIndex-1
-            if(first < 0 ){
-                first = 6
-            }
-        }
-        for(let j = 0; j < calendarTable.cols; j++){ // 
-            let cDay = day - first
-            if(cDay <= 0){
-                cDay += maxLastMonth
-            }else if(cDay > maxDays){
-                cDay -= maxDays
-            }
-            calendarTable.writeCell(i, j, cDay)
-            day++
-            
-        }
-        
-        if(day > maxDays){
-            calendarSheet.innerHTML = calendarTable.toHTML(true, 0, i + 1)
-            return
-        }
-   }
-    
-    
-}/**/
 
 function getDaysOfMonth(m){
     if(m < 0) m +=12

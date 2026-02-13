@@ -21,6 +21,8 @@ table{
     text-align: center;
 }
 
+
+
 td.current{
     color:antiquewhite;
     outline: 10px;
@@ -47,6 +49,9 @@ td{
     
 }
 
+td :hover{
+    background-color: bisque;
+}
 
 
 th{

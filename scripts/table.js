@@ -93,7 +93,6 @@ class tableCell{
     }
 
     setAttribute(type, value){
-        console.log(`adding attribute ${type} with value ${value}`)
         if(!this.attributes) this.attributes = []
         if(!this.attValues) this.attValues = []
 

@@ -18,13 +18,23 @@ p{
   font-size: 75%;
 }
 
-h2{
-  font-size: 20px;
+div.listContainer{
+  font-size: 12px;
+  padding-left: 10px;
 }
 
-ul{
-  font-size: 12px;
+h2.listHead{
+  font-size: 20px;
+  color:antiquewhite;
 }
+
+
+li{
+  padding-left: 10px;
+  font-size: 15px;
+  color: rgb(175, 171, 171);
+}
+
 
 iframe{
   top: 30px;
