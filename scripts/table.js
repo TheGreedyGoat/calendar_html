@@ -102,10 +102,8 @@ class tableCell{
                 return
             }
         }
-
         this.attributes.push(type)
         this.attValues.push(value)
-        
     }
 
     removeAttribute(type){
@@ -126,7 +124,7 @@ class tableCell{
     }
 }
 
-function tag(type = "div", closing = false, attributes, values){
+function tag(type = "div", closing = false, attributes = [], values = []){
     let res ="<"
     if(closing){
         res += "/"

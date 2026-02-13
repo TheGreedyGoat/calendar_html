@@ -21,8 +21,6 @@ table{
     text-align: center;
 }
 
-
-
 td.current{
     color:antiquewhite;
     outline: 10px;
@@ -46,11 +44,19 @@ td{
     height: 50px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: smaller;
-    
 }
 
-td :hover{
-    background-color: bisque;
+td:hover{
+    font-size : 120%;
+    color:rgb(240, 240, 240);
+    font-weight: bold;
+    outline: 1px;
+    outline-color: rgba(0, 0, 0, 0.288);
+    outline-style: groove;
+    outline-offset: -3px;
+    border-radius: 50%;
+    border-width: 10px;
+    background-color: rgb(102, 102, 102);
 }
 
 
@@ -68,6 +74,7 @@ select, input{
     border-style: none;
     border-radius: 5px;
 }
+
 
 
 

@@ -9,11 +9,12 @@ const calendarSheet = document.getElementById("c1")
 const test  = document.getElementById("test")
 
 const calendarTable  = new table(6, weekdays.length)
+let currentDate
 
 calendarTable.setHeader(weekdays)
 
-
 setDate()
+
 
 calendarSheet.addEventListener("hover", () =>{
         console.log("HOVER!")

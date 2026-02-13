@@ -8,13 +8,13 @@ body{
   
 }
 
-p{
+#p1{
   border: 1px;
   border-style:ridge;
   border-top:0;
   border-left:0;
   border-right:0;
-  border-color: red;
+  border-color: green;
   font-size: 75%;
 }
 
