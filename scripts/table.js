@@ -106,6 +106,19 @@ class tableCell{
         this.attValues.push(value)
     }
 
+    addAttributeValue(type, value){
+        if(!this.getAttribute(type)) {
+            this.setAttribute(type, value)
+            return
+        }
+        for(let i = 0; i < this.attributes.length; i++){
+            if(this.attributes[i] === type){
+                this.attValues[i] += " " + value
+                return
+            }
+        }
+    }
+
     removeAttribute(type){
         if(!this.attributes) return
         for(let i = 0; i < this.attributes.length; i++){

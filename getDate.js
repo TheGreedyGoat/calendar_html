@@ -5,7 +5,7 @@ const listHead = document.getElementById("listhead");
 window.addEventListener("message", 
     function(event){
         console.log(event.data)
-        listHead.innerHTML = `Hysterische Ereignisse im ${event.data}:`
+        listHead.innerHTML = `Hysterische Ereignisse am ${event.data}:`
 
         
         let lines = Math.floor(Math.random() * (10 - 3) + 3);
