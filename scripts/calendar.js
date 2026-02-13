@@ -54,8 +54,15 @@ function updateTable(){
 
         for(let j = 0; j < calendarTable.width; j++){
             calendarTable.writeCell(i, j, cellDate.getDate())
-            if(cellDate.getDay() === 0){ // => sunday
-                calendarTable.getCell(i,j).setAttribute("class", "sunday")
+            
+           if(cellDate.getMonth() == currentDate.getMonth()){
+                if(cellDate.getDay() === 0){ // => sunday
+                calendarTable.getCell(i,j).setAttribute("class", "sundayCurrent")
+                }else{
+                    calendarTable.getCell(i, j).setAttribute("class", "current")
+                }
+            }else if(cellDate.getDay() === 0){
+                calendarTable.getCell(i,j).setAttribute("class", "sundayOther")
             }
             cellDate.setDate(cellDate.getDate() + 1)
         }

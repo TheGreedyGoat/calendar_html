@@ -18,8 +18,17 @@ p{
   font-size: 75%;
 }
 
+h2{
+  font-size: 20px;
+}
+
+ul{
+  font-size: 12px;
+}
+
 iframe{
   top: 30px;
   left: 30px;
   height:500px;
+  width: 500px;
 }
