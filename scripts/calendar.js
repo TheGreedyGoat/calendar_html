@@ -1,5 +1,7 @@
 
 const weekdays = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
+               //["01", "02", "03", "04", "05", "06", "00"]
+               //["00", "01", "02", "03", "04", "05", "06"]
 const months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
 
 const monthList = document.getElementById("m")
@@ -8,36 +10,31 @@ const yearField = document.getElementById("y")
 const calendarSheet = document.getElementById("c1")
 const test  = document.getElementById("test")
 
-const calendarTable  = new table(6, weekdays.length)
+const htmlTable  = new table(6, weekdays.length)
 let currentDate
 
-calendarTable.setHeader(weekdays)
+let dataTable;
 
-setDate()
+let currentMonth
+let currentYear
 
-
-calendarSheet.addEventListener("hover", () =>{
-        console.log("HOVER!")
-    }
-)
 
 monthList.addEventListener("change", ()=>{
-    setDate()
+    getUserInput()
 })
 yearField.addEventListener("change", ()=>{
-    setDate()
+    getUserInput()
 })
 
 
-function setDate(){
-    let m = parseInt(monthList.selectedOptions[0].value)
-    let y = parseInt(yearField.value)
-    
-    currentDate =  date(y, m, 1)
-    updateHeader()
-    updateTable()
-}
+getUserInput()
 
+function getUserInput(){
+    currentMonth = parseInt(monthList.selectedOptions[0].value)
+    currentYear = parseInt(yearField.value)
+
+    updateDataTable();
+}
 
 function updateHeader(){
     let txt = `${months[currentDate.getMonth()]} ${currentDate.getFullYear()}` // eg. 'Januar 2025'
@@ -45,50 +42,68 @@ function updateHeader(){
     document.getElementById("my").innerText = txt
 }
 
-function updateTable(){
+// writes full date objects into the data table
+function updateDataTable(){
     
-    calendarTable.clear();
-
-    let cellDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate())
+    dataTable = []
     
-    let daysSinceLastMonday = cellDate.getDay() -1
-    if(daysSinceLastMonday < 0){
-        daysSinceLastMonday += 7
-    }
-    cellDate.setDate(currentDate.getDate() - daysSinceLastMonday)
+    let cellDate = new Date(currentYear, currentMonth, 1);
+    console.log(cellDate)
+    
+    let daysSinceLastMonday = (cellDate.getDay() + 6) % 7
 
-    for(let i = 0; i < calendarTable.height; i++){
-
-        for(let j = 0; j < calendarTable.width; j++){
-            calendarTable.writeCell(i, j, cellDate.getDate())
-            
-           if(cellDate.getMonth() == currentDate.getMonth()){
-                if(cellDate.getDay() === 0){ // => sunday
-                calendarTable.getCell(i,j).setAttribute("class", "sundayCurrent")
-                }else{
-                    calendarTable.getCell(i, j).setAttribute("class", "current")
-                }
-            }else if(cellDate.getDay() === 0){
-                calendarTable.getCell(i,j).setAttribute("class", "sundayOther")
-            }
+    cellDate.setDate(cellDate.getDate() - daysSinceLastMonday)
+    
+    for(let w = 0;  w < 6; w ++){ // 6 weeks/ month
+        dataTable.push([])
+        for(let d = 0; d < 7; d++){
+            //fill cell with date
+            dataTable[w].push(dateCopy(cellDate));
+            console.log(dataTable[w][d])
             cellDate.setDate(cellDate.getDate() + 1)
         }
     }
-    
-    let tmp = calendarTable.toHTML(true)
-    calendarSheet.innerHTML = tmp
-    window.parent.postMessage(`${months[currentDate.getMonth()]} ${currentDate.getFullYear()}`, "*")
+
+    createHTMLTable()
 }
 
-function getDaysOfMonth(m){
-    if(m < 0) m +=12
-    if (m > 11) m -= 12
+// write Info from data Table and write calendar
+function createHTMLTable(){ 
+    
+    htmlTable.clear();
+
+    for(let w = 0; w < dataTable.length; w++){
+        for(let d = 0; d < dataTable[w].length; d++){
+            let cellDate = dataTable[w][d]
+            htmlTable.writeCell(w, d, cellDate.getDate())
+            
+           
+           if(cellDate.getMonth() == currentMonth){
+                if(cellDate.getDay() === 0){ // => sunday
+                htmlTable.getCell(w,d).setAttribute("class", "sundayCurrent")
+                }else{
+                    htmlTable.getCell(w, d).setAttribute("class", "current")
+                }
+            }else if(cellDate.getDay() === 0){
+                htmlTable.getCell(w,d).setAttribute("class", "sundayOther")
+            }/**/
+        }
+    }
+    
+    let tmp = htmlTable.toHTML(true)
+    calendarSheet.innerHTML = tmp
+    window.parent.postMessage(`${months[currentMonth]} ${currentYear}`, "*")
+}
+
+function getDaysOfMonth(month, year){
+    if(month < 0) month +=12
+    if (month > 11) month -= 12
 
     let res
-    if(m === 0 || m === 2 || m === 4 || m === 6 || m === 7 || m  === 9 || m === 11){
+    if(month === 0 || month === 2 || month === 4 || month === 6 || month === 7 || month  === 9 || month === 11){
         res = 31
-    }else if(m === 1){
-        if(currentDate.getFullYear() % 4 === 0){
+    }else if(month === 1){
+        if(year % 4 === 0){
             res = 29
         }else{
             res = 28
@@ -96,9 +111,11 @@ function getDaysOfMonth(m){
     }else{
         res = 30
     }
-    console.log(`m: ${m}, month: ${months[m]} days: ${res}`)
-    return res
 }
 function date(y = 2026, m = 0, d = 1){
     return new Date(y, m, d)
+}
+
+function dateCopy(d = new Date()){
+    return new date(d.getFullYear(), d.getMonth(), d.getDate())
 }

@@ -1,5 +1,5 @@
 class table{
-constructor(tHeight, tWidth){
+    constructor(tHeight, tWidth){
         this.createTable(tHeight, tWidth)
         this.height = tHeight
         this.width = tWidth
