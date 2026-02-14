@@ -91,7 +91,11 @@ function createHTMLTable(){
     
     let tmp = htmlTable.toHTML(true)
     calendarSheet.innerHTML = tmp
-    window.parent.postMessage(`1. ${months[currentMonth]} ${currentYear}`, "*")
+    window.parent.postMessage({
+        type: "date",
+        value: `1. ${months[currentMonth]} ${currentYear}`
+        }, 
+    "*")
 
     setupButtons()
 }
@@ -100,8 +104,11 @@ function setupButtons(){
     let cells = document.getElementsByClassName("day")
     for(let i = 0; i < cells.length; i++){
         cells[i].addEventListener("click", 
-            function(){
-                window.parent.postMessage(`${cells[i].innerHTML}. ${months[currentMonth]} ${currentYear}`, "*")
+            function(){ window.parent.postMessage({
+                type: "date",
+               value: `${cells[i].innerHTML}. ${months[currentMonth]} ${currentYear}`
+                }, 
+            "*")
             }
         )
     }

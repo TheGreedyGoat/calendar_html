@@ -4,8 +4,9 @@ body{
   font-size: 9px;
   color:rgb(175, 171, 171);
   
-  padding-left: 10px;
-  
+  padding: 0;
+  margin: 0;
+  display:grid;
 }
 
 #p1{
@@ -25,6 +26,7 @@ div.listContainer{
 
 h2.listHead{
   font-size: 20px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   color:antiquewhite;
 }
 
@@ -35,8 +37,18 @@ li{
   color: rgb(175, 171, 171);
 }
 
+#topFrame{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-style:none;
+  border-bottom-style: groove;
+  background-color: rgb(31, 31, 31);
+  border-color: rgb(51, 51, 51);
+  border-width: 2px;
+}
 
-iframe{
+#calendarFrame{
   top: 30px;
   left: 30px;
   height:500px;

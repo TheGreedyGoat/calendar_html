@@ -6,7 +6,6 @@ body{
 div.calendarContainer{
     background-color: rgb(54, 54, 54);
     border-radius: 10px;
-   
 
 }
 
@@ -68,11 +67,41 @@ th{
 
 
 
-select, input{
-    background-color: rgb(104, 104, 104);
+select{
+    width: 100px;
+    height: 20px;
+    appearance: none; /* Disable the default arrow */
+    -webkit-appearance: none; /* For WebKit-based browsers */
+    -moz-appearance: none; /* For Firefox */
+    
+    background-image: 
+    url('data:image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9L12 15L18 9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="white"/></svg>');
+    background-color: rgb(54, 54, 54);
+    background-repeat: no-repeat;
+    background-position: right 0px center;
+    border: none;
+    border-radius: 2px;
     color:antiquewhite;
-    border-style: none;
-    border-radius: 5px;
+    
+}
+
+input{
+    width: 100px;
+    height:20px;
+
+    background-color: rgb(54, 54, 54);
+    border: none;
+    border-radius: 2px;
+    color:antiquewhite;
+}
+
+option{
+    background-color: rgb(54, 54, 54);
+}
+
+select:hover, input:hover{
+    color:rgb(255, 255, 255);
+    
 }
 
 
