@@ -7,7 +7,7 @@ const yearField = document.getElementById("y")
 const calendarSheet = document.getElementById("c1")
 const test  = document.getElementById("test")
 
-const htmlTable  = new table(6, weekdays.length)
+const htmlTable  = new Table(6, weekdays.length)
 
 htmlTable.setHeader(weekdays)
 let currentDate
@@ -76,7 +76,6 @@ function createHTMLTable(){
             let cell = htmlTable.getCell(w,d)
 
            if(cellDate.getMonth() == currentMonth){ 
-                
                 if(cellDate.getDay() === 0){ // => sunday
                     cell.setAttribute("class", "sundayCurrent")
                 }else{

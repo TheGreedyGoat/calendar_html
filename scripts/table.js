@@ -1,4 +1,4 @@
-class table{
+class Table{
     constructor(tHeight, tWidth){
         this.createTable(tHeight, tWidth)
         this.height = tHeight
