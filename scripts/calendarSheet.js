@@ -3,14 +3,23 @@ const months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "A
 
 class CalendarSheet{
     constructor(date = new Date()){
+        this.month = months[date.getMonth()]
+        this.year = date.getFullYear()
 
         let cellDate = dateCopy(date);
-        let daysSinceLastMonday = (cellDate.getDay() + 6) % 7
+        let day = cellDate.getDay()
+        let daysSinceLastMonday
+        if(day !== 0){
+            daysSinceLastMonday = day % 7
+        }else{
+            daysSinceLastMonday = 6
+        }
         cellDate.setDate(cellDate.getDate() - daysSinceLastMonday)
 
         this.dataTable = []
         this.htmlTable = new Table(6, 7)
         this.htmlTable.setHeader(weekdays)
+        this.htmlTable.setAttribute("class", "calendarSheet")
         for(let w = 0;  w < 6; w ++){ // 6 weeks/ month
             this.dataTable.push([])
             for(let d = 0; d < 7; d++){ 
@@ -34,6 +43,20 @@ class CalendarSheet{
                 htmlCell.addAttributeValue("class", "day")
             }
         }
+    }
+
+    toHTML(addHeader  =false){
+        let html = ""
+
+        if(addHeader){
+            let elem = document.createElement("h3")
+            elem.innerHTML = `${this.month}, ${this.year}`
+            html += elem.outerHTML
+        }
+
+        html += this.htmlTable.toHTML()
+
+        return html
     }
 }
 

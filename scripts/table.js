@@ -51,6 +51,43 @@ class Table{
     clear(){
         this.createTable(this.height, this.width)
     }
+    setAttribute(type, value){
+        if(!this.attributes) this.attributes = []
+        if(!this.attValues) this.attValues = []
+
+        for(let i = 0; i < this.attributes.length; i++){
+            if(this.attributes[i] == type){
+                this.attValues[i] = value
+                return
+            }
+        }
+        this.attributes.push(type)
+        this.attValues.push(value)
+    }
+
+    addAttributeValue(type, value){
+        if(!this.getAttribute(type)) {
+            this.setAttribute(type, value)
+            return
+        }
+        for(let i = 0; i < this.attributes.length; i++){
+            if(this.attributes[i] === type){
+                this.attValues[i] += " " + value
+                return
+            }
+        }
+    }
+
+    removeAttribute(type){
+        if(!this.attributes) return
+        for(let i = 0; i < this.attributes.length; i++){
+            if(this.attributes[i] == type){
+                this.attributes.slice(i)
+                this.attValues.slice(i)
+            }
+        }
+
+    }
 }
 
 class tableRow{
