@@ -48,9 +48,9 @@ li{
   border-width: 2px;
 }
 
-#calendarFrame{
+.calendarContainer{
   top: 30px;
   left: 30px;
-  height:500px;
-  width: 500px;
+  height: fit-content;
+  width: fit-content;
 }

@@ -1,12 +1,9 @@
-body{
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    color:rgb(206, 206, 206)
-}
 
 div.calendarContainer{
     background-color: rgb(54, 54, 54);
     border-radius: 10px;
-
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 12px;
 }
 
 h2{
@@ -16,7 +13,6 @@ h2{
 }
 
 table{
-
     text-align: center;
 }
 
@@ -38,24 +34,14 @@ td.sundayOther{
 }
 
 td{
+    border-radius: 50%;
     color:rgba(206, 206, 206, 0.438);
     width: 50px;
     height: 50px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-size: smaller;
 }
 
 td:hover{
-    font-size : 120%;
-    color:rgb(240, 240, 240);
-    font-weight: bold;
-    outline: 1px;
-    outline-color: rgba(0, 0, 0, 0.288);
-    outline-style: groove;
-    outline-offset: -3px;
-    border-radius: 50%;
-    border-width: 10px;
-    background-color: rgb(102, 102, 102);
+    background-color: azure;
 }
 
 
@@ -64,46 +50,6 @@ th{
     font : bold;
     color:  rgb(197, 195, 195);
 }
-
-
-
-select{
-    width: 100px;
-    height: 20px;
-    appearance: none; /* Disable the default arrow */
-    -webkit-appearance: none; /* For WebKit-based browsers */
-    -moz-appearance: none; /* For Firefox */
-    
-    background-image: 
-    url('data:image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9L12 15L18 9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="white"/></svg>');
-    background-color: rgb(54, 54, 54);
-    background-repeat: no-repeat;
-    background-position: right 0px center;
-    border: none;
-    border-radius: 2px;
-    color:antiquewhite;
-    
-}
-
-input{
-    width: 100px;
-    height:20px;
-
-    background-color: rgb(54, 54, 54);
-    border: none;
-    border-radius: 2px;
-    color:antiquewhite;
-}
-
-option{
-    background-color: rgb(54, 54, 54);
-}
-
-select:hover, input:hover{
-    color:rgb(255, 255, 255);
-    
-}
-
 
 
 

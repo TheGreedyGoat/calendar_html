@@ -1,5 +1,3 @@
-
-
 window.addEventListener("message", 
     function(event){
         switch(event.data.type){
@@ -30,6 +28,7 @@ const listHead = document.getElementById("listhead");
         newLine.innerHTML = hystericMessages[Math.floor(Math.random() * hystericMessages.length)]
         listHead.appendChild(newLine);
     }
+
 }
 
 function setFrameHeight(data){

@@ -10,19 +10,20 @@ class CalendarSheet{
 
         this.dataTable = []
         this.htmlTable = new Table(6, 7)
+        this.htmlTable.setHeader(weekdays)
         for(let w = 0;  w < 6; w ++){ // 6 weeks/ month
             this.dataTable.push([])
             for(let d = 0; d < 7; d++){ 
                 // fill data table
-                dataTable[w].push(dateCopy(cellDate))
+                this.dataTable[w].push(dateCopy(cellDate))
                 cellDate.setDate(cellDate.getDate() + 1)
                 //fill HTML table
                 let htmlCell = this.htmlTable.getCell(w,d)
                 htmlCell.content = cellDate.getDate()
 
                 // set Attributes
-                if(cellDate.getMonth() == currentMonth){ 
-                if(cellDate.getDay() === 0){ // => sunday
+                if(cellDate.getMonth() == date.getMonth()){ 
+                if(cellDate.getDay() === 0){ // => sundy
                     htmlCell.setAttribute("class", "sundayCurrent")
                 }else{
                     htmlCell.setAttribute("class", "current")
@@ -37,5 +38,5 @@ class CalendarSheet{
 }
 
 function dateCopy(d = new Date()){
-    return new date(d.getFullYear(), d.getMonth(), d.getDate())
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate())
 }
