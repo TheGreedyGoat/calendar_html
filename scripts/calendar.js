@@ -6,8 +6,9 @@ for(let i = 0; i < targets.length; i++){
 }
 
 function addSheet(date = new Date(), target){
-    let div = document.createElement("div")
-    div.setAttribute("class", "calendarContainer")
-    div.innerHTML = new CalendarSheet(date).toHTML(true)
-    target.appendChild(div)
+    let sheet = new CalendarSheet(date).toHTML(true)
+    let div = document.createElement("div");
+    div.setAttribute("class", "calendarContainer");
+    div.innerHTML = sheet
+    target.appendChild(div);
 }

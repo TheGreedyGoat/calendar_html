@@ -1,17 +1,32 @@
 
-div.calendarContainer{
-    background-color: rgb(54, 54, 54);
-    border-radius: 10px;
+.calendarTarget{
+    overflow-x: auto;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 12px;
-    text-align: center;
     width: fit-content;
     height: fit-content;
 }
 
+.calendarContainer{
 
-table{
-    width: 300px;
+    border-radius: 10px;
+    background-color: rgb(54, 54, 54);
+
+    width: fit-content;
+    height: fit-content;
+    padding: 5px; /* space between each sheet*/
+}
+
+.calendarHeader{
+    padding: 0;
+    margin: 0;
+    padding-left: 12px;
+}
+
+.calendarSheet{
+    width: 30px;
+    height: 30px;
+    padding: 12px; /* space between sheet and border*/
 }
 td.current{
     color:antiquewhite;
@@ -30,11 +45,29 @@ td.sundayOther{
     font-weight: bolder;
 }
 
-td.day, th{
+.dateContainer{
     border-radius: 50%;
+    width: 20px;
+    height: 20px;
+
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
 }
 
-td.day:hover{
+td.day, th{
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+
+    /* border-style: solid; /**/
+
+}
+
+.dateContainer:hover{
     background-color: azure;
 }
 

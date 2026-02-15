@@ -31,7 +31,7 @@ class Table{
         for(let i = 0; i < this.rows.length; i++){
             rowsHTML += this.rows[i].toHTML() 
         }
-        return element("table", rowsHTML) + "\n"
+        return element("table", rowsHTML, this.attributes, this.attValues) + "\n"
     }
 
     getRow(i){
@@ -63,6 +63,14 @@ class Table{
         }
         this.attributes.push(type)
         this.attValues.push(value)
+    }
+
+    getAttribute(type){
+        if(!this.attributes) return
+        for(let i = 0; i < this.attributes.length; i++){
+            if(this.attributes[i] == type) return this.attValues[i]
+        }
+        
     }
 
     addAttributeValue(type, value){

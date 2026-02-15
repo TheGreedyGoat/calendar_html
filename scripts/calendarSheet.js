@@ -28,7 +28,10 @@ class CalendarSheet{
                 cellDate.setDate(cellDate.getDate() + 1)
                 //fill HTML table
                 let htmlCell = this.htmlTable.getCell(w,d)
-                htmlCell.content = cellDate.getDate()
+                let cellDiv = document.createElement("div")
+                cellDiv.setAttribute("class", "dateContainer")
+                cellDiv.innerHTML = cellDate.getDate()
+                htmlCell.content = "\n" + cellDiv.outerHTML +"\n"
 
                 // set Attributes
                 if(cellDate.getMonth() == date.getMonth()){ 
@@ -45,15 +48,15 @@ class CalendarSheet{
         }
     }
 
-    toHTML(addHeader  =false){
+    toHTML(addHeader  = false){
         let html = ""
 
         if(addHeader){
             let elem = document.createElement("h3")
+            elem.setAttribute("class", "calendarHeader");
             elem.innerHTML = `${this.month}, ${this.year}`
             html += elem.outerHTML
         }
-
         html += this.htmlTable.toHTML()
 
         return html
