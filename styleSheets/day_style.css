@@ -1,0 +1,85 @@
+main{
+    margin: 10px;
+    display: flex;
+    width: 1000px;
+    height: 500px;
+    
+   /* border-style: solid; /**/
+}
+
+
+
+
+.dateContainer{
+    width: 50px;
+    height: 50px;
+}
+
+#dayTitle{
+    
+    
+    border-style: solid; /**/
+}
+
+#dayNotes{
+    
+    
+    border-style: solid; /**/
+}
+
+.calendarTarget, .daySection{
+    width: 50%;
+    height: 100%;
+    box-sizing: border-box;
+
+
+    /*border-style: solid; /**/
+}
+
+.calendarContainer{
+    width: 100%;
+    height: 100%;
+    padding: 0;
+
+    display: grid;
+}
+
+.calendarTitle{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 80%;
+    font-size: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding-left: 25px;
+
+    box-sizing: border-box;
+    border-top-left-radius:  10px;
+    border-top-right-radius:  10px;
+
+    /*
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+
+    background-color: rgb(70, 70, 70);/**/
+}
+
+.calendarSheet{
+    width: 100%;
+    height:100%;
+    box-sizing: border-box;
+   /* border-style: dotted;/**/
+
+}
+
+
+/*  
+                                    body
+                                    main
+                cal-target                                  day section
+            calenderContainer   
+    calendarSheet       calendarTitle
+*/
