@@ -15,18 +15,32 @@
     width: fit-content;
     height: fit-content;
     padding: 5px; /* space between each sheet*/
+    margin: auto;
+    display: grid;
+
 }
 
-.calendarHeader{
+.calendarTitle{
     padding: 0;
     margin: 0;
-    padding-left: 12px;
+    margin-top: 5px;
+    font-size: small;
+    text-align: center;
+    /*
+    border-style: solid;
+    /**/
+
 }
 
 .calendarSheet{
-    width: 30px;
-    height: 30px;
-    padding: 12px; /* space between sheet and border*/
+    width: 200px;
+    height: 200px;
+    padding: 0;
+    margin: 0;
+
+    /*
+    border-style: solid;
+    /**/
 }
 td.current{
     color:antiquewhite;
@@ -75,7 +89,6 @@ td.day, th{
 
 
 th{
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
     font : bold;
     color:  rgb(197, 195, 195);
 }

@@ -2,6 +2,7 @@
 
 window.addEventListener("message", 
     function(event){
+        console.log("message recieved")
         handleMessage(event.data)
     }
 )
@@ -16,10 +17,16 @@ function handleMessage(data){
         return false
     }
     switch(data.type){
-        
-        default: {
+        case "log":
+            console.log(data.value)
+            break
+        case "alert":
+            alert(data.value)
+            break
+        default: 
             console.log(`Unknown data type ${data.type}.`)
             return false
-        }
+        
     }
+    return true
 }
