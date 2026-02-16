@@ -7,20 +7,21 @@ buildActiveSheet()
 
 function switchToDate(newDate = new Date()){
     activeDate = newDate
-    if(activeSheet.month != newDate.getMonth() || activeSheet.year != newDate.getFullYear()){   // if the new date is not within the active sheet's main month 
+    update()
+}
+
+function update(){
+    
+    if(activeSheet.month != activeDate.getMonth() || activeSheet.year != activeDate.getFullYear()){   // if the new date is not within the active sheet's main month 
         buildActiveSheet()
     }
-    document.getElementById("dayTitle").innerHTML = CalendarFunctions.dateString(newDate)
-    CalendarFunctions.writeNote(newDate, "Notiz 1 " + newDate.toDateString())
-    CalendarFunctions.writeNote(newDate, "Notiz 2 ")
-    CalendarFunctions.writeNote(newDate, "Notiz 3 ")
+    document.getElementById("dayTitle").innerHTML = CalendarFunctions.dateString(activeDate)
 
     let noteSection = document.getElementById("dayNotes")
-    noteSection.replaceChildren(CalendarFunctions.getDateInfo(newDate).notes)
+    noteSection.replaceChildren(CalendarFunctions.getDateInfo(activeDate).notes)
 
     // find the corresponding cell within the sheet and mark it as active
     activeSheet.setActiveDate(activeDate)
-
 }
 
 function buildActiveSheet(){
@@ -39,12 +40,34 @@ function buildActiveSheet(){
     + '<polyline points = "35,5 70,50 35,95"  fill = none stroke="black" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"></polygon>' 
     +'</svg>'
 
+    buttonPrev.addEventListener("click",
+        function(){
+            goToPrevMonth()
+        }
+    )
+
     let buttonNext = document.createElement("button")
     buttonNext.setAttribute("class", "buttonNext")
     monthSwitchButtonDiv.appendChild(buttonNext)
     buttonNext.innerHTML = '<svg class = "chevron" width = 10 height  = 10 viewBox = "0 0 100 100" xmlns="http://www.w3.org/2000/svg">'
     + '<polyline points = "35,5 70,50 35,95"  fill = none stroke="black" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"></polygon>' 
     +'</svg>'
+
+    buttonNext.addEventListener("click",
+        function(){
+            goToNextMonth()
+        }
+    )
+
     sheetelement.querySelector(".calendarTitle").appendChild(monthSwitchButtonDiv)
+}
+
+function goToNextMonth(){
+    activeDate.setMonth(activeDate.getMonth() + 1)
+    update()
+}
+function goToPrevMonth(){
+    activeDate.setMonth(activeDate.getMonth() - 1)
+    update()
 }
 
