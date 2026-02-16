@@ -2,11 +2,32 @@ const weekdays = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
 const months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
 
 class CalendarSheet{
-    constructor(date = new Date()){
-        this.month = months[date.getMonth()]
-        this.year = date.getFullYear()
+    constructor(sheetDate = new Date()){
+        
+        this.htmlTable = document.createElement("table")
+        this.htmlTable.setAttribute("class", "calendarSheet")
+        this.buildHead()
+        this.buildTable(sheetDate)
+        
+    }
 
-        let cellDate = dateCopy(date);
+    buildHead(){
+        let headRow = document.createElement("tr")
+        headRow.setAttribute("class", "calendarWeekdays")
+        for(let i = 0; i < weekdays.length; i++){
+            let headCell = document.createElement("th")
+            headCell.innerHTML = weekdays[i]
+            headCell.setAttribute("name", weekdays[i])
+            headRow.appendChild(headCell)
+        }
+        this.htmlTable.insertBefore(headRow, this.htmlTable.firstChild)
+    }
+
+    buildTable(sheetDate){
+        this.month = months[sheetDate.getMonth()]
+        this.year = sheetDate.getFullYear()
+
+        let cellDate = dateCopy(sheetDate);
         cellDate.setDate(1)
         let day = cellDate.getDay()
         let daysSinceLastMonday
@@ -19,19 +40,6 @@ class CalendarSheet{
 
         this.dataTable = []
         //this.htmlTable = new Table(6, 7)
-        this.htmlTable = document.createElement("table")
-        this.htmlTable.setAttribute("class", "calendarSheet")
-        //this.htmlTable.setHeader(weekdays)
-        let headerRow = document.createElement("tr")
-        headerRow.setAttribute("class", "calendarWeekdays")
-        this.htmlTable.appendChild(headerRow)
-        for(let i = 0; i < weekdays.length; i++){
-            let head = document.createElement("th")
-            head.innerHTML = weekdays[i]
-            head.setAttribute("name", weekdays[i])
-            headerRow.appendChild(head)
-        }
-        this.buildCalendarTable
         for(let w = 0;  w < 6; w ++){ // 6 weeks/ month
             this.dataTable.push([])
             let htmlRow = document.createElement("tr")
@@ -42,7 +50,7 @@ class CalendarSheet{
                 cellDate.setDate(cellDate.getDate() + 1)
 
                 let htmlCell = this.createHTMLCell(cellDate)
-                this.setCellAttributes(htmlCell, cellDate, date)
+                this.setCellAttributes(htmlCell, cellDate)
                 htmlRow.appendChild(htmlCell)
             }
             this.htmlTable.appendChild(htmlRow)
@@ -51,6 +59,7 @@ class CalendarSheet{
 
 
     createHTMLCell(cellDate, w, d){
+        
         let htmlCell = document.createElement("td")
         let cellDiv = document.createElement("div")
 
@@ -70,9 +79,9 @@ class CalendarSheet{
         return  htmlCell
     }
 
-    setCellAttributes(htmlCell, cellDate, date){
+    setCellAttributes(htmlCell, cellDate){
         let classes = "day "
-                if(cellDate.getMonth() == date.getMonth()){ 
+                if(cellDate.getMonth() == this.month){ 
 
                     if(cellDate.getDay() === 0){ // => sundy
                         classes += "sundayCurrent "
