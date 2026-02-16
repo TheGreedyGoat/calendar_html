@@ -1,6 +1,8 @@
 class CalendarSheet{
+    static id = 0
+    static activeClassName = "activeDate"
     constructor(sheetDate = new Date()){
-        
+        this.id = CalendarSheet.id++
         this.frontendTable = document.createElement("table")
         this.frontendTable.setAttribute("class", "calendarSheet")
         this.buildHead()
@@ -29,20 +31,21 @@ class CalendarSheet{
         let cellDate = CalendarFunctions.dateCopy(sheetDate);
         cellDate.setDate(1)
         let day = cellDate.getDay()
-        let daysSinceLastMonday
+        let daysSinceLastMonday = (day + 6) % 7
+        /*
         if(day !== 0){
             daysSinceLastMonday = day % 7
         }else{
             daysSinceLastMonday = 6
-        }
+        }/* */
         cellDate.setDate(cellDate.getDate() - daysSinceLastMonday)
 
         this.backendTable = []
         for(let w = 0;  w < 6; w ++){ // 6 weeks/ month
             this.backendTable.push([])
             for(let d = 0; d < 7; d++){ 
-                cellDate.setDate(cellDate.getDate() + 1)
                 this.backendTable[w].push(CalendarFunctions.dateCopy(cellDate))
+                cellDate.setDate(cellDate.getDate() + 1)
             }
         }
     }
@@ -54,7 +57,7 @@ class CalendarSheet{
             htmlRow.setAttribute("name", "week_" + w)
             for(let d = 0; d < 7; d++){ 
                 let htmlCell = this.createHTMLCell(this.backendTable[w][d], w, d)
-                this.setCellAttributes(htmlCell, this.backendTable[w][d])
+                this.setDayTypes(htmlCell, this.backendTable[w][d])
                 htmlRow.appendChild(htmlCell)
             }
             this.frontendTable.appendChild(htmlRow)
@@ -68,7 +71,7 @@ class CalendarSheet{
         let cellDiv = document.createElement("div")
 
         cellDiv.setAttribute("class", "dateContainer")
-        cellDiv.setAttribute("id", `${w}:${d}`)
+        cellDiv.setAttribute("id", `s${this.id}w${w}d${d}`)
         cellDiv.innerHTML = cellDate.getDate()
         
         let year  = cellDate.getFullYear()
@@ -88,8 +91,7 @@ class CalendarSheet{
         return  htmlCell
     }
 
-
-    setCellAttributes(htmlCell, cellDate){
+    setDayTypes(htmlCell, cellDate){
         let classes = "day "
                 if(cellDate.getMonth() == this.month){ 
 
@@ -104,6 +106,38 @@ class CalendarSheet{
                     classes += "other "
                 }
                 htmlCell.setAttribute("class", classes)
+    }
+
+    getFirstDayOfMonth(){
+        return new Date(this.year, this.month, 1)
+    }
+
+    getCellDivAt(week, day){
+        console.log(week)
+        console.log(day)
+        return this.frontendTable.querySelector(`#s${this.id}w${week}d${day}`)
+    }
+
+    getCellDivFromDate(date = new Date()){
+        for(let w = 0; w < this.backendTable.length; w++){
+            for(let d = 0; d < this.backendTable[w].length; d++){
+                if(this.backendTable[w][d].getDate() == date.getDate() && this.backendTable[w][d].getMonth() == date.getMonth()){
+                    return this.getCellDivAt(w, d)
+                }
+            }
+        }
+        console.log("AHHHHH! PANIC!")
+    }
+
+    setActiveDate(date){
+        let cellDiv = this.getCellDivFromDate(date)
+        if(cellDiv === undefined) return false
+        if(this.activeCelldiv){ 
+            this.activeCelldiv.addC
+        }
+
+        this.activeCelldiv = cellDiv
+        this.activeCelldiv.classList.add(CalendarSheet.activeClassName)
     }
 
     static getSheet(date = new Date()){

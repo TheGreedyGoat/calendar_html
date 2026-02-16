@@ -75,6 +75,9 @@ main{
 
 }
 
+.activeDate{
+    background-color: rgba(97, 97, 97, 0.438);
+}
 
 /*  
                                     body

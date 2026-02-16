@@ -24,7 +24,6 @@ function handleMessage(data){
             break
         case "dateClicked":
             let value = data.value
-            console.log(value)
             switchToDate(new Date(value.getFullYear(), value.getMonth(), value.getDate()))
             break
         default: 
