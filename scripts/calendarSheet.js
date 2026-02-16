@@ -7,6 +7,7 @@ class CalendarSheet{
         this.year = date.getFullYear()
 
         let cellDate = dateCopy(date);
+        cellDate.setDate(1)
         let day = cellDate.getDay()
         let daysSinceLastMonday
         if(day !== 0){
@@ -30,35 +31,47 @@ class CalendarSheet{
             head.setAttribute("name", weekdays[i])
             headerRow.appendChild(head)
         }
+        this.buildCalendarTable
         for(let w = 0;  w < 6; w ++){ // 6 weeks/ month
             this.dataTable.push([])
             let htmlRow = document.createElement("tr")
             htmlRow.setAttribute("class", "calenderWeek")
             htmlRow.setAttribute("name", "week_" + w)
             for(let d = 0; d < 7; d++){ 
-                // fill data table
                 this.dataTable[w].push(dateCopy(cellDate))
                 cellDate.setDate(cellDate.getDate() + 1)
 
-                //fill HTML table
-                let htmlCell = document.createElement("td")
-                let cellDiv = document.createElement("div")
+                let htmlCell = this.createHTMLCell(cellDate)
+                this.setCellAttributes(htmlCell, cellDate, date)
+                htmlRow.appendChild(htmlCell)
+            }
+            this.htmlTable.appendChild(htmlRow)
+        }
+    }
 
-                cellDiv.setAttribute("class", "dateContainer")
-                cellDiv.innerHTML = cellDate.getDate()
-                cellDiv.addEventListener("click", function(){
-                    window.postMessage({
-                        type : "alert",
-                        value : "Hello World!"
-                    }, "*")
-                    console.log("message sent!")
-                })
 
-                //htmlCell.content = "\n" + cellDiv.outerHTML +"\n"
-                htmlCell.appendChild(cellDiv)
+    createHTMLCell(cellDate, w, d){
+        let htmlCell = document.createElement("td")
+        let cellDiv = document.createElement("div")
 
-                // set Attributes
-                let classes = "day "
+        cellDiv.setAttribute("class", "dateContainer")
+        cellDiv.setAttribute("id", `${w}:${d}`)
+        cellDiv.innerHTML = cellDate.getDate()
+
+        /*
+        cellDiv.addEventListener("click", function(){
+            window.postMessage({
+                type : "log",
+                value : cellDate
+            }, "*")
+        })/**/ 
+
+        htmlCell.appendChild(cellDiv)
+        return  htmlCell
+    }
+
+    setCellAttributes(htmlCell, cellDate, date){
+        let classes = "day "
                 if(cellDate.getMonth() == date.getMonth()){ 
 
                     if(cellDate.getDay() === 0){ // => sundy
@@ -72,24 +85,30 @@ class CalendarSheet{
                     classes += "other "
                 }
                 htmlCell.setAttribute("class", classes)
-                htmlRow.appendChild(htmlCell)
-            }
-            this.htmlTable.appendChild(htmlRow)
-        }
+    }
+
+    static getSheet(date = new Date()){
+        console.log(date)
+        return new CalendarSheet(date)
     }
 
     toHTML(headerSize = 2){
-        let div = document.createElement("div");
-        div.setAttribute("class", "calendarContainer")
+        let calendarContainer = document.createElement("div");
+        calendarContainer.setAttribute("class", "calendarContainer")
         if(headerSize > 0){
+            let headDiv = document.createElement("div")
+            headDiv.setAttribute("class", "calendarHeadDiv")
+
             let title = document.createElement(`h${Math.min(headerSize, 6)}`)
             title.setAttribute("class", "calendarTitle")
             title.innerHTML = `${this.month} ${this.year}`
-            div.appendChild(title)
-        }
-        div.appendChild(this.htmlTable)
 
-        return div
+            //headDiv.appendChild(title)
+            calendarContainer.appendChild(title)
+        }
+        calendarContainer.appendChild(this.htmlTable)
+
+        return calendarContainer
     }
 }
 
