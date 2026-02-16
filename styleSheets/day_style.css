@@ -53,7 +53,7 @@ main{
 
     display: flex;
     align-items: center;
-    justify-content: left;
+    justify-content:space-between;
     padding-left: 25px;
 
     box-sizing: border-box;
@@ -61,9 +61,8 @@ main{
     border-top-right-radius:  10px;
 
     
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-
+    
+    border-style: dotted;
     background-color: rgb(70, 70, 70);/**/
 }
 
@@ -78,6 +77,43 @@ main{
 .activeDate{
     background-color: rgba(97, 97, 97, 0.438);
 }
+
+.monthSwitchButtonDiv{
+    margin-right: 20px;
+    border-style: dotted;/**/
+    display:flex;
+    justify-content: space-between;
+}
+
+.buttonPrev, .buttonNext{
+    width: fit-content;
+    height: fit-content;
+    margin: 5px;
+
+    background: none;
+    border: none;
+}
+
+.buttonNext svg polyline,
+.buttonPrev svg polyline{
+    stroke: rgb(189, 189, 189);
+}
+.buttonNext:hover svg polyline,
+.buttonPrev:hover svg polyline{
+    stroke: rgb(25, 33, 100);
+}
+
+.buttonPrev{
+    transform: scaleX(-1);
+}
+
+.buttonNext{
+
+}
+
+
+
+
 
 /*  
                                     body

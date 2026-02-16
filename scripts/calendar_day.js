@@ -20,10 +20,31 @@ function switchToDate(newDate = new Date()){
 
     // find the corresponding cell within the sheet and mark it as active
     activeSheet.setActiveDate(activeDate)
+
 }
 
 function buildActiveSheet(){
     activeSheet = CalendarSheet.getSheet(activeDate)
-    targetContainer.replaceChildren(activeSheet.toHTML())
+    let sheetelement = activeSheet.toHTML()
+    targetContainer.replaceChildren(sheetelement)
+
+    let monthSwitchButtonDiv = document.createElement("div")
+    monthSwitchButtonDiv.setAttribute("class", "monthSwitchButtonDiv")
+
+    let buttonPrev = document.createElement("button")
+    buttonPrev.setAttribute("class", "buttonPrev")
+    monthSwitchButtonDiv.appendChild(buttonPrev)
+
+    buttonPrev.innerHTML = '<svg class = "chevron" width = 10 height  = 10 viewBox = "0 0 100 100" xmlns="http://www.w3.org/2000/svg">'
+    + '<polyline points = "35,5 70,50 35,95"  fill = none stroke="black" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"></polygon>' 
+    +'</svg>'
+
+    let buttonNext = document.createElement("button")
+    buttonNext.setAttribute("class", "buttonNext")
+    monthSwitchButtonDiv.appendChild(buttonNext)
+    buttonNext.innerHTML = '<svg class = "chevron" width = 10 height  = 10 viewBox = "0 0 100 100" xmlns="http://www.w3.org/2000/svg">'
+    + '<polyline points = "35,5 70,50 35,95"  fill = none stroke="black" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"></polygon>' 
+    +'</svg>'
+    sheetelement.querySelector(".calendarTitle").appendChild(monthSwitchButtonDiv)
 }
 
