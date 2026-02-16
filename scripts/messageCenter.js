@@ -1,5 +1,4 @@
 
-
 window.addEventListener("message", 
     function(event){
         console.log("message recieved")
@@ -13,7 +12,7 @@ function checkMessageFormat(data){
 
 function handleMessage(data){
     if(!checkMessageFormat(data)) {
-        console.log(`Invalid Message format ${data.toString()}.`)
+        console.log(`Invalid Message format ${data.type}, ${data.value}.`)
         return false
     }
     switch(data.type){
@@ -22,6 +21,8 @@ function handleMessage(data){
             break
         case "alert":
             alert(data.value)
+            break
+        case "dateClicked":
             break
         default: 
             console.log(`Unknown data type ${data.type}.`)
