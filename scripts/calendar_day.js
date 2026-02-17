@@ -1,7 +1,13 @@
-// @ts-nocheck
+
 
 const calendarTarget = document.getElementsByClassName("calendarTarget")[0]
 const dayTitle = document.getElementById("dayTitle")
+
+const noteList = document.getElementById("noteList")
+const noteInputLine = document.getElementById("noteInputLine")
+
+const noteInputField =  document.getElementById("noteInputField")
+const addNoteButton = document.getElementById("addNoteButton")
 
 let htmlElementTable
 let currentDataSheet
@@ -9,7 +15,12 @@ let currentHTMLSheet
 
 let activeDate
 
-setActiveDateAndRefresh(new Date(2026, 1, 1))
+setup()
+
+function setup(){
+    setActiveDateAndRefresh(new Date(2026, 1, 1))
+    setupDaySection()
+}
 
 function setActiveDateAndRefresh(newDate = new Date()){
     activeDate = newDate
@@ -58,6 +69,7 @@ function buildHTMLCells(){
 function buildHTMLSheet(){
     currentHTMLSheet = document.createElement("table")
     currentHTMLSheet.appendChild(CalendarTools.buildWeekdayHeader())
+    currentHTMLSheet.classList.add("calendarSheet")
 
     for(let w = 0; w < 6; w++){
         let week = document.createElement("tr")
@@ -101,11 +113,47 @@ function setAttributes(){
 }
 
 function placeHTMLSheet(){
-    calendarTarget.innerHTML = ""
-    calendarTarget.appendChild(currentHTMLSheet)
+    calendarTarget.innerHTML = "";
+    calendarTarget.appendChild(currentHTMLSheet);
 }
 
 function refreshDaySection(){
-    dayTitle.innerHTML = CalendarTools.dateString(activeDate)
+    dayTitle.innerHTML = CalendarTools.dateString(activeDate);
+    
+    //clear note list
+    let safetyCounter = 0;
+    while(noteList.firstElementChild.id !== noteInputLine.id && safetyCounter++ < 1000){
+        noteList.removeChild(noteList.firstChild);
+    }
 
+    // insert saved notes if existing
+    let noteObject = CalendarTools.tryGetNotesOfDate(activeDate);
+    if (noteObject !== undefined){
+        let notes = noteObject.notes;
+        for(let n = 0; n < notes.length; n++){
+            let listNode = document.createElement("li");
+            listNode.innerHTML = notes[n];
+            listNode.classList.add("noteDisplay");
+
+            noteList.insertBefore(listNode, noteInputLine);
+        }
+    }
+}
+
+function setupDaySection(){
+    noteInputField.addEventListener("input", function(){
+            noteInputField.style.height = "auto";
+            noteInputField.style.height = noteInputField.scrollHeight + "px";
+        });
+
+        addNoteButton.addEventListener("click", function(){
+            let note = noteInputField.value;
+            if(note != ""){
+                // Notiz speichern
+                CalendarTools.writeNote(activeDate, note);
+                //Feld leeren
+                noteInputField.value = "";
+                refreshDaySection();
+            }
+        })
 }

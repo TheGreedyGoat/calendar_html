@@ -1,44 +1,37 @@
+body{
+  background-color: rgb(34, 34, 36);
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 15px;
+  color:rgb(175, 171, 171);
+  
+  padding: 0;
+  margin: 0;
+}
+
+
+
 main{
-    margin: 10px;
+    margin: 10px;;
     display: flex;
     width: 1000px;
     height: 500px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-   /* border-style: solid; /**/
-}
-
-#dayTitle{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     box-sizing: border-box;
-    padding: 0;
-    width: 200px;
-    height: 50px;
-
-    margin: 0 0 0 0;
-
-    display: flexbox;
-    border: dotted 1px;
+    border-style: solid; 
 }
+
+
 
 .calendarTarget{
     overflow-x: auto;
     font-family: sans-serif;
-    font-size: 15px;
+    font-size: 100%;
     font-weight: 999;
-    width: fit-content;
-    height: fit-content;
-}
+    width: 50%;
+    height: 100%;
 
-.calendarContainer{
-
-    border-radius: 10px;
-    background-color: rgb(54, 54, 54);
-
-    width: fit-content;
-    height: fit-content;
-    padding: 5px; /* space between each sheet*/
-    margin: auto;
-    display: grid;
-
+    box-sizing: border-box;
+    border : dotted red;
 }
 
 .calendarTitle{
@@ -53,23 +46,22 @@ main{
 }
 
 .calendarSheet{
-    width: 300px;
-    height: 200px;
+    width: 100%;
+    height: 100%;
     padding: 0;
     margin: 0;
 
-    /*
+    
     border-style: solid;
     /**/
 }
+
+
 td.day, th{
     margin: 0;
     padding: 0;
-    font-size: 100%;
-    width: 20px;
-    height: 20px;
-
-    /* border-style: solid; /**/
+    font-size: 90%;
+    border-style: solid;
 
 }
 th{
@@ -111,15 +103,127 @@ td.sunday.other{
 
 
 
-.addNoteButton{
-    
-}
-
-
-
 .dateContainer:hover{
     box-sizing: border-box;
 
     border-style: solid;
     border-width: 1px;
 }
+
+/* Day Section */
+.daySection{
+    width: 50%;
+
+    height: 100%;
+    min-height: 100%;
+    padding: 5px;
+    font-size : 100%;
+
+    background-color: rgba(0, 255, 255, 0.315);
+
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+#dayTitle{
+    box-sizing: border-box;
+    width: 100%;
+
+    padding: 0;
+    margin: 0 0 0 0;
+
+    font-size: 150%;
+
+    border: dotted 1px red;
+}
+
+/* Notes*/
+
+#noteSection{
+
+    padding-left: 20px;
+    padding-top: 0;
+    border-left:solid;
+    
+    border: dotted, rgb(205, 125, 50), 2px
+}
+
+#notesTitle{
+    margin-top: 0;
+
+    font-size: 100%;
+}
+
+#noteList{
+
+    padding: 0;
+    width: 100%;
+}
+#noteList li{
+
+    list-style: none;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    width: 100%;
+    align-content: center;
+
+    font-size: 100%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    
+    color: aliceblue;
+    
+    border-top: solid 1px;
+    border-bottom: solid 1px;
+    border-radius: 5px;
+    /* border:dotted, green;  */
+}
+
+
+.noteDisplay{
+
+    padding: 10px 0px 10px 5px;
+    /* border: dotted, 1px, orangered; */
+}
+#noteInputLine{
+    /* border: dotted, red; */
+}
+
+#noteInputDiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#noteInputField{
+    width: 80%;
+    height:auto;
+    resize: none;
+    overflow: hidden;
+
+    
+    
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 100%;
+
+    align-content:center;
+    color: aliceblue;
+
+    background: none;
+    border:none
+    /* border: dotted 2px blue; */
+}
+
+#noteInputField:focus{
+    outline: none;
+}
+
+#addNoteButton{
+    font-size : 200%;
+    text-align: center;
+
+
+    color:antiquewhite;
+    background: none;
+    border: none
+    /* border: dotted 2px blue; */
+}
+

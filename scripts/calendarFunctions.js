@@ -5,7 +5,8 @@
 class CalendarTools{
     static weekdays = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
     static months = ["Januar", "Februar", "M&auml;rz", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
-    static dateInfos = []
+
+    static dateNotes = []
 
     static dateCopy(d = new Date()){
         return new Date(d.getFullYear(), d.getMonth(), d.getDate())
@@ -15,20 +16,25 @@ class CalendarTools{
         return `${date.getDate()}. ${CalendarTools.months[date.getMonth()]} ${date.getFullYear()}`
     }
 
-    static getDateInfo(date = new Date()){
-        for(let i = 0; i < this.dateInfos.length; i++){
-            let info = this.dateInfos[i]
-            if(info.date == date) return info
+
+    static tryGetNotesOfDate(date = new Date()){
+        for(let i = 0; i < CalendarTools.dateNotes.length; i++){
+            if(date.toLocaleDateString() 
+                === CalendarTools.dateNotes[i].date.toLocaleDateString()){
+                return CalendarTools.dateNotes[i];
+            }
         }
-        let newInfo = new DateInfos(date)
-        this.dateInfos.push(newInfo)
-        return newInfo
     }
 
-    static writeNote(date = new Date(), note = "Hello World!"){
-        let info = CalendarTools.getDateInfo(date)
-        info.appendNote(note)
+    static writeNote(date = new Date(), note = "CalendarTools.writeNote didnt recieve any note text"){
+        let noteWrapper = CalendarTools.tryGetNotesOfDate(date)
+        if(noteWrapper === undefined){
+            noteWrapper = new NoteWrapper(date)
+            CalendarTools.dateNotes.push(noteWrapper)
+        }
+        noteWrapper.notes.push(note)
     }
+
     static daysBetweenSigned(date1  = new Date(), date2 = new Date()) {
 
         // The number of milliseconds in one day
@@ -55,19 +61,9 @@ class CalendarTools{
     }
 }
 
-class DateInfos{
-    constructor(date = new Date()){
-        this.date = date
-        this.notes = document.createElement("ul")
-    }
-
-    appendNote(note = "Bla"){
-        let noteLine = document.createElement("li")
-        noteLine.innerHTML = note
-        this.notes.appendChild(noteLine)
-    }
-
-    notes(){
-        return this.notes
+class NoteWrapper{
+    constructor(date = new Date){
+        this.date = date;
+        this.notes = []
     }
 }

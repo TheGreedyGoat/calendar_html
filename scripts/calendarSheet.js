@@ -61,7 +61,10 @@ class DateData{
     constructor(date = new Date()){
         this.date = new Date(date)
         // attributes??
-        // 
-        // this. dailyInfo = ...
+    }
+
+    addNote(noteText = "I didnt get anything to type into the note :("){
+        if(this.dailyNotes === undefined){ this.dailyNotes = []}
+        this.dailyNotes.add(noteText)
     }
 }
