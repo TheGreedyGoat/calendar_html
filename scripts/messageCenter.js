@@ -23,8 +23,7 @@ function handleMessage(data){
             alert(data.value)
             break
         case "dateClicked":
-            let value = data.value
-            switchToDate(new Date(value.getFullYear(), value.getMonth(), value.getDate()))
+            setActiveDateAndRefresh(data.value)
             break
         default: 
             console.log(`Unknown data type ${data.type}.`)

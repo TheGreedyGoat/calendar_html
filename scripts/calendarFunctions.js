@@ -2,9 +2,9 @@
 
 
 
-class CalendarFunctions{
+class CalendarTools{
     static weekdays = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
-    static months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
+    static months = ["Januar", "Februar", "M&auml;rz", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
     static dateInfos = []
 
     static dateCopy(d = new Date()){
@@ -12,7 +12,7 @@ class CalendarFunctions{
     }
 
     static dateString(date = new Date()){
-        return `${date.getDate()}. ${CalendarFunctions.months[date.getMonth()]} ${date.getFullYear()}`
+        return `${date.getDate()}. ${CalendarTools.months[date.getMonth()]} ${date.getFullYear()}`
     }
 
     static getDateInfo(date = new Date()){
@@ -26,10 +26,33 @@ class CalendarFunctions{
     }
 
     static writeNote(date = new Date(), note = "Hello World!"){
-        let info = CalendarFunctions.getDateInfo(date)
+        let info = CalendarTools.getDateInfo(date)
         info.appendNote(note)
     }
+    static daysBetweenSigned(date1  = new Date(), date2 = new Date()) {
 
+        // The number of milliseconds in one day
+        const ONE_DAY = 1000 * 60 * 60 * 24;
+
+        // Calculate the difference in milliseconds
+        const differenceMs = date1 - date2;
+
+        // Convert back to days and return
+        return Math.round(differenceMs / ONE_DAY);
+
+    }
+
+    static buildWeekdayHeader(){
+        let weekdays = CalendarTools.weekdays;
+        let row = document.createElement("tr");
+        for(let i = 0; i < weekdays.length; i++){
+            let th = document.createElement("th");
+            th.classList.add("calendarHeadCell")
+            th.innerHTML = weekdays[i]
+            row.appendChild(th)
+        }
+        return row
+    }
 }
 
 class DateInfos{

@@ -42,22 +42,39 @@
     border-style: solid;
     /**/
 }
-td.current{
-    color:antiquewhite;
-    outline: 10px;
-    outline-color: black;
-    font-weight: bolder;
+td.day, th{
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    width: 20px;
+    height: 20px;
+
+    /* border-style: solid; /**/
+
+}
+th{
+    font : bold;
+    color:  rgb(197, 195, 195);
 }
 
-td.sundayCurrent{
-    color:rgb(228, 91, 91);
+td.weekday.current{
+    color: antiquewhite;
+}
+
+td.sunday.current{
+    color: red;
     font-weight:bold;
 }
 
-td.sundayOther{
-    color: rgba(228, 91, 91, 0.5);
-    font-weight: bolder;
+td.weekday.other{
+    
+    color: rgba(250, 235, 215, 0.3);
 }
+
+td.sunday.other{
+    color: rgba(255, 0, 0, 0.3);
+}
+
 
 .dateContainer{
     border-radius: 50%;
@@ -72,16 +89,7 @@ td.sundayOther{
     justify-content: center;
 }
 
-td.day, th{
-    margin: 0;
-    padding: 0;
-    font-size: 100%;
-    width: 20px;
-    height: 20px;
 
-    /* border-style: solid; /**/
-
-}
 
 .dateContainer:hover{
     box-sizing: border-box;
@@ -91,10 +99,6 @@ td.day, th{
 }
 
 
-th{
-    font : bold;
-    color:  rgb(197, 195, 195);
-}
 
 
 

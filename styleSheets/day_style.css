@@ -3,122 +3,123 @@ main{
     display: flex;
     width: 1000px;
     height: 500px;
-    
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
    /* border-style: solid; /**/
 }
 
-
-
-
-.dateContainer{
-    width: 50px;
-    height: 50px;
-}
-
 #dayTitle{
-    
-    
-    border-style: solid; /**/
-}
-
-#dayNotes{
-    
-    
-    border-style: solid; /**/
-}
-
-.calendarTarget, .daySection{
-    width: 50%;
-    height: 100%;
     box-sizing: border-box;
+    padding: 0;
+    width: 200px;
+    height: 50px;
 
+    margin: 0 0 0 0;
 
-    /*border-style: solid; /**/
+    display: flexbox;
+    border: dotted 1px;
+}
+
+.calendarTarget{
+    overflow-x: auto;
+    font-family: sans-serif;
+    font-size: 15px;
+    font-weight: 999;
+    width: fit-content;
+    height: fit-content;
 }
 
 .calendarContainer{
-    width: 100%;
-    height: 100%;
-    padding: 0;
 
+    border-radius: 10px;
+    background-color: rgb(54, 54, 54);
+
+    width: fit-content;
+    height: fit-content;
+    padding: 5px; /* space between each sheet*/
+    margin: auto;
     display: grid;
+
 }
 
 .calendarTitle{
-    margin: 0;
     padding: 0;
-    width: 100%;
-    height: 80%;
-    font-size: 20px;
+    margin: 0;
+    margin-top: 5px;
+    text-align: center;
+    /*
+    border-style: solid;
+    /**/
 
-    display: flex;
-    align-items: center;
-    justify-content:space-between;
-    padding-left: 25px;
-
-    box-sizing: border-box;
-    border-top-left-radius:  10px;
-    border-top-right-radius:  10px;
-
-    
-    
-    border-style: dotted;
-    background-color: rgb(70, 70, 70);/**/
 }
 
 .calendarSheet{
-    width: 100%;
-    height:100%;
+    width: 300px;
+    height: 200px;
+    padding: 0;
+    margin: 0;
+
+    /*
+    border-style: solid;
+    /**/
+}
+td.day, th{
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    width: 20px;
+    height: 20px;
+
+    /* border-style: solid; /**/
+
+}
+th{
+    font : bold;
+    color:  rgb(197, 195, 195);
+}
+
+td.weekday.current{
+    color: antiquewhite;
+}
+
+td.sunday.current{
+    color: red;
+    font-weight:bold;
+}
+
+td.weekday.other{
+    
+    color: rgba(250, 235, 215, 0.3);
+}
+
+td.sunday.other{
+    color: rgba(255, 0, 0, 0.3);
+}
+
+
+.dateContainer{
+    border-radius: 50%;
+
+    width: 30px;
+    height: 30px;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+
+
+.addNoteButton{
+    
+}
+
+
+
+.dateContainer:hover{
     box-sizing: border-box;
-   /* border-style: dotted;/**/
 
+    border-style: solid;
+    border-width: 1px;
 }
-
-.activeDate{
-    background-color: rgba(97, 97, 97, 0.438);
-}
-
-.monthSwitchButtonDiv{
-    margin-right: 20px;
-    border-style: dotted;/**/
-    display:flex;
-    justify-content: space-between;
-}
-
-.buttonPrev, .buttonNext{
-    width: fit-content;
-    height: fit-content;
-    margin: 5px;
-
-    background: none;
-    border: none;
-}
-
-.buttonNext svg polyline,
-.buttonPrev svg polyline{
-    stroke: rgb(189, 189, 189);
-}
-.buttonNext:hover svg polyline,
-.buttonPrev:hover svg polyline{
-    stroke: rgb(25, 33, 100);
-}
-
-.buttonPrev{
-    transform: scaleX(-1);
-}
-
-.buttonNext{
-
-}
-
-
-
-
-
-/*  
-                                    body
-                                    main
-                cal-target                                  day section
-            calenderContainer   
-    calendarSheet       calendarTitle
-*/
