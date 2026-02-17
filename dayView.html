@@ -3,7 +3,6 @@
 <html>
     <head>
 	    <link rel="stylesheet"  href="styleSheets/style.css">
-        <link rel="stylesheet" href="styleSheets/c_style.css">
 	    <link rel="stylesheet"  href="styleSheets/day_style.css">
     </head>
 
@@ -11,9 +10,19 @@
         <main>
             <div class="calendarTarget"></div>
             <section class = "daySection">
-                <h2 id = "dayTitle">1.Januar 2026 <button>+</button></h2>
+                <h2 id = "dayTitle">1.Januar 2026</h2>
                 
-                <section id = "dayNotes"></section>
+            <section id = "dayNotes">
+                <ul id = "noteSection">
+                    <li id = "noteInputLine">
+                        <div id = "noteInputDiv">
+                            <textarea id = "noteInputField" class = "field">
+                            </textarea>
+                            <button id = "addNoteButton">+</button>
+                        </div>
+                    </li>
+                </ul>
+            </section>
             </section>
         </main>
 
