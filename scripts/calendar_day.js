@@ -13,19 +13,35 @@ let htmlElementTable
 let currentDataSheet
 let currentHTMLSheet
 
-let activeDate
+let activeDate =  new Date()
 
 setupPage()
 
+document.getElementById("nextMonth").addEventListener("click", function(){
+    activeDate.setMonth(activeDate.getMonth() + 1)
+    refresh()
+})
+
+
+document.getElementById("lastMonth").addEventListener("click", function(){
+    activeDate.setMonth(activeDate.getMonth() - 1)
+    refresh()
+})
+
 function setupPage(){
-    setActiveDateAndRefresh(new Date(2026, 1, 1))
+    setActiveDate(new Date())
     setupDaySection()
 }
 
-function setActiveDateAndRefresh(newDate = new Date()){
+function setActiveDate(newDate = new Date()){
     activeDate = newDate
-    if(!currentDataSheet || !currentDataSheet.isDatePartOfMonth(newDate)){
-        buildDataSheet(newDate)
+    refresh()
+}
+
+function refresh(){
+    
+    if(!currentDataSheet || !currentDataSheet.isDatePartOfMonth(activeDate)){
+        buildDataSheet(activeDate)
         buildHTMLCells()
         buildHTMLSheet()
         setupAttributes()
@@ -113,8 +129,8 @@ function setupAttributes(){
 }
 
 function placeHTMLSheet(){
-    calendarTarget.innerHTML = "";
-    calendarTarget.appendChild(currentHTMLSheet);
+    calendarTarget.removeChild(calendarTarget.firstChild);
+    calendarTarget.prepend(currentHTMLSheet);
 }
 
 function refreshDaySection(){

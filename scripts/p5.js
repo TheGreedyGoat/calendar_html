@@ -29,23 +29,8 @@ function buildBackground(p, parentid, pixelSize, variation, median, hue, sat){
     cnv.style("z-index", "-1")
     p.colorMode(p.HSB, 360, 100, 100, 100)
     p.noLoop();
-    // let cols = p.width / pixelSize;
-    // let rows = p.height/ pixelSize;
-    
-    // let dark = Math.min(median - variation)
-    // let bright = Math.min(median + variation)
-    
-
-    // p.background(r, g, b);
-    
-    // p.noStroke()
-    // for(let r = 0; r < rows; r++){
-    //   for(let c = 0; c < cols; c++){
-    //     p.fill(p.random(dark, bright), Math.min(255, Math.max(strength)))
-    //     p.square(c * pixelSize, r * pixelSize, pixelSize)
-    //   }
-    // }
   } // end setup
+  
   p.draw = function(){
     p.loadPixels();
 

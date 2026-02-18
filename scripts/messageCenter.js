@@ -23,7 +23,7 @@ function handleMessage(data){
             alert(data.value)
             break
         case "dateClicked":
-            setActiveDateAndRefresh(data.value)
+            setActiveDate(data.value)
             break
         default: 
             console.log(`Unknown data type ${data.type}.`)
