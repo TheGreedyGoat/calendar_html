@@ -1,0 +1,82 @@
+
+new p5(backGroundSketch)
+function backGroundSketch(p){
+    const pixelSize = 5
+    const parentid = "body"
+    const variation = 10;
+    const median = 50;
+    const strength = 100;
+    const hue = 100;
+    const sat = 70;
+    buildBackground(p, parentid, pixelSize, variation, median, hue, sat)
+}
+/**
+ * 
+ * @param {*} p 
+ * @param {*} parentid 
+ * @param {*} pixelSize 
+ * @param {*} variation 
+ * @param {*} median 
+ * @param {*} hue 
+ * @param {*} sat 
+ */
+function buildBackground(p, parentid, pixelSize, variation, median, hue, sat){
+  
+  p.setup = function() {
+    let cnv = p.createCanvas(window.innerWidth , window.innerHeight);
+    cnv.parent(parentid)
+    cnv.position(0, 0)
+    cnv.style("z-index", "-1")
+    p.colorMode(p.HSB, 360, 100, 100, 100)
+    p.noLoop();
+    // let cols = p.width / pixelSize;
+    // let rows = p.height/ pixelSize;
+    
+    // let dark = Math.min(median - variation)
+    // let bright = Math.min(median + variation)
+    
+
+    // p.background(r, g, b);
+    
+    // p.noStroke()
+    // for(let r = 0; r < rows; r++){
+    //   for(let c = 0; c < cols; c++){
+    //     p.fill(p.random(dark, bright), Math.min(255, Math.max(strength)))
+    //     p.square(c * pixelSize, r * pixelSize, pixelSize)
+    //   }
+    // }
+  } // end setup
+  p.draw = function(){
+    p.loadPixels();
+
+    let dark = Math.min(median - variation)
+    let bright = Math.min(median + variation)
+
+    for(let y = 0; y < p.height; y += pixelSize){
+      for(let x = 0; x < p.width; x += pixelSize){
+        let value = p.random(dark, bright);
+        let c = p.color(hue, sat, value)
+
+        let r = p.red(c)
+        let g = p.green(c)
+        let b = p.blue(c)
+
+        for(let dy = 0; dy < pixelSize; dy++){
+          for(let dx = 0; dx < pixelSize; dx++){
+              let index = (pixelSize - 1) * ((x + dx) + (y + dy) * p.width)
+              
+              p.pixels[index ]    += r; //r
+              p.pixels[index + 1] += g; //g
+              p.pixels[index + 2] += b; //b
+              p.pixels[index + 3] += 255; //a
+          }
+        }
+      }
+    }
+    p.updatePixels()
+  }
+
+  p.windowResized = function(){
+    p.resizeCanvas(window.innerWidth, window.innerHeight)
+  }
+}

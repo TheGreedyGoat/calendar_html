@@ -15,9 +15,9 @@ let currentHTMLSheet
 
 let activeDate
 
-setup()
+setupPage()
 
-function setup(){
+function setupPage(){
     setActiveDateAndRefresh(new Date(2026, 1, 1))
     setupDaySection()
 }
@@ -28,7 +28,7 @@ function setActiveDateAndRefresh(newDate = new Date()){
         buildDataSheet(newDate)
         buildHTMLCells()
         buildHTMLSheet()
-        setAttributes()
+        setupAttributes()
         placeHTMLSheet()
     }
     refreshDaySection()
@@ -81,7 +81,7 @@ function buildHTMLSheet(){
     }
 }
 
-function setAttributes(){
+function setupAttributes(){
     // Attribute setzen
     for(let w = 0; w < htmlElementTable.length; w++){
         for(let d = 0; d < htmlElementTable[w].length; d++){

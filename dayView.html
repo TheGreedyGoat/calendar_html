@@ -4,9 +4,15 @@
     <head>
 	    <link rel="stylesheet"  href="styleSheets/style.css">
 	    <link rel="stylesheet"  href="styleSheets/day_style.css">
+
+        <script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/p5.js"></script>
+        <style>@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');</style>
     </head>
 
-    <body>
+    <body id = "body">
+        <canvas id = "bodyBackground"></canvas>
+         <!-- <div id = "canvasWrapper">
+        </div> -->
         <main>
             <div class="calendarTarget"></div>
             <section class = "daySection">
@@ -28,6 +34,8 @@
         </main>
 
         
+        
+        <script src = "scripts/p5.js"></script>
         <script src = "scripts/calendarFunctions.js"></script>
 	    <script src="scripts/messageCenter.js"></script>
         <script src = "scripts/calendarSheet.js"></script>

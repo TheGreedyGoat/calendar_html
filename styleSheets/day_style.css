@@ -1,11 +1,11 @@
-body{
-  background-color: rgb(34, 34, 36);
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 15px;
-  color:rgb(175, 171, 171);
-  
-  padding: 0;
-  margin: 0;
+html, body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+
+    font-family: "Pixelify Sans", sans-serif;
+    font-optical-sizing: 600;
+    font-style: normal;
 }
 
 
@@ -15,23 +15,23 @@ main{
     display: flex;
     width: 1000px;
     height: 500px;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     box-sizing: border-box;
-    border-style: solid; 
+    /* border-style: solid; */
+
+    position: relative;
+    z-index: 1
 }
-
-
 
 .calendarTarget{
     overflow-x: auto;
-    font-family: sans-serif;
-    font-size: 100%;
+    font-size: 200%;
     font-weight: 999;
     width: 50%;
     height: 100%;
 
     box-sizing: border-box;
-    border : dotted red;
+
+    /* border : dotted red; */
 }
 
 .calendarTitle{
@@ -48,12 +48,41 @@ main{
 .calendarSheet{
     width: 100%;
     height: 100%;
-    padding: 0;
+    padding: 0 10px 70px 20px;
     margin: 0;
 
     
-    border-style: solid;
-    /**/
+    background-image: 
+    url("Calendar_BackGround/Calendar_Top_Left.png"),
+    url("Calendar_BackGround/Calendar_Top_Center.png"),
+    url("Calendar_BackGround/Calendar_Top_Right.png"),
+    
+    url("Calendar_BackGround/Calendar_Center_Left.png"),
+    url("Calendar_BackGround/Calendar_Center_Center.png"),
+    url("Calendar_BackGround/Calendar_Center_Right.png"),
+    
+
+    url("Calendar_BackGround/Calendar_Bottom_Left.png"),
+    url("Calendar_BackGround/Calendar_Bottom_Center.png"),
+    url("Calendar_BackGround/Calendar_Bottom_Right.png");
+
+    background-position: 
+    left top, center top, right top,
+    
+    left center,center center,right center,
+
+    left bottom, center bottom, right bottom;
+
+    background-size: 
+    70px 70px,                  calc(100% - 140px)                      70px, 70px 70px,
+
+    70px calc(100% - 140px),    calc(100% - 140px) calc(100% - 140px),    70px calc(100% - 140px),
+
+    70px 70px,                  calc(100% - 140px) 70px,                70px 70px;
+
+    background-repeat: no-repeat;
+
+    /* border-style: solid; */
 }
 
 
@@ -61,39 +90,41 @@ td.day, th{
     margin: 0;
     padding: 0;
     font-size: 90%;
-    border-style: solid;
+
+    /* border-style: solid; */
 
 }
 th{
     font : bold;
-    color:  rgb(197, 195, 195);
+    color:  rgb(0, 0, 0);
 }
 
 td.weekday.current{
-    color: antiquewhite;
+    color: rgb(0, 0, 0);
 }
 
 td.sunday.current{
     color: red;
-    font-weight:bold;
 }
 
 td.weekday.other{
     
-    color: rgba(250, 235, 215, 0.3);
+    color: rgba(37, 37, 37, 0.6);
 }
 
 td.sunday.other{
-    color: rgba(255, 0, 0, 0.3);
+    color: rgba(255, 0, 0, 0.6);
 }
 
 
 .dateContainer{
-    border-radius: 50%;
 
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     margin: auto;
+    padding: 10px;
+
+    font-size: 80%;
 
     display: flex;
     align-items: center;
@@ -106,8 +137,10 @@ td.sunday.other{
 .dateContainer:hover{
     box-sizing: border-box;
 
-    border-style: solid;
-    border-width: 1px;
+    border-style: dashed;
+    border-width: 5px;
+
+    border-color: black;
 }
 
 /* Day Section */
@@ -167,7 +200,6 @@ td.sunday.other{
     align-content: center;
 
     font-size: 100%;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     
     color: aliceblue;
     
@@ -199,9 +231,7 @@ td.sunday.other{
     resize: none;
     overflow: hidden;
 
-    
-    
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: "Pixelify Sans", sans-serif;
     font-size: 100%;
 
     align-content:center;
@@ -226,4 +256,5 @@ td.sunday.other{
     border: none
     /* border: dotted 2px blue; */
 }
+
 
