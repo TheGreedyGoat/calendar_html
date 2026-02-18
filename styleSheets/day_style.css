@@ -1,3 +1,7 @@
+:root{
+    --pixel-Size: 5px;
+}
+
 html, body{
     margin: 0;
     padding: 0;
@@ -11,43 +15,73 @@ html, body{
 
 
 main{
-    margin: 10px;;
-    display: flex;
-    width: 1000px;
-    height: 500px;
+    margin: calc(2 * var(--pixel-Size));
+    display: grid;
+    width: calc(120 * var(--pixel-Size));
+    height: calc(120 * var(--pixel-Size));
     box-sizing: border-box;
     /* border-style: solid; */
 
-    position: relative;
     z-index: 1
 }
+#dayTitle{
+    box-sizing: border-box;
+    width: 100%;
+    min-height: calc(13 * var(--pixel-Size));
 
+    padding: 0;
+    margin: 0;
+
+    font-size: 150%;
+
+    display: flex;
+    justify-content: center;
+    align-items:end;
+    background-image: 
+    url("Calendar_BackGround/Calendar_Head_Left.png"),
+
+    url("Calendar_BackGround/Calendar_Ring.png"),
+    url("Calendar_BackGround/Calendar_Ring.png"),
+    url("Calendar_BackGround/Calendar_Ring.png"),
+
+    url("Calendar_BackGround/Calendar_Head_Center.png"),
+    url("Calendar_BackGround/Calendar_Head_Right.png");
+
+    background-repeat: 
+    no-repeat;
+
+    background-position: 
+    left bottom,
+    10% bottom, 50% bottom, 90% bottom, 
+    center bottom, 
+    right bottom;
+
+    background-size:
+    40px 40px, 
+    20px calc(13 * var(--pixel-Size)),
+    20px calc(13 * var(--pixel-Size)),
+    20px calc(13 * var(--pixel-Size)),
+    calc(100% - 80px) 40px, 
+    40px 40px;
+
+    border: solid red;
+}
 .calendarTarget{
     overflow-x: auto;
     font-size: 200%;
     font-weight: 999;
-    width: 50%;
+    width: 100%;
     height: 100%;
+
 
     box-sizing: border-box;
 
-    /* border : dotted red; */
+    border : dotted red;
 }
 
-.calendarTitle{
-    padding: 0;
-    margin: 0;
-    margin-top: 5px;
-    text-align: center;
-    /*
-    border-style: solid;
-    /**/
-
-}
 
 .calendarSheet{
-    width: 100%;
-    height: 100%;
+    width: calc(100%);
     padding: 0 10px 70px 20px;
     margin: 0;
 
@@ -157,17 +191,7 @@ td.sunday.other{
     box-sizing: border-box;
     border-radius: 10px;
 }
-#dayTitle{
-    box-sizing: border-box;
-    width: 100%;
 
-    padding: 0;
-    margin: 0 0 0 0;
-
-    font-size: 150%;
-
-    border: dotted 1px red;
-}
 
 /* Notes*/
 
