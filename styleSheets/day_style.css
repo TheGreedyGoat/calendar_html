@@ -1,6 +1,7 @@
 :root{
     --pixel-Size: 5px;
     --background-tint: #1368a1;
+    --images-Folder: "/assets/images";
 }
 @font-face {
   font-family: Minecraftia;
@@ -10,16 +11,50 @@
 html, body{
     margin: 0;
     padding: 0;
-    height: 100%;
+    /* height: 100%; */
+    width: 100%;
 
     font-family: Minecraftia;
     font-style: normal;
+    font-size: calc( 4 * var(--pixel-Size));
+
+}
+#bBoardFrameHolder{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: 
+    url("../assets/images/b_board_frame/b_board_frame_TL.png"),
+    url("../assets/images/b_board_frame/b_board_frame_TC.png"),
+    url("../assets/images/b_board_frame/b_board_frame_TR.png"),
+
+    url("../assets/images/b_board_frame/b_board_frame_CL.png"),
+    url("../assets/images/b_board_frame/b_board_frame_CR.png"),
+
+    url("../assets/images/b_board_frame/b_board_frame_BL.png"),
+    url("../assets/images/b_board_frame/b_board_frame_BC.png"),
+    url("../assets/images/b_board_frame/b_board_frame_BR.png");
+
+    background-position: 
+    left top, center top, right top,
+    left center, right center,
+    left bottom, center bottom, right bottom;
+
+    background-size: 
+    auto, calc(100% - 100px) 50px, auto, 
+    50px calc(100% - 100px), 50px calc(100% - 100px),
+    auto, calc(100% - 100px) 50px, auto
+    ;
+
+    background-repeat: no-repeat;
+
 }
 
-
-
 main{
-    margin: calc(2 * var(--pixel-Size));
+
+    margin: calc(10 * var(--pixel-Size));
     display: grid;
     width: calc(120 * var(--pixel-Size));
     min-height: calc(125 * var(--pixel-Size));
@@ -45,14 +80,14 @@ main{
     justify-content: center;
     align-items:end;
     background-image: 
-    url("Calendar_BackGround/Calendar_Head_Left.png"),
+    url("../assets/images/calendar_background/Calendar_Head_Left.png"),
 
-    url("Calendar_BackGround/Calendar_Ring.png"),
-    url("Calendar_BackGround/Calendar_Ring.png"),
-    url("Calendar_BackGround/Calendar_Ring.png"),
+    url("../assets/images/calendar_background/Calendar_Ring.png"),
+    url("../assets/images/calendar_background/Calendar_Ring.png"),
+    url("../assets/images/calendar_background/Calendar_Ring.png"),
 
-    url("Calendar_BackGround/Calendar_Head_Center.png"),
-    url("Calendar_BackGround/Calendar_Head_Right.png");
+    url("../assets/images/calendar_background/Calendar_Head_Center.png"),
+    url("../assets/images/calendar_background/Calendar_Head_Right.png");
 
     background-repeat: 
     no-repeat;
@@ -93,18 +128,18 @@ main{
     z-index: 0;
     
     background-image: 
-    url("Calendar_BackGround/Calendar_Top_Left.png"),
-    url("Calendar_BackGround/Calendar_Top_Center.png"),
-    url("Calendar_BackGround/Calendar_Top_Right.png"),
+    url("../assets/images/calendar_background/Calendar_Top_Left.png"),
+    url("../assets/images/calendar_background/Calendar_Top_Center.png"),
+    url("../assets/images/calendar_background/Calendar_Top_Right.png"),
     
-    url("Calendar_BackGround/Calendar_Center_Left.png"),
-    url("Calendar_BackGround/Calendar_Center_Center.png"),
-    url("Calendar_BackGround/Calendar_Center_Right.png"),
+    url("../assets/images/calendar_background/Calendar_Center_Left.png"),
+    url("../assets/images/calendar_background/Calendar_Center_Center.png"),
+    url("../assets/images/calendar_background/Calendar_Center_Right.png"),
     
 
-    url("Calendar_BackGround/Calendar_Bottom_Left.png"),
-    url("Calendar_BackGround/Calendar_Bottom_Center.png"),
-    url("Calendar_BackGround/Calendar_Bottom_Right.png");
+    url("../assets/images/calendar_background/Calendar_Bottom_Left.png"),
+    url("../assets/images/calendar_background/Calendar_Bottom_Center.png"),
+    url("../assets/images/calendar_background/Calendar_Bottom_Right.png");
 
     background-position: 
     left top, center top, right top,
@@ -147,7 +182,7 @@ main{
     background: none;
     background-position: right bottom;
 
-    background-image: url("Calendar_Background/Calendar_Bottom_Right.png");
+    background-image: url("../assets/images/calendar_background/Calendar_Bottom_Right.png");
 
 /*     
     background-blend-mode: multiply;
@@ -156,14 +191,14 @@ main{
 }
 
 .monthButton:hover(){
-    background-image: url("Calendar_Background/Calendar_Bottom_Right_Hover.png");
+    background-image: url("../assets/images/calendar_background/Calendar_Bottom_Right_Hover.png");
 }
 
 #lastMonth{
     transform: scaleX(-1);
 }
 #lastMonth:hover, #nextMonth:hover{
-    background-image: url("Calendar_Background/Calendar_Bottom_Right_Hover.png");
+    background-image: url("../assets/images/calendar_background/Calendar_Bottom_Right_Hover.png");
 } 
 .dateContainer{
 
@@ -210,10 +245,6 @@ td.sunday.other{
     color: rgba(255, 0, 0, 0.6);
 }
 
-
-
-
-
 .dateContainer:hover{
     box-sizing: border-box;
 
@@ -225,19 +256,29 @@ td.sunday.other{
 
 
 
-/* Day Section */
-.daySection{
-    width: 50%;
+/*---Day Section---*/
 
-    height: 100%;
-    min-height: 100%;
+/* parent: body */
+.daySection{ 
+    width: 50%;
+    /* margin: calc(10 * var(--pixel-Size)); */
+
+    height: calc( 100 * var(--pixel-Size));
+    min-height: 50px;
+
+    position: absolute;
+
+    left: calc( 20 * var(--pixel-Size));
+    bottom: calc( 20 * var(--pixel-Size));
+
     padding: 5px;
     font-size : 100%;
 
-    background-color: rgba(0, 255, 255, 0.315);
+    background-color: rgba(255, 255, 255);
 
     box-sizing: border-box;
-    border-radius: 10px;
+    
+    /* border: solid black 5px; */
 }
 
 
@@ -247,9 +288,9 @@ td.sunday.other{
 
     padding-left: 20px;
     padding-top: 0;
-    border-left:solid;
     
-    border: dotted, rgb(205, 125, 50), 2px
+    color:black;
+    /* border: dotted, rgb(205, 125, 50), 2px; */
 }
 
 #notesTitle{
@@ -273,12 +314,6 @@ td.sunday.other{
 
     font-size: 100%;
     
-    color: aliceblue;
-    
-    border-top: solid 1px;
-    border-bottom: solid 1px;
-    border-radius: 5px;
-    /* border:dotted, green;  */
 }
 
 
@@ -299,18 +334,16 @@ td.sunday.other{
 
 #noteInputField{
     width: 80%;
-    height:auto;
+    height: auto;
     resize: none;
     overflow: hidden;
 
-    font-family: "Pixelify Sans", sans-serif;
     font-size: 100%;
 
     align-content:center;
-    color: aliceblue;
 
     background: none;
-    border:none
+    border:none;
     /* border: dotted 2px blue; */
 }
 

@@ -4,11 +4,12 @@ function backGroundSketch(p){
     const pixelSize = 5
     const parentid = "body"
     const variation = 10;
-    const median = 50;
+    const median = 75;
     const strength = 100;
-    const hue = 100;
-    const sat = 70;
-    buildBackground(p, parentid, pixelSize, variation, median, hue, sat)
+    const hue = 35;
+    const sat = 60;
+    const borderWidth = 10; // in "Style-Pixels"
+    buildBackground(p, parentid, pixelSize, variation, median, hue, sat, borderWidth)
 }
 /**
  * 
@@ -20,17 +21,18 @@ function backGroundSketch(p){
  * @param {*} hue 
  * @param {*} sat 
  */
-function buildBackground(p, parentid, pixelSize, variation, median, hue, sat){
+function buildBackground(p, parentid, pixelSize, variation, median, hue, sat, borderWidth){
   
   p.setup = function() {
     let cnv = p.createCanvas(window.innerWidth , window.innerHeight);
     cnv.parent(parentid)
-    cnv.position(0, 0)
-    cnv.style("z-index", "-1")
+    cnv.position(0, 0);
+    cnv.style("z-index", "-2");
     p.colorMode(p.HSB, 360, 100, 100, 100)
     p.noLoop();
   } // end setup
   
+
   p.draw = function(){
     p.loadPixels();
 
@@ -39,13 +41,13 @@ function buildBackground(p, parentid, pixelSize, variation, median, hue, sat){
 
     for(let y = 0; y < p.height; y += pixelSize){
       for(let x = 0; x < p.width; x += pixelSize){
+        
         let value = p.random(dark, bright);
         let c = p.color(hue, sat, value)
-
         let r = p.red(c)
         let g = p.green(c)
         let b = p.blue(c)
-
+    
         for(let dy = 0; dy < pixelSize; dy++){
           for(let dx = 0; dx < pixelSize; dx++){
               let index = (pixelSize - 1) * ((x + dx) + (y + dy) * p.width)
