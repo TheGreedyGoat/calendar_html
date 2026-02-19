@@ -323,7 +323,7 @@ td.sunday.other{
     /* border: dotted, 1px, orangered; */
 }
 #noteInputLine{
-    /* border: dotted, red; */
+
 }
 
 #noteInputDiv{
@@ -341,7 +341,8 @@ td.sunday.other{
     font-size: 100%;
 
     align-content:center;
-
+    
+    font-family:Minecraftia;
     background: none;
     border:none;
     /* border: dotted 2px blue; */
@@ -356,7 +357,7 @@ td.sunday.other{
     text-align: center;
 
 
-    color:antiquewhite;
+    color:black;
     background: none;
     border: none
     /* border: dotted 2px blue; */

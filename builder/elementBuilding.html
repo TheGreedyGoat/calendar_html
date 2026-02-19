@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+
+<head>
+
+    <style>
+        :root{
+            --cell_size: 100px;
+        }
+    #ttt{
+        display: grid;
+        grid-template-rows: var(--cell_size) var(--cell_size) var(--cell_size);
+        grid-template-columns: var(--cell_size) var(--cell_size) var(--cell_size);
+    }
+
+
+    .ttt_cell{
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        border: solid;
+    }
+
+    .cross{
+        background-image: url("../assets/images/ttt/cross.png");
+    }
+
+    .circle{
+         background-image: url("../assets/images/ttt/circle.png");
+    }
+
+    .win{
+        border-color: green;
+    }
+    </style>
+    
+</head>
+
+
+<body>
+    <div id  = "ttt">
+        <div class = "ttt_cell" id  = "ttt_00"></div>
+        <div class = "ttt_cell" id  = "ttt_01"></div>
+        <div class = "ttt_cell" id  = "ttt_02"></div>
+
+        <div class = "ttt_cell" id  = "ttt_10"></div>
+        <div class = "ttt_cell" id  = "ttt_11"></div>
+        <div class = "ttt_cell" id  = "ttt_12"></div>
+
+        <div class = "ttt_cell" id  = "ttt_20"></div>
+        <div class = "ttt_cell" id  = "ttt_21"></div>
+        <div class = "ttt_cell" id  = "ttt_22"></div>
+    </div>
+    <button id = "restart">Restart</button>
+
+
+
+    <script>
+        //
+        let field = []
+
+        for(let r = 0; r < 3; r++){
+            field.push([])
+            for(let c  = 0; c < 3; c++){
+                field[r].push(0)
+                let cell = document.getElementById(`ttt_${r}${c}`)
+
+                cell.addEventListener("click", function(){
+                    if(field[r][c] == 0 && !checkForWin()){
+                        field[r][c] = 1
+                        updateTTT()
+                        if(!checkForWin()){
+                        comTurn()   
+                        }else{
+                            console.log("The Player won!")
+                        }
+                    }
+                })
+            }
+        }
+
+        document.getElementById("restart").addEventListener("click", restart);
+
+        updateTTT()
+        function updateTTT(){
+            for(let r = 0; r < 3; r++){
+                for(let c  = 0; c < 3; c++){
+                    let value = field[r][c]
+                    let cell = document.getElementById(`ttt_${r}${c}`)
+                    if(value == 1){
+                        cell.classList.add("cross")
+                    }else if(value == 2){
+                        cell.classList.add("circle")
+                    }
+                }   
+            }
+        }
+
+        function checkForWin(){
+            let won = false;
+            for(let r = 0; r < 3; r++){ // rows
+                if(field[r][0] != 0 && field[r][0] == field[r][1] && field[r][0] == field[r][2]){
+                    document.getElementById(`ttt_${r}${0}`).classList.add("win");
+                    document.getElementById(`ttt_${r}${1}`).classList.add("win");
+                    document.getElementById(`ttt_${r}${2}`).classList.add("win");
+
+                    won = true;
+                }
+            }
+
+            
+            for(let c = 0; c < 3; c++){ // columns
+                if(field[0][c] != 0 && field[0][c] == field[1][c] && field[0][c] == field[2][c]){
+                    document.getElementById(`ttt_${0}${c}`).classList.add("win");
+                    document.getElementById(`ttt_${1}${c}`).classList.add("win");
+                    document.getElementById(`ttt_${2}${c}`).classList.add("win");
+                    won = true;
+                }
+            }
+
+            if(field[0][0] != 0 && field[0][0] == field [1][1] && field[0][0] == field [2][2]){
+                document.getElementById(`ttt_${0}${0}`).classList.add("win");
+                document.getElementById(`ttt_${1}${1}`).classList.add("win");
+                document.getElementById(`ttt_${2}${2}`).classList.add("win");
+                    won = true;
+            }
+            if(field[0][2] != 0 && field[0][2] == field [1][1] && field[0][2] == field [2][0]){
+                document.getElementById(`ttt_${0}${2}`).classList.add("win");
+                document.getElementById(`ttt_${1}${1}`).classList.add("win");
+                document.getElementById(`ttt_${2}${0}`).classList.add("win");
+                    won = true;
+            }
+            return won;
+        }
+
+        function comTurn(){
+            let choices = [];
+            for(let r = 0; r < 3; r++){
+                for(let c  = 0; c < 3; c++){
+                    if(field[r][c] == 0){
+                        choices.push([r, c])
+                    }
+                }
+            }
+            
+            let choice = choices[Math.floor(Math.random() * choices.length)]
+            field[choice[0]][choice[1]] = 2
+            updateTTT()
+            if(checkForWin()){
+                console.log("The computer won!")
+            }
+        }
+
+        function restart(){
+            for(let r = 0; r < 3; r++){
+                for(let c  = 0; c < 3; c++){
+                    field [r][c] = 0
+                }
+            }
+            let cells = document.getElementsByClassName("ttt_cell");
+
+            for (const cell of cells) {
+                cell.classList.remove("cross")
+                cell.classList.remove("circle")
+                cell.classList.remove("win")
+            }
+        }
+
+    </script>
+</body>
+<html>

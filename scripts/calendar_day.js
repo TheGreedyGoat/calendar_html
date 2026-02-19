@@ -15,18 +15,23 @@ let currentHTMLSheet
 
 let activeDate =  new Date()
 
-setupPage()
-
-document.getElementById("nextMonth").addEventListener("click", function(){
-    activeDate.setMonth(activeDate.getMonth() + 1)
-    refresh()
-})
+setupPage();
 
 
-document.getElementById("lastMonth").addEventListener("click", function(){
-    activeDate.setMonth(activeDate.getMonth() - 1)
-    refresh()
-})
+for(let i = 0;  i < document.getElementsByClassName("monthButton").length; i++){
+    
+    let n = 1;
+    document.getElementsByClassName("monthButton")[i].addEventListener("click", function(){
+        window.postMessage({
+            messageType: "click",
+            value : {
+                clickType: "changeMonth",
+                value: n
+            }
+        })
+    });
+}
+
 
 function setupPage(){
     setActiveDate(new Date())
@@ -34,7 +39,14 @@ function setupPage(){
 }
 
 function setActiveDate(newDate = new Date()){
+    console.log(`setting date to ${newDate}`)
     activeDate = newDate
+    refresh()
+}
+
+
+function addMonth(n = 1){
+    activeDate.setMonth(activeDate.getMonth() + n)
     refresh()
 }
 
@@ -68,8 +80,13 @@ function buildHTMLCells(){
 
             cellDiv.addEventListener("click", function(){
                 window.postMessage({
-                    type : "dateClicked",
-                    value: new Date(cellDate)
+                    messageType : "click",
+                    value: {
+                        clickType: "date",
+                        w: w,
+                        d: d
+                    }
+                    
                 });
             });
             cellDiv.innerHTML = cellDate.getDate()
@@ -164,12 +181,14 @@ function setupDaySection(){
 
         addNoteButton.addEventListener("click", function(){
             let note = noteInputField.value;
-            if(note != ""){
-                // Notiz speichern
-                CalendarTools.writeNote(activeDate, note);
-                //Feld leeren
-                noteInputField.value = "";
-                refreshDaySection();
-            }
+            window.postMessage(
+                {
+                    messageType: "click",
+                    value: {
+                            clickType : "addNote",
+                            value: note
+                        }
+                }
+            )
         })
 }
