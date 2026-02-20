@@ -11,37 +11,37 @@
 
     <body id = "body">
         
-        <div id  = "bBoardFrameHolder"></div>
+        <div id  = "bBoardFrameHolder">
 
-        <main>
-            <h3 id = "dayTitle">1.Januar 2026</h2>
-            <div class="calendarTarget">
-                <div id = "placeHolder"></div>
-                <div id = "monthButtonContainer">
-                    <button class = "monthButton" id  ="lastMonth"></button>
-                    <button class = "monthButton" id  ="nextMonth"></button>
+            <main>
+                <h2 id = "dayTitle">1.Januar 2026</h2>
+                <div class="calendarTarget">
+                    <div id = "placeHolder"></div>
+                    <div id = "monthButtonContainer">
+                        <button class = "monthButton" id  ="lastMonth"></button>
+                        <button class = "monthButton" id  ="nextMonth"></button>
+                    </div>
                 </div>
-            </div>
-            
-        </main>
-
-        <section class = "daySection"> 
                 
-                <section id = "noteSection"> 
-                    <h3 id = "notesTitle"> Notizen:</h3>
-                    <ul id = "noteList">
-                        <li id = "noteInputLine">
-                            <div id = "noteInputDiv">
-                                <textarea id = "noteInputField" ></textarea>
-                                <button id = "addNoteButton">+</button>
-                            </div>
-                        </li>
+            </main>
 
-                    </ul>
+            <section class = "daySection" hidden> 
+                    
+                    <section id = "noteSection"> 
+                        <h3 id = "notesTitle"> Notizen:</h3>
+                        <ul id = "noteList">
+                            <li id = "noteInputLine">
+                                <div id = "noteInputDiv">
+                                    <textarea id = "noteInputField" ></textarea>
+                                    <button id = "addNoteButton">+</button>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </section>
                 </section>
-            </section>
 
-        
+        </div>
         
         <script src = "scripts/p5.js"></script>
         <script src = "scripts/calendarFunctions.js"></script>
