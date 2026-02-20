@@ -25,7 +25,7 @@ function buildBackground(p, parentid, pixelSize, variation, median, hue, sat, bo
   
   p.setup = function() {
     p.pixelDensity(1)
-    let cnv = p.createCanvas(window.innerWidth , window.innerHeight);
+    let cnv = p.createCanvas(window.innerWidth, window.innerHeight);
     cnv.parent(parentid)
     cnv.position(0, 0);
     cnv.style("z-index", "-2");

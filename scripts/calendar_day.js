@@ -18,20 +18,6 @@ let activeDate =  new Date()
 setupPage();
 
 
-for(let i = 0;  i < document.getElementsByClassName("monthButton").length; i++){
-    
-    let n = 1;
-    document.getElementsByClassName("monthButton")[i].addEventListener("click", function(){
-        window.postMessage({
-            messageType: "click",
-            value : {
-                clickType: "changeMonth",
-                value: n
-            }
-        })
-    });
-}
-
 
 function setupPage(){
     setActiveDate(new Date())
@@ -44,6 +30,18 @@ function setActiveDate(newDate = new Date()){
     refresh()
 }
 
+
+function sendClickMessage(){
+    window.postMessage({
+        messageType: "click",
+        value: "bla"
+    })
+}
+
+function monthBnClicked(n  = 1){
+    
+    addMonth(n)
+}
 
 function addMonth(n = 1){
     activeDate.setMonth(activeDate.getMonth() + n)
@@ -77,18 +75,8 @@ function buildHTMLCells(){
             // Datum extrahieren und Element bauen
             let htmlCell = document.createElement("td");  // day
             let cellDiv = document.createElement("div"); // dateContainer
-
-            cellDiv.addEventListener("click", function(){
-                window.postMessage({
-                    messageType : "click",
-                    value: {
-                        clickType: "date",
-                        w: w,
-                        d: d
-                    }
-                    
-                });
-            });
+            
+            cellDiv.setAttribute("onClick", `setActiveDate(currentDataSheet.getDataAtGridIndex(${w},${d}).date); sendClickMessage()`)
             cellDiv.innerHTML = cellDate.getDate()
             cellDiv.classList.add("dateContainer");
 
@@ -151,7 +139,7 @@ function placeHTMLSheet(){
 }
 
 function refreshDaySection(){
-    dayTitle.innerHTML = CalendarTools.dateString(activeDate);
+    dayTitle.innerHTML = CalendarTools.monthYearString(activeDate);
     
     //clear note list
     let safetyCounter = 0;
@@ -179,8 +167,9 @@ function setupDaySection(){
             noteInputField.style.height = noteInputField.scrollHeight + "px";
         });
 
+
         addNoteButton.addEventListener("click", function(){
-            let note = noteInputField.value;
+            let note = noteInputField.value
             window.postMessage(
                 {
                     messageType: "click",
@@ -192,3 +181,5 @@ function setupDaySection(){
             )
         })
 }
+
+

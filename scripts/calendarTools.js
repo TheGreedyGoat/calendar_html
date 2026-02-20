@@ -16,6 +16,11 @@ class CalendarTools{
         return `${date.getDate()}. ${CalendarTools.months[date.getMonth()]} ${date.getFullYear()}`
     }
 
+    static monthYearString(date = new Date()){
+        return `${CalendarTools.months[date.getMonth()]} ${date.getFullYear()}`
+    }
+
+
 
     static tryGetNotesOfDate(date = new Date()){
         for(let i = 0; i < CalendarTools.dateNotes.length; i++){

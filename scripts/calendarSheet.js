@@ -1,16 +1,15 @@
 
-
 class CalendarSheet{
     constructor(date  = new Date()){
         let dateOfFIrstDay = new Date(date.getFullYear(), date.getMonth(), 1)
-        
+       
         this.firstofMonthIndex = (dateOfFIrstDay.getDay() + 6) % 7 // SUN = 0, 0 + 6 = 6, 6 % 7 = 6
         this.firstOfNextMonthIndex = 10
         this.monthNum  = dateOfFIrstDay.getMonth()
         this.year = dateOfFIrstDay.getFullYear()
         this.firstDateOfTable = new Date(dateOfFIrstDay)
         this.firstDateOfTable.setDate(this.firstDateOfTable.getDate() - this.firstofMonthIndex)
-        //active??
+
         this.table = []
         let cellDate = new Date(this.firstDateOfTable)
 

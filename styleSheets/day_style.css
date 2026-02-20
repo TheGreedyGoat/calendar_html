@@ -18,6 +18,8 @@ html, body{
     font-style: normal;
     font-size: calc( 4 * var(--pixel-Size));
 
+
+
 }
 
 #bBoardFrameHolder{
@@ -53,8 +55,16 @@ html, body{
     background-repeat: no-repeat;
 
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content:center;
+}
+
+@media(min-width: 1200px){
+    #bBoardFrameHolder{
+        
+    flex-direction: row;
+    }
 }
 
 main{

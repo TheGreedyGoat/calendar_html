@@ -18,8 +18,8 @@
                 <div class="calendarTarget">
                     <div id = "placeHolder"></div>
                     <div id = "monthButtonContainer">
-                        <button class = "monthButton" id  ="lastMonth"></button>
-                        <button class = "monthButton" id  ="nextMonth"></button>
+                        <button class = "monthButton" id  ="lastMonth" onclick="monthBnClicked(-1); sendClickMessage();"></button>
+                        <button class = "monthButton" id  ="nextMonth" onclick="monthBnClicked(+1); sendClickMessage()"></button>
                     </div>
                 </div>
                 
@@ -44,7 +44,7 @@
         </div>
         
         <script src = "scripts/p5.js"></script>
-        <script src = "scripts/calendarFunctions.js"></script>
+        <script src = "scripts/calendarTools.js"></script>
 	    <script src="scripts/messageCenter.js"></script>
         <script src = "scripts/calendarSheet.js"></script>
         <script src = "scripts/calendar_day.js"></script>

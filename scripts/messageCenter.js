@@ -25,7 +25,7 @@ function handleMessage(data){
             break
         case "click":
             clickSound.play()
-            clickEvent(data.value)
+            //clickEvent(data.value)
             break
         default: 
             console.log(`Unknown data type ${data.messageType}.`)
