@@ -39,8 +39,8 @@ function buildBackground(p, parentid, pixelSize, variation, median, hue, sat, bo
     let dark = Math.min(median - variation)
     let bright = Math.min(median + variation)
 
-    for(let y = 0; y < p.height; y += pixelSize){
-      for(let x = 0; x < p.width; x += pixelSize){
+    for(let y = 20; y < p.height -  20; y += pixelSize){
+      for(let x = 20; x < p.width - 20; x += pixelSize){
         
         let value = p.random(dark, bright);
         let c = p.color(hue, sat, value)

@@ -22,7 +22,7 @@ html, body{
 #bBoardFrameHolder{
     position: absolute;
     top: 0;
-    padding: 10px;
+    /* padding: 10px; */
     width: 100%;
     height: 100%;
     z-index: -1;
@@ -51,6 +51,9 @@ html, body{
 
     background-repeat: no-repeat;
 
+    display: flex;
+    align-items: center;
+    justify-content:center;
 }
 
 main{
@@ -255,13 +258,11 @@ td.sunday.other{
 
 /* parent: body */
 .daySection{ 
-    width: 50%;
-    /* margin: calc(10 * var(--pixel-Size)); */
 
+    width: calc( 75 * var(--pixel-Size));
     height: calc( 100 * var(--pixel-Size));
     min-height: 50px;
 
-    position: absolute;
 
     left: calc( 20 * var(--pixel-Size));
     bottom: calc( 20 * var(--pixel-Size));
