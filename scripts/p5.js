@@ -24,6 +24,7 @@ function backGroundSketch(p){
 function buildBackground(p, parentid, pixelSize, variation, median, hue, sat, borderWidth){
   
   p.setup = function() {
+    p.pixelDensity(1)
     let cnv = p.createCanvas(window.innerWidth , window.innerHeight);
     cnv.parent(parentid)
     cnv.position(0, 0);
