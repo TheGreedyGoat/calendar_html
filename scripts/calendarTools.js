@@ -4,7 +4,7 @@
 
 class CalendarTools{
     static weekdays = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
-    static months = ["Januar", "Februar", "M&auml;rz", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
+    static months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
 
     static dateNotes = []
 

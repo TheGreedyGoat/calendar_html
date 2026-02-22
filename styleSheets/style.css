@@ -1,0 +1,83 @@
+
+html, body{
+
+    /* overflow-y: hidden; */
+    padding: 0;
+    margin:0;
+}
+
+main{
+    width: 200dvw;
+    height: 100%;
+    padding: 0;
+
+    /* overflow: hidden; */
+
+    position: absolute;
+    left: 0;
+
+    transition: transform 2s;
+
+    display: flex;
+}
+
+#calendar_target{
+    width: 50%;
+    height: 100%;
+
+    background-color: blueviolet;
+
+    box-sizing: border-box;
+    border: solid black 50px;
+}
+
+#frameHolder{
+    
+    
+    width: calc(50% - 100px);
+    height: calc(100% - 100px);
+    padding: 50px;
+    margin: 0;
+
+    background-image: 
+    url("../assets/images/b_board_frame/b_board_frame_TL.png"),
+    url("../assets/images/b_board_frame/b_board_frame_TC.png"),
+    url("../assets/images/b_board_frame/b_board_frame_TR.png"),
+
+    url("../assets/images/b_board_frame/b_board_frame_CL.png"),
+    url("../assets/images/b_board_frame/b_board_frame_CR.png"),
+
+    url("../assets/images/b_board_frame/b_board_frame_BL.png"),
+    url("../assets/images/b_board_frame/b_board_frame_BC.png"),
+    url("../assets/images/b_board_frame/b_board_frame_BR.png")
+    ;
+
+    background-color: rgb(66, 66, 66);
+
+    background-position: 
+    left top, center top, right top,
+    left center, right center,
+    left bottom, center bottom, right bottom;
+
+    background-size:
+    50px, calc(100% - 100px) 50px, 50px,
+    50px calc(100% - 100px), 50px calc(100% - 100px),
+    50px, calc(100% - 100px) 50px, 50px;
+
+/*     
+    50px, calc(100% - 100px) 50px, 50px,
+    50px calc(100% - 100px), 50px calc(100% - 100px),
+    50px, calc(100% - 100px) 50px, 50px; */
+
+    
+
+    background-repeat: no-repeat;
+
+
+}
+
+iframe{
+    height: 100%;
+    width: 100%;
+    border: none;
+}
