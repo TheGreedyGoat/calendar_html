@@ -12,26 +12,28 @@
     <body id = "body">
         
         <main>
+            <h1 id = "date_title">dd. Monat yyyy:</h1>
+            <section id = "noteSection"> 
+                <h3 id = "notesTitle"> Notizen:</h3>
+                <ul id = "noteList">
+                    <li id = "noteInputLine">
+                        <div id = "noteInputDiv">
+                            <textarea id = "noteInputField" ></textarea>
+                            <button id = "addNoteButton">+</button>
+                        </div>
+                    </li>
 
-
-            <section class = "daySection" > 
-                    <section id = "noteSection"> 
-                        <h3 id = "notesTitle"> Notizen:</h3>
-                        <ul id = "noteList">
-                            <li id = "noteInputLine">
-                                <div id = "noteInputDiv">
-                                    <textarea id = "noteInputField" ></textarea>
-                                    <button id = "addNoteButton">+</button>
-                                </div>
-                            </li>
-
-                        </ul>
-                    </section>
-                </section>
+                </ul>
+            </section>
 
             </main>
         
-        <script src = "scripts/p5.js"></script>
-        <script src = "scripts/dayView.js"></script>
+        <script src = "scripts/day_view/p5.js"></script>
+
+        <script src = "scripts/common/calendarTools.js"></script>
+        <script src = "scripts/common/messageCenter.js"></script>
+
+        <script src = "scripts/day_view/day_message_processing.js"></script>
+        <script src = "scripts/day_view/dayView.js"></script>
     </body>
 </html>

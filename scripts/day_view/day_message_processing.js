@@ -1,12 +1,11 @@
 
-let frame = document.querySelector("#day_view");
-recievers.push(frame.contentWindow);
-
 function processMessage(message){
-    console.log(message)
     switch(message.type){
+        case "setup":
+            setupPage(message.data.date);
+        break;
         case "click":
-            processClickMessage(message.data)
+            processClickMessage(message.data);
             break;
         case "log":
             break;
@@ -19,13 +18,10 @@ function processMessage(message){
 function processClickMessage(clickData){
     switch(clickData.clickType){
         case "date cell":
-            setActiveDate(clickData.clickValue);
-            break;
-        case "month scroll":
-            addMonth(clickData.clickValue);
+            setActiveDate(clickData.clickValue)
             break;
         default:
-            console.log("Dunno what you just clicked :(");
+            console.log("Dunno what you just clicked :( (Day)");
             break;
     }
 }

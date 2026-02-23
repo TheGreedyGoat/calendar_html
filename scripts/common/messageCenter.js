@@ -1,23 +1,24 @@
 const clickSound = new Audio("assets/sounds/minecraft_click.mp3");
-const recievers = [] // :windows, fill in seperate script
+const RECIEVERS = [] // :iframes etc., fill in seperate script
 
 
 window.addEventListener("message", function(event){
-    console.log("message Recieved!")
     recieveMessage(event.data);
 });
 
 
-function sendMessage(messageType, messageData){
-    
-    for(let i = 0; i < recievers.length; i++){
-        let rec = recievers[i];
-        
-        rec.postMessage({
+function sendMessageToAllWindows(messageType, messageData){
+    for(let i = 0; i < RECIEVERS.length; i++){
+        let rec = RECIEVERS[i];
+        sendMessage(rec, messageType, messageData)
+    }
+}
+
+function sendMessage(reciever, messageType, messageData){
+    reciever.postMessage({
             type: messageType,
             data: messageData
         }, "*");
-    }
 }
 
 

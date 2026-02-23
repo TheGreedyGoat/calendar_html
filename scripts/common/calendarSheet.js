@@ -87,9 +87,9 @@ class CalendarSheet{
         
         let htmlCell = document.createElement("td");  // day
         let cellDiv = document.createElement("div"); // dateContainer
-        // cellDiv.setAttribute("onclick", `sendMessage('${cellDate.toString()}')`)
+        
         cellDiv.addEventListener("click", function(event){
-            sendMessage("click", {
+            sendMessageToAllWindows("click", {
                 clickType: "date cell",
                 clickValue: cellDate
             });

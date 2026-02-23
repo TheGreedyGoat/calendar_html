@@ -6,13 +6,16 @@ const CALENDAR_SHEET_ID = "calendar_sheet";
 let activeMonth;
 let activeYear;
 
-recievers.push(window);
-
-setupPage();
 
 
-function setupPage(){
-    setActiveDate(new Date())
+sendMessageToAllWindows("setup",{
+        date: new Date()
+});
+
+
+function setupPage(setupDate){
+    setActiveDate(setupDate);
+    
 }
 
 function setActiveDate(newDate = new Date()){
@@ -35,11 +38,11 @@ function buildDataSheet(date = new Date()){
 
 function dateClicked(date){
     setActiveDate(date);
-    document.querySelector("main").style.transform = "translateX(-100dvw)"
+    document.querySelector("main").style.transform = "translateX(0dvw)"
 }
 
 function resetPosition(){
-    document.querySelector("main").style.transform = "translateX(0dvw)"
+    document.querySelector("main").style.transform = "translateX(100dvw)"
 }
     
 
