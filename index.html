@@ -2,23 +2,25 @@
 
 <html>
 <head>
+    <link href="https://fonts.cdnfonts.com/css/minecraftia" rel="stylesheet">
+                
+    <link rel="stylesheet" href="styleSheets/style.css"/>
 
-    <link rel="stylesheet" href="styleSheets/style.css">
 </head>
 
 
 <body>
     <!--soll sich bewegen -->
     <main> 
-
+        <button id  = "to_day_view" onclick = "sendMessage(window, 'click', {clickType: 'to day view'})"></button>
         <div id = "calendar_target">
             <div id = "monthButtonContainer">
-                <button class = "monthButton" id  ="lastMonth" onclick="sendMessage(window, 'click',{clickType: 'month scroll',clickValue: -1});"></button>
-                <button class = "monthButton" id  ="nextMonth" onclick="sendMessage(window, 'click',{clickType: 'month scroll',clickValue: +1});"></button>
+                <button class = "monthButton" id  ="lastMonth" onclick="sendMessage(window, 'click',{clickType: 'month scroll',clickValue: -1});"><</button>
+                <button class = "monthButton" id  ="nextMonth" onclick="sendMessage(window, 'click',{clickType: 'month scroll',clickValue: +1});">></button>
             </div>
         </div>
 
-        <div id = "frameHolder" onclick="resetPosition()">
+        <div id = "frameHolder" onclick="swipeLeft()">
             <iframe src = "dayView.html" id = "day_view" width ="100dvw" height = "100%" frameborder="0"></iframe>  
         </div>
     </main>

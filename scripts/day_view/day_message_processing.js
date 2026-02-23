@@ -1,3 +1,7 @@
+// !!!!----DAY----!!!!
+RECIEVERS.push(window);
+RECIEVERS.push(window.parent);
+
 
 function processMessage(message){
     switch(message.type){
@@ -9,6 +13,9 @@ function processMessage(message){
             break;
         case "log":
             break;
+        case "note object":
+            recieveNotes(message.data);
+        break;
         default:
             console.log("Dunno what to do with that :(")
             break;

@@ -1,6 +1,8 @@
 
 html, body{
 
+    font-family: 'Minecraftia', sans-serif;
+                                                
     overflow-y: hidden;
     padding: 0;
     margin:0;
@@ -11,24 +13,57 @@ main{
     height: 100%;
     padding: 0;
 
-    /* overflow: hidden; */
+    overflow: hidden;
 
     position: absolute;
-    left: -100dvw;
+    left: /*-100dvw;*/ 0;
 
     transition: transform .5s;
 
     display: flex;
+    justify-content: space-between;
 }
 
 #calendar_target{
-    width: 50%;
-    height: 100%;
+    max-width: 50%;
+    max-Height: 100%;
 
-    background-color: blueviolet;
+    width: 300px;
+    height:300px;
 
-    box-sizing: border-box;
-    border: solid black 50px;
+    background-image: 
+    url("../assets/images/calendar_background/Calendar_Top_Left.png"),
+    url("../assets/images/calendar_background/Calendar_Top_Center.png"),
+    url("../assets/images/calendar_background/Calendar_Top_Right.png"),
+
+    url("../assets/images/calendar_background/Calendar_Center_Left.png"),
+    url("../assets/images/calendar_background/Calendar_Center_Center.png"),
+    url("../assets/images/calendar_background/Calendar_Center_Right.png"),
+
+    url("../assets/images/calendar_background/Calendar_Bottom_Left.png"),
+    url("../assets/images/calendar_background/Calendar_Bottom_Center.png"),
+    url("../assets/images/calendar_background/Calendar_Bottom_Right.png");
+
+    background-repeat: no-repeat;
+    background-position: 
+    left top, center top, right top,
+    left center, center center, right center,
+    left bottom, center bottom, right bottom;
+
+    background-size: 
+    auto, calc(100% - 140px) 70px, auto,
+    70px calc(100% - 140px), calc(100% - 140px) calc(100% - 140px), 70px calc(100% - 140px),
+    auto, calc(100% - 140px) 70px, auto;
+    /* z-index: -1; */
+    align-items: center;
+    justify-items: center;
+}
+
+.calendar_sheet{
+    
+    width: fit-content;
+    height: fit-content;
+
 }
 
 #frameHolder{
@@ -38,6 +73,7 @@ main{
     height: calc(100% - 100px);
     padding: 50px;
     margin: 0;
+
 
     background-image: 
     url("../assets/images/b_board_frame/b_board_frame_TL.png"),

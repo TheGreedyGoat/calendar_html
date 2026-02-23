@@ -7,12 +7,6 @@ let activeMonth;
 let activeYear;
 
 
-
-sendMessageToAllWindows("setup",{
-        date: new Date()
-});
-
-
 function setupPage(setupDate){
     setActiveDate(setupDate);
     
@@ -38,12 +32,10 @@ function buildDataSheet(date = new Date()){
 
 function dateClicked(date){
     setActiveDate(date);
-    document.querySelector("main").style.transform = "translateX(0dvw)"
+    swipeRight();
 }
 
-function resetPosition(){
-    document.querySelector("main").style.transform = "translateX(100dvw)"
-}
+
     
 
 function placeHTMLSheet(sheet){
@@ -61,9 +53,15 @@ function placeHTMLSheet(sheet){
     wrapper.setAttribute("id", CALENDAR_WRAPPER_ID)
     CALENDAR_TARGET.prepend(wrapper);
 }
+//
 
+function swipeLeft(){
+    document.querySelector("main").style.transform = "translateX(100dvw)"
+}
 
-
+function swipeRight(){
+    document.querySelector("main").style.transform = "translateX(0dvw)"
+}
 
 function monthBtnClicked(n  = 1){
     addMonth(n)
@@ -73,4 +71,17 @@ function addMonth(n = 1){
     setActiveDate(new Date(activeYear, activeMonth + n, 1))
 }
 
+function addNote(noteMessageObject){
+    if(!noteMessageObject.note) return;
+    CalendarTools.writeNote(noteMessageObject.date, noteMessageObject.note);
+    console.log();
+    sendNotesToAll(noteMessageObject.date);
+}
 
+function sendNotesToAll(date = newDate()){
+    let noteObject = CalendarTools.tryGetNotesOfDate(date);
+    console.log(noteObject);
+    if(noteObject){
+        sendMessageToAllWindows("note object", noteObject);
+    }
+}

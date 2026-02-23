@@ -21,7 +21,7 @@ class CalendarTools{
     }
 
     static monthYearStringInd(m, y){
-        return `${CalendarTools.months[m]}, ${y}`;
+        return `${CalendarTools.months[m]} ${y}`;
     }
 
 
@@ -44,19 +44,6 @@ class CalendarTools{
         noteWrapper.notes.push(note)
     }
 
-    static daysBetweenSigned(date1  = new Date(), date2 = new Date()) {
-
-        // The number of milliseconds in one day
-        const ONE_DAY = 1000 * 60 * 60 * 24;
-
-        // Calculate the difference in milliseconds
-        const differenceMs = date1 - date2;
-
-        // Convert back to days and return
-        return Math.round(differenceMs / ONE_DAY);
-
-    }
-
     static buildWeekdayHeader(){
         let weekdays = CalendarTools.weekdays;
         let row = document.createElement("tr");
@@ -67,6 +54,14 @@ class CalendarTools{
             row.appendChild(th)
         }
         return row
+    }
+
+    static datesEqual(date1 = new Date(), date2 = new Date()){
+        return (
+            date1.getDate() == date2.getDate() 
+        &&  date1.getMonth() == date2.getMonth()
+        &&  date1.getFullYear() == date2.getFullYear());
+    
     }
 }
 

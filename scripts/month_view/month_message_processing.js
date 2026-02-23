@@ -1,4 +1,4 @@
-
+// !!!!----MONTH----!!!!
 RECIEVERS.push(window);
 
 
@@ -12,6 +12,7 @@ for(let i = 0; i < frames.length; i++){
 }
 
 function processMessage(message){
+    console.log("message recieved! (month)", message);
     switch(message.type){
         case "setup":
             setupPage(message.date);
@@ -22,7 +23,7 @@ function processMessage(message){
         case "log":
             break;
         default:
-            console.log("Dunno what to do with that :(")
+            console.log("Dunno what to do with that :( (month)")
             break;
     }
 }
@@ -35,8 +36,15 @@ function processClickMessage(clickData){
         case "month scroll":
             addMonth(clickData.clickValue);
             break;
+        case "add note":
+            console.log("adding note", clickData.clickValue);
+            addNote(clickData.clickValue)
+            break;
+        case "to day view":
+            swipeRight()
+            break;
         default:
-            console.log("Dunno what you just clicked :(");
+            console.log("Dunno what you just clicked :( (month)");
             break;
     }
 }
