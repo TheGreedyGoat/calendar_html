@@ -16,8 +16,12 @@ class CalendarTools{
         return `${date.getDate()}. ${CalendarTools.months[date.getMonth()]} ${date.getFullYear()}`
     }
 
-    static monthYearString(date = new Date()){
-        return `${CalendarTools.months[date.getMonth()]} ${date.getFullYear()}`
+    static monthYearStringDate(date = new Date()){
+        return this.monthYearStringInd(date.getMonth(), date.getFullYear());
+    }
+
+    static monthYearStringInd(m, y){
+        return `${CalendarTools.months[m]}, ${y}`;
     }
 
 

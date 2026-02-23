@@ -26,6 +26,9 @@ class CalendarSheet{
 
     }
 
+    static getSheet(date = new date()){
+        return new CalendarSheet(date);
+    }
 
     static getIndexFromGrid(w, d){
         return w * 7 + d
@@ -49,10 +52,76 @@ class CalendarSheet{
         return date.getMonth() == this.monthNum
             &&  date.getFullYear() == this.year
     }
-    getDataOfDate(){
+    
+    toHTML(addHeader = true){
+        let htmlSheet = document.createElement("table");
+        htmlSheet.classList.add("calendar_sheet");
 
+        if(addHeader) CalendarSheet.addHeader(htmlSheet)
+
+        for(let w = 0; w < 6; w++){
+            let row = document.createElement("tr");
+            for(let d = 0; d < 7; d++){
+                let htmlCell = this.buildHTMLCell(w, d)
+                this.setCellAttributes(htmlCell, w, d)
+                row.appendChild(htmlCell);
+            }
+            htmlSheet.appendChild(row);
+        }
+        return htmlSheet;
     }
 
+    static addHeader(sheet){
+        let headRow = document.createElement("tr");
+        headRow.classList.add("calendar_head");
+        for(let wdString in CalendarTools.weekdays){
+            let headCell = document.createElement("th");
+            headCell.classList.add("calendar_head_cell")
+            headRow.appendChild(headCell)
+        }
+        sheet.appendChild(headRow);
+    }
+
+    buildHTMLCell(w, d){
+        let cellDate = this.getDataAtGridIndex(w, d).date
+        
+        let htmlCell = document.createElement("td");  // day
+        let cellDiv = document.createElement("div"); // dateContainer
+        // cellDiv.setAttribute("onclick", `sendMessage('${cellDate.toString()}')`)
+        cellDiv.addEventListener("click", function(event){
+            sendMessage("click", {
+                clickType: "date cell",
+                clickValue: cellDate
+            });
+        })
+        cellDiv.innerHTML = cellDate.getDate()
+        cellDiv.classList.add("dateContainer");
+
+        htmlCell.appendChild(cellDiv)
+        return htmlCell;
+    }
+
+    setCellAttributes(htmlCell, w, d){
+        let elemClasses = htmlCell.classList;
+        elemClasses.add("day");
+        let cIndex = CalendarSheet.getIndexFromGrid(w, d);
+
+        //current or other month
+        if(cIndex < this.firstofMonthIndex || cIndex > this.firstOfNextMonthIndex){
+            elemClasses.add("other");
+        }
+        else{
+            elemClasses.add("current");
+        }
+        //sunday
+        if(d == 6){
+            elemClasses.add("sunday");
+        }
+        // weekday
+        else{
+            elemClasses.add("weekday");
+        }
+    }
 
 }
 

@@ -11,21 +11,23 @@
     <!--soll sich bewegen -->
     <main> 
 
-            <div id = "calendar_target">
-                <div id = "monthButtonContainer">
-                    <button class = "monthButton" id  ="lastMonth" onclick="monthBnClicked(-1); sendClickMessage();"></button>
-                    <button class = "monthButton" id  ="nextMonth" onclick="monthBnClicked(+1); sendClickMessage()"></button>
-                </div>
+        <div id = "calendar_target">
+            <div id = "monthButtonContainer">
+                <button class = "monthButton" id  ="lastMonth" onclick="sendMessage('click',{clickType: 'month scroll',clickValue: -1});"></button>
+                <button class = "monthButton" id  ="nextMonth" onclick="sendMessage('click',{clickType: 'month scroll',clickValue: +1});"></button>
             </div>
+        </div>
 
-            <div id = "frameHolder" onclick="resetPosition()">
-            <iframe width ="100dvw" height = "100%" frameborder="0"></iframe>  
-            </div>
+        <div id = "frameHolder" onclick="resetPosition()">
+            <iframe src = "dayView.html" id = "day_view" width ="100dvw" height = "100%" frameborder="0"></iframe>  
+        </div>
     </main>
     
+    
     <script src = "scripts/messageCenter.js"></script>
+    <script src = "scripts/month_message_processing.js"></script>
     <script src = "scripts/calendarTools.js"></script>
     <script src = "scripts/calendarSheet.js"></script>
-    <script src = "scripts/calendar.js"></script>
+    <script src = "scripts/monthView.js"></script>
 </body>
 </html>
