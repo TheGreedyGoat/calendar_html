@@ -61,6 +61,7 @@ class CalendarSheet{
 
         for(let w = 0; w < 6; w++){
             let row = document.createElement("tr");
+            row.classList.add("weekRow")
             for(let d = 0; d < 7; d++){
                 let htmlCell = this.buildHTMLCell(w, d)
                 this.setCellAttributes(htmlCell, w, d)
@@ -73,10 +74,13 @@ class CalendarSheet{
 
     static addHeader(sheet){
         let headRow = document.createElement("tr");
-        headRow.classList.add("calendar_head");
-        for(let wdString in CalendarTools.weekdays){
+        headRow.classList.add("calendarWeekRow");
+        for(let wdString of CalendarTools.weekdays){
+            console.log(wdString)
             let headCell = document.createElement("th");
-            headCell.classList.add("calendar_head_cell")
+            headCell.classList.add("calendarWeekCell");
+            headCell.classList.add(wdString);
+            headCell.innerText = wdString
             headRow.appendChild(headCell)
         }
         sheet.appendChild(headRow);
@@ -96,7 +100,8 @@ class CalendarSheet{
         })
         cellDiv.innerHTML = cellDate.getDate()
         cellDiv.classList.add("dateContainer");
-
+        let numClass = CalendarSheet.getIndexFromGrid(w,d) % 2 === 0? "even":"odd"
+        htmlCell.classList.add(numClass)
         htmlCell.appendChild(cellDiv)
         return htmlCell;
     }

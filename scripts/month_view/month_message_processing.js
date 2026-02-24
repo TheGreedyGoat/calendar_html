@@ -1,6 +1,6 @@
 // !!!!----MONTH----!!!!
 RECIEVERS.push(window);
-
+sendMessage(window, "setup", new Date());
 
 const frames = document.getElementsByTagName("iFrame")
 for(let i = 0; i < frames.length; i++){
@@ -42,6 +42,9 @@ function processClickMessage(clickData){
             break;
         case "to day view":
             swipeRight()
+            break;
+        case "to month view":
+            swipeLeft()
             break;
         default:
             console.log("Dunno what you just clicked :( (month)");

@@ -8,19 +8,25 @@
 
 </head>
 
-
 <body>
     <!--soll sich bewegen -->
     <main> 
-        <button id  = "to_day_view" onclick = "sendMessage(window, 'click', {clickType: 'to day view'})"></button>
-        <div id = "calendar_target">
-            <div id = "monthButtonContainer">
-                <button class = "monthButton" id  ="lastMonth" onclick="sendMessage(window, 'click',{clickType: 'month scroll',clickValue: -1});"><</button>
-                <button class = "monthButton" id  ="nextMonth" onclick="sendMessage(window, 'click',{clickType: 'month scroll',clickValue: +1});">></button>
-            </div>
-        </div>
+         <section id = "left_section">   
+                    <button id  = "to_day_view" onclick = "sendMessage(window, 'click', {clickType: 'to day view'})"></button>
 
-        <div id = "frameHolder" onclick="swipeLeft()">
+            <div id = "calendar_wrapper">
+                <h3 id = "calendar_head"></h3>
+                <div id = "calendar_target" >
+
+                    <div id = "monthButtonContainer">
+                        <button class = "monthButton" id  ="lastMonth" onclick="sendMessage(window, 'click',{clickType: 'month scroll',clickValue: -1});"></button>
+                        <button class = "monthButton" id  ="nextMonth" onclick="sendMessage(window, 'click',{clickType: 'month scroll',clickValue: +1});"></button>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+        <div id = "frameHolder"  onclick = "sendMessage(window, 'click', {clickType: 'to month view'})">
             <iframe src = "dayView.html" id = "day_view" width ="100dvw" height = "100%" frameborder="0"></iframe>  
         </div>
     </main>
@@ -28,9 +34,9 @@
     
     <script src = "scripts/common/messageCenter.js"></script>
     <script src  = "scripts/common/calendarTools.js"></script>
-    <script src  = "scripts/common/calendarSheet.js"></script>
+    <script src  = "scripts/common/calendarSheet.js" ></script>
     
-    <script src = "scripts/month_view/month_message_processing.js"></script>
-    <script src = "scripts/month_view/monthView.js"></script>
+    <script src = "scripts/month_view/month_message_processing.js" ></script>
+    <script src = "scripts/month_view/monthView.js" ></script>
 </body>
 </html>

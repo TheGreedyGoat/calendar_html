@@ -2,7 +2,7 @@
 html, body{
 
     font-family: 'Minecraftia', sans-serif;
-                                                
+    font-size: 20px;               
     overflow-y: hidden;
     padding: 0;
     margin:0;
@@ -10,110 +10,252 @@ html, body{
 
 main{
     width: 200dvw;
-    height: 100%;
+    height: 100vh;
     padding: 0;
 
     overflow: hidden;
 
     position: absolute;
-    left: /*-100dvw;*/ 0;
-
+    left: -100vw;
+    top:0;
     transition: transform .5s;
 
     display: flex;
     justify-content: space-between;
-}
-
-#calendar_target{
-    max-width: 50%;
-    max-Height: 100%;
-
-    width: 300px;
-    height:300px;
-
-    background-image: 
-    url("../assets/images/calendar_background/Calendar_Top_Left.png"),
-    url("../assets/images/calendar_background/Calendar_Top_Center.png"),
-    url("../assets/images/calendar_background/Calendar_Top_Right.png"),
-
-    url("../assets/images/calendar_background/Calendar_Center_Left.png"),
-    url("../assets/images/calendar_background/Calendar_Center_Center.png"),
-    url("../assets/images/calendar_background/Calendar_Center_Right.png"),
-
-    url("../assets/images/calendar_background/Calendar_Bottom_Left.png"),
-    url("../assets/images/calendar_background/Calendar_Bottom_Center.png"),
-    url("../assets/images/calendar_background/Calendar_Bottom_Right.png");
-
-    background-repeat: no-repeat;
-    background-position: 
-    left top, center top, right top,
-    left center, center center, right center,
-    left bottom, center bottom, right bottom;
-
-    background-size: 
-    auto, calc(100% - 140px) 70px, auto,
-    70px calc(100% - 140px), calc(100% - 140px) calc(100% - 140px), 70px calc(100% - 140px),
-    auto, calc(100% - 140px) 70px, auto;
-    /* z-index: -1; */
-    align-items: center;
-    justify-items: center;
-}
-
-.calendar_sheet{
     
-    width: fit-content;
-    height: fit-content;
-
+    background-image: url("../assets/images/UglyWallpaper.png");
 }
 
-#frameHolder{
-    
-    
-    width: calc(50% - 100px);
-    height: calc(100% - 100px);
-    padding: 50px;
-    margin: 0;
+    #left_section{
+        width: 50%;
+        height: 100%;
+        margin: 0;
 
 
-    background-image: 
-    url("../assets/images/b_board_frame/b_board_frame_TL.png"),
-    url("../assets/images/b_board_frame/b_board_frame_TC.png"),
-    url("../assets/images/b_board_frame/b_board_frame_TR.png"),
+        display: flex;
+        flex-direction: column;
+    }
 
-    url("../assets/images/b_board_frame/b_board_frame_CL.png"),
-    url("../assets/images/b_board_frame/b_board_frame_CR.png"),
+        #to_day_view{
+            width: 20px;
+            height: 20px;
+            align-self: center;
+        }
+        #calendar_wrapper{
+            /* background-color:  red; */
+        
+            width: calc(50% - 10px);
+            height: calc(50dvh + 75px);
+            position: absolute;
+            top: 50px;
+            align-self: center;
+            justify-self: center;
+        }
+            #calendar_head{
+                width: 100%;
+                height: 40px;
+                margin:0;
+                text-align: center;
+                background-image: 
+                url("../assets/images/calendar_background/calendar_head/Calendar_Head_Left.png"),
+                url("../assets/images/calendar_background/calendar_head/Calendar_Head_Center.png"),
+                url("../assets/images/calendar_background/calendar_head/Calendar_Head_Right.png");
 
-    url("../assets/images/b_board_frame/b_board_frame_BL.png"),
-    url("../assets/images/b_board_frame/b_board_frame_BC.png"),
-    url("../assets/images/b_board_frame/b_board_frame_BR.png")
-    ;
+                background-repeat: no-repeat;
+                
+                background-position: left, center, right;
 
-    background-color: rgb(66, 66, 66);
+                background-size: auto, calc(100% - 40px) 40px, auto;
 
-    background-position: 
-    left top, center top, right top,
-    left center, right center,
-    left bottom, center bottom, right bottom;
-
-    background-size:
-    50px, calc(100% - 100px) 50px, 50px,
-    50px calc(100% - 100px), 50px calc(100% - 100px),
-    50px, calc(100% - 100px) 50px, 50px;
-
-/*     
-    50px, calc(100% - 100px) 50px, 50px,
-    50px calc(100% - 100px), 50px calc(100% - 100px),
-    50px, calc(100% - 100px) 50px, 50px; */
-
-    
-
-    background-repeat: no-repeat;
+                /* outline: solid yellow; */
+            }
+            #calendar_target{
 
 
-}
+                width: 100%;
+                height: 100%;
 
-iframe{
-    height: 100%;
-    width: 100%;
-    border: none;
-}
+                background-image: 
+                url("../assets/images/calendar_background/Calendar_Top_Left.png"),
+                url("../assets/images/calendar_background/Calendar_Top_Center.png"),
+                url("../assets/images/calendar_background/Calendar_Top_Right.png"),
+
+                url("../assets/images/calendar_background/Calendar_Center_Left.png"),
+                url("../assets/images/calendar_background/Calendar_Center_Center.png"),
+                url("../assets/images/calendar_background/Calendar_Center_Right.png"),
+
+                url("../assets/images/calendar_background/Calendar_Bottom_Left.png"),
+                url("../assets/images/calendar_background/Calendar_Bottom_Center.png"),
+                url("../assets/images/calendar_background/Calendar_Bottom_Right.png");
+
+                background-repeat: no-repeat;
+                background-position: 
+                left top, center top, right top,
+                left center, center center, right center,
+                left bottom, center bottom, right bottom;
+
+                background-size: 
+                auto, calc(100% - 130px) 70px, auto,
+                70px calc(100% - 130px), calc(100% - 130px) calc(100% - 130px), 70px calc(100% - 130px),
+                auto, calc(100% - 130px) 70px, auto;
+                /* z-index: -1; */
+                display:flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+
+                /* outline: solid blue; */
+            }
+
+            
+                .calendar_sheet{
+                    
+                    width: calc(100% - 40px);
+                    height: calc(100% - 75px);
+                    margin:0;
+                    margin-top:5px;
+                    padding: 0;
+
+                    border-spacing: 0;;
+                    box-sizing: border-box;
+                    border-collapse: collapse;
+                    /* border: solid black 2.5px; */
+
+                }
+                    .calendar_sheet tr{
+                        margin: 0;
+                        box-sizing: border-box;
+                        /* outline: dotted red 2px; */
+                    }
+
+                    .calendarWeekRow{
+                        box-sizing: border-box;
+                    }
+
+                    .calendar_sheet td, .calendar_sheet th{
+                        font-weight: 700;
+                        width:35px;
+                        height: 35px;
+                        align-items: center;
+                        justify-items: center;
+                    
+                    }
+                    .calendar_sheet th{
+                        box-sizing: border-box;
+                        /* border-bottom: solid black 2.5px; */
+                        /* border-top: solid black 2.5px; */
+                        /* background-color: rgba(0, 0, 0, 0.473); */
+                    }
+                    .day{
+                        padding: 0;
+                        box-sizing: border-box;
+                        border: solid rgb(68, 95, 95) 5px;
+                    }
+
+
+                    .even{
+                        background-color: rgba(0, 0, 0, 0.281);
+                    }
+
+                    .sunday{
+                        color:darkred;
+                    }
+                        .dateContainer{
+                            width:100%;
+                            height: 100%;
+                            margin:0;
+
+                            text-align: center;
+                            align-content: center;
+                            box-sizing: border-box;
+                            
+                        }
+                        .dateContainer:hover{
+                            background-color: rgba(0, 0, 255, 0.603);
+                        }
+                #monthButtonContainer{
+                    width: 100%;;
+                    display:flex;
+                    justify-content: space-between;
+
+                    box-sizing: border-box;
+                    /* border: solid green 1px; */
+
+                }
+
+                .monthButton{
+                    width: 70px;
+                    height: 70px;
+                    background-color: rgba(240, 248, 255, 0);
+                    background-image: url("../assets/images/calendar_background/Calendar_Bottom_Left.png");
+
+                    border: none;
+                }
+
+                .monthButton:hover{
+                        background-image: url("../assets/images/calendar_background/Calendar_Bottom_Left_Hover.png");
+
+                }
+
+                #nextMonth{
+                transform: scaleX(-1);
+                }
+
+
+
+    /* ----RIGHT SIDE---- */
+
+    /* #right_section{
+            
+    } */
+        #frameHolder{
+            
+            
+            width: calc(100dvw - 100px);
+            height: calc(100% - 100px);
+            padding: 50px;
+            margin: 0;
+
+
+            background-image: 
+            url("../assets/images/b_board_frame/b_board_frame_TL.png"),
+            url("../assets/images/b_board_frame/b_board_frame_TC.png"),
+            url("../assets/images/b_board_frame/b_board_frame_TR.png"),
+
+            url("../assets/images/b_board_frame/b_board_frame_CL.png"),
+            url("../assets/images/b_board_frame/b_board_frame_CR.png"),
+
+            url("../assets/images/b_board_frame/b_board_frame_BL.png"),
+            url("../assets/images/b_board_frame/b_board_frame_BC.png"),
+            url("../assets/images/b_board_frame/b_board_frame_BR.png")
+            ;
+
+            /* background-color: rgb(66, 66, 66); */
+
+            background-position: 
+            left top, center top, right top,
+            left center, right center,
+            left bottom, center bottom, right bottom;
+
+            background-size:
+            50px, calc(100% - 100px) 50px, 50px,
+            50px calc(100% - 100px), 50px calc(100% - 100px),
+            50px, calc(100% - 100px) 50px, 50px;
+
+        /*     
+            50px, calc(100% - 100px) 50px, 50px,
+            50px calc(100% - 100px), 50px calc(100% - 100px),
+            50px, calc(100% - 100px) 50px, 50px; */
+
+            
+
+            background-repeat: no-repeat;
+
+
+        }
+
+            iframe{
+                height: 100%;
+                width: 100%;
+                border: none;
+            }

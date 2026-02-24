@@ -1,6 +1,7 @@
 const CALENDAR_TARGET = document.getElementById("calendar_target")
 const CALENDAR_WRAPPER_ID = "calendar_wrapper";
 const CALENDAR_SHEET_ID = "calendar_sheet";
+const CALENDAR_HEAD_ID = "calendar_head";
 
 
 let activeMonth;
@@ -39,19 +40,15 @@ function dateClicked(date){
     
 
 function placeHTMLSheet(sheet){
-    if(CALENDAR_TARGET.firstChild.id == CALENDAR_WRAPPER_ID){
+    if(CALENDAR_TARGET.firstChild.id == CALENDAR_SHEET_ID){
         CALENDAR_TARGET.removeChild(CALENDAR_TARGET.firstChild);
     }
 
-    let wrapper  = document.createElement("div");
-    let heading = document.createElement("h3");
-
+    heading = document.getElementById(CALENDAR_HEAD_ID);
     heading.innerText = CalendarTools.monthYearStringInd(activeMonth, activeYear);
-
-    wrapper.appendChild(heading);
-    wrapper.appendChild(sheet.toHTML());
-    wrapper.setAttribute("id", CALENDAR_WRAPPER_ID)
-    CALENDAR_TARGET.prepend(wrapper);
+    let htmlSheet = sheet.toHTML();
+    htmlSheet.setAttribute("id", CALENDAR_SHEET_ID);
+    CALENDAR_TARGET.prepend(htmlSheet);
 }
 //
 
