@@ -3,7 +3,7 @@ html, body{
 
     font-family: 'Minecraftia', sans-serif;
     font-size: 20px;               
-    overflow-y: hidden;
+    /* overflow: hidden; */
     padding: 0;
     margin:0;
 }
@@ -16,7 +16,7 @@ main{
     overflow: hidden;
 
     position: relative;
-    left: -100vw;
+    /* left: -100vw; */
     top:0;
     transition: transform .5s ease;
 
@@ -56,9 +56,9 @@ main.right{
         }
         #calendar_wrapper{
             /* background-color:  red; */
-        
-            width: calc(50% - 10px);
-            height: calc(50dvh + 75px);
+            aspect-ratio: 1/1;
+            width: calc(50% - 50px);
+            /* height: calc(50dvh + 75px); */
             position: absolute;
             top: 50px;
             align-self: center;
@@ -147,6 +147,7 @@ main.right{
 
                     .calendar_sheet td, .calendar_sheet th{
                         font-weight: 700;
+                        font-size: 150%;
                         width:35px;
                         height: 35px;
                         align-items: center;

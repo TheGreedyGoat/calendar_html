@@ -24,7 +24,32 @@ class CalendarTools{
         return `${CalendarTools.months[m]} ${y}`;
     }
 
+    static dateToJsonKey(date = new Date()){
+        return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+    }
+    /**
+     * 
+     * @param {number} y 
+     * @param {number} m 
+     * @param {number} d 
+     */
+    static valuesToJsonDKey(y, m, d){
+        return `${CalendarTools.nDigitNumber(y, 4)}-${CalendarTools.nDigitNumber(m, 2)}-${CalendarTools.nDigitNumber(d, 2)}`;
+    }
+    /**
+     * 
+     * @param {number} n the number to represent
+     * @param {number} digits the numbers of digits
+     * @returns 
+     */
+    static nDigitNumber(n, digits){
+        let result  = n.toString();
+        while(result.length < digits){
+            result = "0" + result;
+        }
 
+        return result;
+    }
 
     static tryGetNotesOfDate(date = new Date()){
         for(let i = 0; i < CalendarTools.dateNotes.length; i++){

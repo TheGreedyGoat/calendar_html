@@ -3,13 +3,11 @@ new p5(backGroundSketch)
 function backGroundSketch(p){
     const pixelSize = 5
     const parentid = "body"
-    const variation = 10;
+    const variation = 5;
     const median = 75;
-    const strength = 100;
     const hue = 35;
     const sat = 60;
-    const borderWidth = 10; // in "Style-Pixels"
-    buildBackground(p, parentid, pixelSize, variation, median, hue, sat, borderWidth)
+    buildBackground(p, parentid, pixelSize, variation, median, hue, sat)
 }
 /**
  * 
@@ -21,7 +19,7 @@ function backGroundSketch(p){
  * @param {*} hue 
  * @param {*} sat 
  */
-function buildBackground(p, parentid, pixelSize, variation, median, hue, sat, borderWidth){
+function buildBackground(p, parentid, pixelSize, variation, median, hue, sat){
   
   p.setup = function() {
     p.pixelDensity(1)
