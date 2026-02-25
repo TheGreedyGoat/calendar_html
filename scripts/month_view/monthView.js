@@ -60,10 +60,6 @@ function swipeRight(){
     document.querySelector("main").style.transform = "translateX(0dvw)"
 }
 
-function monthBtnClicked(n  = 1){
-    addMonth(n)
-}
-
 function addMonth(n = 1){
     setActiveDate(new Date(activeYear, activeMonth + n, 1))
 }
