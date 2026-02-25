@@ -1,5 +1,6 @@
 
 const DATE_TITLE_ELEMENT = document.getElementById("date_title")
+const HOLIDAY_SECTION = document.querySelector("#holiday_section")
 
 const NOTE_LIST = document.getElementById("noteList")
 const noteInputLine = document.getElementById("noteInputLine")
@@ -9,7 +10,7 @@ const addNoteButton = document.getElementById("addNoteButton")
 
 let activeDate = new Date();
 
-
+setupPage();
 
 function setupPage(setupDate = new Date()){
     activeDate = setupDate;
@@ -24,7 +25,7 @@ function setActiveDate(newDate = new Date()){
 
 function refresh(){
     DATE_TITLE_ELEMENT.innerHTML = CalendarTools.dateString(activeDate);
-
+    HOLIDAY_SECTION.innerText = Fetcher.getHolidaysFromDate(activeDate);
 }
 
 function setupDaySection(){

@@ -7,7 +7,7 @@ getData(year);
 
 
 async function getData(year) {
-  const url = `https://digidates.de/api/v1/germanpublicholidays?year=${year}&region=de`;
+  const url = `https://date.nager.at/api/v3/publicholidays/2002/DE`;
 
     try {
         const response = await fetch(url);
@@ -27,11 +27,5 @@ async function getData(year) {
 function dosStuffWithThatJSONThingy(jsonThingy){
     hData = jsonThingy;
     console.log(jsonThingy);
-    for(let m = 1; m <= 12; m++){
-        for(let d = 1; d <= 31; d++){
-            let entry = jsonThingy[CalendarTools.valuesToJsonDKey(year, m, d)];
-            if(entry) console.log(entry);
-        }
-    }
 }
 
