@@ -1,3 +1,89 @@
 :root{
     --pixel-Size: 5px;
 }
+
+html, body{
+    font-family:  'minecraftia', sans-serif;
+    font-size: 12px;
+}
+
+
+.pin{
+    position: absolute;
+    top: 0;
+
+    left: 150px;
+}
+#date_title{
+    height: 90px;
+    width: fit-content;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-image: 
+    url("../assets/images/sticky_note/note_TL.png"),
+    url("../assets/images/sticky_note/note_TC.png"),
+    url("../assets/images/sticky_note/note_TR.png"),
+
+    url("../assets/images/sticky_note/note_BL.png"),
+    url("../assets/images/sticky_note/note_BC.png"),
+    url("../assets/images/sticky_note/note_BR.png");
+    
+    background-repeat: no-repeat;
+
+    background-position: 
+    left top, center top, right top,
+    left bottom, center bottom, right bottom;
+
+    background-size: 
+    auto, calc(100% - 90px) 45px, auto,
+    auto, calc(100% - 90px) 45px, auto;
+
+    text-align: center;
+    align-content: center;
+
+
+}
+
+#noteSection{
+    outline: dotted red;
+    padding:5px;
+}
+
+    #notesTitle{
+        outline: dotted blue;
+        width: fit-content;
+    }
+
+    #noteList{
+        outline: dotted yellowgreen;
+        padding: 5px;;
+
+    }
+
+        #noteLine{
+            outline: dotted purple;
+            
+        }
+
+        #noteInputLine{
+            outline: dotted pink;
+            margin: 5px;
+            padding: 5px;
+
+        }
+            #noteInputDiv{
+                    outline: solid brown;
+                    padding: 5px;
+
+            }
+                #noteInputField{
+
+                }
+                #addNoteButton{
+
+                }
+#holiday_section{
+    outline: dotted red;
+
+}
+
