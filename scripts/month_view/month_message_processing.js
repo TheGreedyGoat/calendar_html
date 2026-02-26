@@ -12,7 +12,6 @@ for(let i = 0; i < frames.length; i++){
 }
 
 function processMessage(message){
-    console.log("message recieved! (month)", message);
     switch(message.type){
         case "setup":
             setupPage(message.date);

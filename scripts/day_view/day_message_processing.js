@@ -14,7 +14,10 @@ function processMessage(message){
         case "log":
             break;
         case "note object":
-            recieveNotes(message.data);
+            refreshNotes(message.data);
+        break;
+        case "daily_data":
+            refreshDailyData(message.data);
         break;
         default:
             console.log("Dunno what to do with that :(")

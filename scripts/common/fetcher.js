@@ -31,44 +31,44 @@ class Fetcher{
             throw new Error(`Response status: ${response.status}`);
             }
 
-            const result = await response.json();
+            const result = response.json();
             // console.log(typeof(response))
             Fetcher.holidaysByYear[year.toString()] = result;
-            console.log("1",Fetcher.holidaysByYear[year])
         } catch (error) {
             console.error(error.message);
         }
     }
 
-    static isYearFetched(year){
-        return Fetcher.holidaysByYear[year] != undefined;
-    }
 
-    static async getHolidaysOfYear(year){
+    static async requestHolidaysOfYear(year){
         
         if(!Fetcher.isYearFetched(year)){
 
             await Fetcher.tryFetchForYear(year);
         }
-        console.log(Fetcher.holidaysByYear[year]);
         return Fetcher.holidaysByYear[year];
     }
 
+   
+    static async requestHolidaysFromDate( date){
+        return await Fetcher.requestHolidayFromValues(date.getFullYear(), date.getMonth(), date.getDate());
+    }
+
+    static async requestHolidayFromValues(y){
+        return await Fetcher.requestHolidaysOfYear(y);
+
+    }
+    static isYearFetched(year){
+        return Fetcher.holidaysByYear[year] != undefined;
+    }
     /**
      * 
      * @param {Date} date 
      */
-    static getHolidaysFromDate(date){
-        return Fetcher.getHolidayFromValues(date.getFullYear(), date.getMonth(), date.getDate());
-    }
-
-    static async getHolidayFromValues(y, m, d){
-        let pack = Fetcher.getHolidaysOfYear(y);
-
-    }
+    
 
     static dateToJsonKey(date = new Date()){
-        return this.valuesToJSONKey(date.getFullYear(), date.getMonth(), date.getDate());
+        return this.valuesToJSONKey(date.getFullYear(), date.getMonth() + 1, date.getDate());
     }
     /**
      * 
