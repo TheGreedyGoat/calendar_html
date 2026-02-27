@@ -3,9 +3,10 @@ html, body{
 
     font-family: 'Minecraftia', sans-serif;
     font-size: 20px;               
-    /* overflow: hidden; */
     padding: 0;
     margin:0;
+
+    overflow: hidden;
 }
 
 main{
@@ -13,7 +14,6 @@ main{
     height: 100vh;
     padding: 0;
 
-    overflow: hidden;
 
     position: relative;
     left: -100vw;
