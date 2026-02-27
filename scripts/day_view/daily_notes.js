@@ -7,6 +7,9 @@ const addNoteButton = document.getElementById("addNoteButton")
 
 const NOTE_LINE_CLASS = "noteLine";
 
+/**
+ * Passt die Höhe des Notiz-Inputs den Textzeilen an
+ */
 function setupNoteInputField(){
     noteInputField.addEventListener("input", function(){
         noteInputField.style.height = "auto";
@@ -16,8 +19,12 @@ function setupNoteInputField(){
     refresh();
 }
 
+/**
+ * Wir prüfen erstmal, ob überhaupt was geschrieben wurde, wenn ja, senden wir die neue Notiz ans Hauptfenster
+ */
 function sendNoteWriteRequest(){
-    sendMessage(window.parent, "click", {clickType : "note Added"})
+    sendMessage(window.parent, "click", {clickType : "note Added"}) // für den Kilcksound, der ist wichtig!
+
     let note = noteInputField.value == ""? null : noteInputField.value;
     if(noteInputField.value != ''){
         sendMessage(window.parent, "click", {
@@ -27,7 +34,8 @@ function sendNoteWriteRequest(){
                 note: note
             }
         });
-        let newNoteLine = document.createElement("li")
+
+        let newNoteLine = document.createElement("li")  //neue Notiz wird erstmal selbst angehängt
         newNoteLine.classList.add(NOTE_LINE_CLASS);
         newNoteLine.innerText = noteInputField.value;
         NOTE_LIST.prepend(newNoteLine)
@@ -35,12 +43,14 @@ function sendNoteWriteRequest(){
     }
 }
 
-function refreshNotes(notes){
-
+/**
+ * 
+ * @param {Array<string>} notes 
+ */
+function displayTodayshNotes(notes){
     let safetyCounter = 1000; //<= because while loops are scary
-    // clearNoteList
-    while(NOTE_LIST.firstElementChild.id != NOT_INPUT_LINE.id){
-        
+    
+    while(NOTE_LIST.firstElementChild.id != NOT_INPUT_LINE.id){ // damit wir nicht das Inputfeld löschen
         NOTE_LIST.firstElementChild.remove();
 
         safetyCounter --;

@@ -47,45 +47,59 @@ body{
 }
 
 #noteSection{
-    outline: dotted red;
+    /* outline: dotted red; */
     padding:5px;
 }
 
     #notesTitle{
-        outline: dotted blue;
+        /* outline: dotted blue; */
         width: fit-content;
     }
 
     #noteList{
-        outline: dotted yellowgreen;
-        padding: 5px;;
+        /* outline: dotted yellowgreen; */
+        padding: 5px;
+        list-style: none;
 
     }
 
-        #noteLine{
-            outline: dotted purple;
+        .noteLine{
+            /* outline: dotted purple; */
             
+            font-size: 15px;
+            border-bottom: solid black;
+            margin-top: 15px;
         }
 
         #noteInputLine{
-            outline: dotted pink;
-            margin: 5px;
-            padding: 5px;
+            /* outline: dotted pink; */
+            /* margin: 5px; */
+            /* padding: 5px; */
+
 
         }
             #noteInputDiv{
-                    outline: solid brown;
-                    padding: 5px;
+                    /* outline: solid brown; */
+                    /* padding: 5px; */
+                    display:flex;
 
             }
-                #noteInputField{
-
+                #noteInputField, noteInputField:focus{
+                    font-family: 'Minecraftia', sans-serif;
+                    font-size: 15px;
+                    background: none;
+                    outline: none;
+                    border: none;
+                    resize: none;
                 }
                 #addNoteButton{
-
+                    font-family: 'Minecraftia', sans-serif;
+                    font-size: 20px;
+                    background: none;
+                    border: none
                 }
 #holiday_section{
-    outline: dotted red;
+    /* outline: dotted red; */
 
 }
 

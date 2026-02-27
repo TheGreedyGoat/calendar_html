@@ -16,7 +16,7 @@ for(let i = 0; i < frames.length; i++){
 function processMessage(message){
     switch(message.type){
         case "setup":
-            setupPage(message.date);
+            switchToDate(message.data);
             break;
         case "click":
             CLICK_SOUND.play()
@@ -43,10 +43,10 @@ function processClickMessage(clickData){
             addNote(clickData.clickValue)
             break;
         case "to day view":
-            swipeRight()
+            swipeToDay()
             break;
         case "to month view":
-            swipeLeft()
+            swipeToMonth()
             break;
         default:
             console.log("Dunno what you just clicked :( (month)");

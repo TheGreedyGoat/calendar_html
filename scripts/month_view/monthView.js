@@ -9,27 +9,30 @@ let activeMonth;
 let activeYear;
 let activeDay;
 
-
-function setupPage(setupDate){
-    setActiveDate(setupDate);
-}
-
-async function setActiveDate(newDate = new Date()){
+/**
+ * async, weil wir ggf. die Feiertage fetchen müssen
+ * @param {Date} newDate 
+ */
+async function switchToDate(newDate){
     let oldMonth = activeMonth;
     let oldYear = activeYear;
     activeDay = newDate.getDate();
     activeMonth = newDate.getMonth();
     activeYear = newDate.getFullYear();
+
     if(newDate.getMonth() != oldMonth || newDate.getFullYear() != oldYear){
         let holidayData = await Fetcher.requestHolidaysFromDate(newDate);
-        updateHTMLSheet(new CalendarSheet(new Date(activeYear, activeMonth, activeDay), holidayData));
+        placeHTMLSheet(new CalendarSheet(new Date(activeYear, activeMonth, activeDay), holidayData));
     }
 
 }
 
     
-
-function updateHTMLSheet(sheet){
+/**
+ * 
+ * @param {CalendarSheet} sheet 
+ */
+function placeHTMLSheet(sheet){
     if(CALENDAR_TARGET.firstChild.id == CALENDAR_SHEET_ID){
         CALENDAR_TARGET.removeChild(CALENDAR_TARGET.firstChild);
     }
@@ -44,24 +47,23 @@ function updateHTMLSheet(sheet){
 }
 
 
-
+/**
+ * 
+ * @param {Date} date 
+ */
 function dateClicked(date){
-    setActiveDate(date);
+    switchToDate(date);
     sendDataToDayView(date);
-    swipeRight();
+    swipeToDay();
 }
 
 
-function swipeLeft(){
-    document.querySelector("main").style.transform = "translateX(100dvw)"
-}
-
-function swipeRight(){
-    document.querySelector("main").style.transform = "translateX(0dvw)"
-}
-
+/**
+ * 
+ * @param {number} n 
+ */
 function addMonth(n = 1){
-    setActiveDate(new Date(activeYear, activeMonth + n, 1))
+    switchToDate(new Date(activeYear, activeMonth + n, 1))
 }
 
 /**
@@ -71,10 +73,12 @@ function addMonth(n = 1){
 function addNote(noteMessageObject){
     if(!noteMessageObject.note) return;
     CalendarTools.writeNote(noteMessageObject.date, noteMessageObject.note);
-    console.log(CalendarTools.dateNotes);
 }
 
-
+/**
+ * 
+ * @param {Date} date 
+ */
 function sendDataToDayView(date = newDate()){
     //get all the data 
     let notes = CalendarTools.getOnlyNotesOfDate(date);

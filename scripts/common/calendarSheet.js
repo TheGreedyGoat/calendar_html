@@ -1,6 +1,11 @@
 
 class CalendarSheet{
-    constructor(date  = new Date(), holidayData){
+    /**
+     * 
+     * @param {date} date 
+     * @param {*} holidayData the fetched holiday json object 
+     */
+    constructor(date, holidayData){
         let dateOfFIrstDay = new Date(date.getFullYear(), date.getMonth(), 1)
         
 
@@ -12,7 +17,7 @@ class CalendarSheet{
         this.firstDateOfTable = new Date(dateOfFIrstDay)
         this.firstDateOfTable.setDate(this.firstDateOfTable.getDate() - this.firstofMonthIndex)
 
-        this.dataStorage = []
+        this.dataStorage = [];  
         this.dateIndices = {};
 
 
@@ -36,6 +41,7 @@ class CalendarSheet{
     /**
      * ermittelt und speichert alle Klassen der übergebenen Zelle im dataStorage
      * @param {DateData} dateData
+     * @param {*} holidayData
      */
     saveDateSpecificClasses(dateData, holidayData){
 
@@ -69,13 +75,23 @@ class CalendarSheet{
         }
     }
 
-
+    /**
+     * 
+     * @param {number} w repräsentiert die Zeile (week)
+     * @param {number} d repräsentiert die Spalte (day)
+     * @returns gibt den zugehörigen 1D - Index zurück
+     */
     static getIndexFromGrid(w, d){
         return w * 7 + d
     }
 
 
-
+    /**
+     * 
+     * @param {number} w repräsentiert die Zeile (week)
+     * @param {number} d repräsentiert die Spalte (day)
+     * @returns 
+     */
     getDataAtGridIndex(w, d){
         return this.dataStorage[CalendarSheet.getIndexFromGrid(w, d)]
     }
