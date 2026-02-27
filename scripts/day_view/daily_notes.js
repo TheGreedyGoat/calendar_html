@@ -17,6 +17,7 @@ function setupNoteInputField(){
 }
 
 function sendNoteWriteRequest(){
+    sendMessage(window.parent, "click", {clickType : "note Added"})
     let note = noteInputField.value == ""? null : noteInputField.value;
     if(noteInputField.value != ''){
         sendMessage(window.parent, "click", {

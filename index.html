@@ -5,6 +5,7 @@
     <link href="https://fonts.cdnfonts.com/css/minecraftia" rel="stylesheet">
                 
     <link rel="stylesheet" href="styleSheets/style.css"/>
+    <title>Kalender</title>
 
 </head>
 
@@ -12,7 +13,9 @@
     <!--soll sich bewegen -->
     <main> 
          <section id = "left_section">   
-                    <button id  = "to_day_view" onclick = "sendMessage(window, 'click', {clickType: 'to day view'})"></button>
+                    <button id  = "to_day_view" onclick = "sendMessage(window, 'click', {clickType: 'to day view'})">
+                        <img src="assets/images/arrow.png" alt="">
+                    </button>
 
             <div id = "calendar_wrapper">
                 <h3 id = "calendar_head"></h3>

@@ -1,4 +1,4 @@
-const clickSound = new Audio("assets/sounds/minecraft_click.mp3");
+
 const RECIEVERS = [] // :iframes etc., fill in seperate script
 
 

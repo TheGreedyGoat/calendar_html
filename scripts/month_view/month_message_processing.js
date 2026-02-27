@@ -1,3 +1,5 @@
+
+const CLICK_SOUND = new Audio("assets/sounds/minecraft_click.mp3");
 // !!!!----MONTH----!!!!
 RECIEVERS.push(window);
 sendMessage(window, "setup", new Date());
@@ -17,6 +19,7 @@ function processMessage(message){
             setupPage(message.date);
             break;
         case "click":
+            CLICK_SOUND.play()
             processClickMessage(message.data)
             break;
         case "log":

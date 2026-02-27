@@ -52,7 +52,6 @@ function buildBackground(p, parentid, pixelSize, variation, median, hue, sat){
       }
     }
     img.updatePixels();
-    img.save("b_boardBackground.png")
 
 
 
