@@ -20,7 +20,7 @@ function refresh(){
 }
 
 function refreshDailyData(dailyData){
-    refreshNotes(dailyData.notes);
+    // refreshNotes(dailyData.notes);
     refreshHoliday(dailyData.holiday);
 }
 

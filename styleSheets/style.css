@@ -81,8 +81,6 @@ main{
                 background-position: left, center, right;
 
                 background-size: auto, calc(100% - 40px) 40px, auto;
-
-                /* outline: solid yellow; */
             }
             #calendar_target{
 
@@ -113,13 +111,10 @@ main{
                 auto, calc(100% - 130px) 70px, auto,
                 70px calc(100% - 130px), calc(100% - 130px) calc(100% - 130px), 70px calc(100% - 130px),
                 auto, calc(100% - 130px) 70px, auto;
-                /* z-index: -1; */
                 display:flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: space-between;
-
-                /* outline: solid blue; */
             }
 
             
@@ -190,6 +185,9 @@ main{
                         }
                         .dateContainer:hover{
                             background-color: rgba(0, 0, 255, 0.603);
+                        }
+                        sup{
+                            font-size: 40%;
                         }
                     .holiday{
                         background-image: url("../assets/images/confetti.png");

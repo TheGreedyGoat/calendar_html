@@ -116,7 +116,7 @@ class CalendarSheet{
             &&  date.getFullYear() == this.year
     }
     
-    toHTML(addHeader = true){
+    toHTML(addHeader = true, isEDay = true){
         let htmlSheet = document.createElement("table");
         htmlSheet.classList.add("calendar_sheet");
 
@@ -126,7 +126,7 @@ class CalendarSheet{
             let row = document.createElement("tr");
             row.classList.add("weekRow")
             for(let d = 0; d < 7; d++){
-                let htmlCell = this.buildHTMLCell(w, d)
+                let htmlCell = this.buildHTMLCell(w, d, isEDay)
                 row.appendChild(htmlCell);
             }
             htmlSheet.appendChild(row);
@@ -150,7 +150,7 @@ class CalendarSheet{
     }
 
 
-    buildHTMLCell(w, d){
+    buildHTMLCell(w, d, isEDay){
         let cellDate = this.getDataAtGridIndex(w, d).date
         
         let htmlCell = document.createElement("td");  // day
@@ -162,7 +162,10 @@ class CalendarSheet{
                 clickValue: cellDate
             });
         })
-        cellDiv.innerHTML = cellDate.getDate()
+        
+        let content = cellDate.getDate();
+        
+        cellDiv.innerHTML = content;
         cellDiv.classList.add("dateContainer");
 
         let evenOdd = CalendarSheet.getIndexFromGrid(w,d) % 2 === 0? "even":"odd";
