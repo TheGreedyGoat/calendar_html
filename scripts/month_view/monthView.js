@@ -67,8 +67,6 @@ function placeHTMLSheet(sheet){
 
     dataSheet = sheet
 
-    heading = document.getElementById(CALENDAR_HEAD_ID);
-    heading.innerText = CalendarTools.monthYearStringInd(currentSheetDate.getMonth(), currentSheetDate.getFullYear());
     htmlSheet = sheet.toHTML();
 
     htmlSheet.setAttribute("id", CALENDAR_SHEET_ID);
@@ -124,27 +122,34 @@ function sendDataToDayView(date = newDate()){
 
 }
 
-
+/**
+ * to check how we write numbers, wich wallpaper to choose etc.
+ */
 function checkForSpecialFormatting(){
     let dateContainers = htmlSheet.querySelectorAll(DATE_CONTAINER_CLASS_NAME);
     let holidaysArr = Holidays.getHolidays(activeDayDate).split(',');
     
-    if(holidaysArr == null) return;
     let format = function(n){return n};
-    for(let i = 0; i < holidaysArr.length; i++){
-        let holiday = holidaysArr[i];
+    let wallpaper = 'UglyWallpaper.png'
+    if(holidaysArr != null){
+        for(let i = 0; i < holidaysArr.length; i++){
+            let holiday = holidaysArr[i];
 
 
-        switch(holiday){
-            case 'e-day':
-                format = eFormat;
-                break;
-            case 'PI-Day':
-                format = piFormat;
-                break;
-            default:
-                console.log('no special formatting')
-                break;
+            switch(holiday){
+                case 'e-day':
+                    format = eFormat;
+                    break;
+                case 'PI-Day':
+                    format = piFormat;
+                    break;
+                case 'Star Wars Day':
+                    wallpaper = 'R2C3.png'
+                    break;
+                default:
+                    console.log('no special formatting')
+                    break;
+            }
         }
     }
     for(let i = 0; i < dateContainers.length; i++){
@@ -154,14 +159,27 @@ function checkForSpecialFormatting(){
 
     }
     
+    heading = document.getElementById(CALENDAR_HEAD_ID);
+    heading.innerHTML = CalendarTools.monthYearStringInd(currentSheetDate.getMonth(), format(currentSheetDate.getFullYear(), 4));
+    document.querySelector('main').style.backgroundImage = 'url(assets/images/wallpapers/' + wallpaper + ')';
+    
 }
 
-function eFormat(num){
-    let ln = Math.round(100 * (Math.log(num))) / 100;
+/**
+ * 
+ * @param {number} num 
+ * @param {number} digits 
+ * @returns {string} 
+ */
+function eFormat(num, digits = 2){
+    let pow = Math.pow(10, digits)
+    let ln = Math.round(pow * (Math.log(num))) / pow;
     return 'e' + '<sup>' + ln + '</sup>';
 }
 
-function piFormat(num){
-    let piMult = Math.round( 10 * num / Math.PI) / 10;
+function piFormat(num, digits = 1){
+    
+    let pow = Math.pow(10, digits)
+    let piMult = Math.round( pow * num / Math.PI) / pow;
     return piMult + '&#960';
 }

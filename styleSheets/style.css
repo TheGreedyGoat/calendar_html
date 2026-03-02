@@ -6,7 +6,7 @@ html, body{
     padding: 0;
     margin:0;
 
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 
 main{
@@ -24,7 +24,7 @@ main{
     display: flex;
     justify-content: space-between;
     
-    background-image: url("../assets/images/UglyWallpaper.png");
+    background-image: url("../assets/images/wallpapers/UglyWallpaper.png");
 }
 
 

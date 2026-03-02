@@ -26,8 +26,16 @@ function refreshDailyData(dailyData){
 
 /**
  * 
- * @param {string} holiday 
+ * @param {Array<string>} holidayArr 
  */
-function refreshHoliday(holiday){
-    HOLIDAY_SECTION.innerText = "Heute ist " + holiday;
+function refreshHoliday(holidayArr){
+    console.log(holidayArr);
+    let holidayStr = '';
+    if(holidayArr.length == 0) holidayStr = 'kein Feiertag'
+    else {
+        for(let i = 0; i < holidayArr.length; i++){
+            holidayStr += (i == 0? '' : ' & ') + holidayArr[i]; 
+        }
+    }
+    HOLIDAY_SECTION.innerText = 'Heute ist ' + holidayStr + '.';
 }
