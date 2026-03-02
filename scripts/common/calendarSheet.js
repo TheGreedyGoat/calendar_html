@@ -3,9 +3,8 @@ class CalendarSheet{
     /**
      * 
      * @param {date} date 
-     * @param {*} holidayData the fetched holiday json object 
      */
-    constructor(date, holidayData){
+    constructor(date){
         let dateOfFIrstDay = new Date(date.getFullYear(), date.getMonth(), 1)
         
 
@@ -26,7 +25,7 @@ class CalendarSheet{
         for(let i = 0; i < 6 * 7; i++){ // 6 weeks * 7 days/week
             this.dataStorage.push(new DateData(cellDate))
             this.dateIndices[Fetcher.dateToJsonKey(cellDate)] = i;
-            this.saveDateSpecificClasses(this.dataStorage[i], holidayData)
+            this.saveDateSpecificClasses(this.dataStorage[i])
             cellDate.setDate(cellDate.getDate() + 1);
 
             if(i > this.firstofMonthIndex 
@@ -41,9 +40,8 @@ class CalendarSheet{
     /**
      * ermittelt und speichert alle Klassen der übergebenen Zelle im dataStorage
      * @param {DateData} dateData
-     * @param {*} holidayData
      */
-    saveDateSpecificClasses(dateData, holidayData){
+    saveDateSpecificClasses(dateData){
 
         if(dateData.date.getMonth() != this.monthNum){
             dateData.addHTMLClass("other");
@@ -60,19 +58,6 @@ class CalendarSheet{
             dateData.addHTMLClass("weekday");
         }
 
-        dateData.holiday = "kein Feiertag :(";
-        //Holidays => eigene Methode??
-        for(let i = 0; i < holidayData.length; i++){
-            let entry = holidayData[i.toString()];
-           
-            if(entry.date == Fetcher.dateToJsonKey(dateData.date)){
-                // console.log(entry.date, Fetcher.dateToJsonKey(dateData.date));     
-                //Save holiday in data object
-                dateData.addHTMLClass("holiday");
-                dateData.addHTMLClass(entry.localName);
-                dateData.holiday = entry.localName;
-            }
-        }
     }
 
     /**
@@ -117,10 +102,11 @@ class CalendarSheet{
     }
     
     toHTML(addHeader = true, isEDay = true){
-        let htmlSheet = document.createElement("table");
-        htmlSheet.classList.add("calendar_sheet");
+        if(this.htmlSheet) return this.htmlSheet;
+        this.htmlSheet = document.createElement("table");
+        this.htmlSheet.classList.add("calendar_sheet");
 
-        if(addHeader) CalendarSheet.addWeekdayShortcuts(htmlSheet)
+        if(addHeader) CalendarSheet.addWeekdayShorthands(this.htmlSheet);
 
         for(let w = 0; w < 6; w++){
             let row = document.createElement("tr");
@@ -129,14 +115,15 @@ class CalendarSheet{
                 let htmlCell = this.buildHTMLCell(w, d, isEDay)
                 row.appendChild(htmlCell);
             }
-            htmlSheet.appendChild(row);
+            this.htmlSheet.appendChild(row);
         }
-        return htmlSheet;
+
+        
+        return this.htmlSheet;
     }
 
 
-
-    static addWeekdayShortcuts(sheet){
+    static addWeekdayShorthands(sheet){
         let headRow = document.createElement("tr");
         headRow.classList.add("calendarWeekRow");
         for(let wdString of CalendarTools.weekdays){
@@ -150,7 +137,7 @@ class CalendarSheet{
     }
 
 
-    buildHTMLCell(w, d, isEDay){
+    buildHTMLCell(w, d){
         let cellDate = this.getDataAtGridIndex(w, d).date
         
         let htmlCell = document.createElement("td");  // day
@@ -204,7 +191,6 @@ class DateData{
      */
     constructor(date){
         this.date = new Date(date)
-        // attributes??
     }
 
     /**

@@ -6,7 +6,7 @@ html, body{
     padding: 0;
     margin:0;
 
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 main{
@@ -15,8 +15,9 @@ main{
     padding: 0;
 
 
-    position: relative;
+    position: absolute;
     left: -100vw;
+    
     top:0;
     transition: transform .5s ease;
 
@@ -165,9 +166,12 @@ main{
                         border: solid rgb(68, 95, 95) 5px;
                     }
 
-
                     .even{
                         background-color: rgba(0, 0, 0, 0.281);
+                    }
+                    
+                    .active{
+                        background-color: brown;
                     }
 
                     .sunday{

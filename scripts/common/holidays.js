@@ -52,22 +52,22 @@ function calculateEasterSunday(year){
     let sunCircle = (year + 9) % 28;
 
     let sundayLetter = SUNDAY_LETTERS[sunCircle];   // der Tagesbuchstabe des Ostersonntags
-    let fullMoonDelay = GN_TABLE[goldenNumber];
+    let easterBorderDelay = GN_TABLE[goldenNumber];
     let easterDate = new Date(year, 2, 21); //
-    if(fullMoonDelay === 29 ||fullMoonDelay === 28){
-        if(DAY_LETTERS[fullMoonDelay % 7] === sundayLetter){ // da jeder Sonntag desselben jahres denselben Buchstaben hat
-            easterDate.setDate(easterDate.getDate() + fullMoonDelay);
+    if(easterBorderDelay === 29 ||easterBorderDelay === 28){
+        if(DAY_LETTERS[easterBorderDelay % 7] === sundayLetter){ // da jeder Sonntag desselben jahres denselben Buchstaben hat
+            easterDate.setDate(easterDate.getDate() + easterBorderDelay);
             return easterDate;
         } else{
-            fullMoonDelay--;
+            easterBorderDelay--;
         }
     }
-    let fullMoonDayLetterIndex = fullMoonDelay % 7;
+    let easterBorderDayLetterIndex = easterBorderDelay % 7;
     for(i = 1; i < 8; i++){                                 // i < 7 eigentlich redundant, aber sicher ist sicher
-        let currentIndex = (i + fullMoonDayLetterIndex) % 7;  // wir wollen beim Vollmondbuchstaben starten. % für wrapping.
+        let currentIndex = (i + easterBorderDayLetterIndex) % 7;  // wir wollen beim Vollmondbuchstaben starten. % für wrapping.
 
         if(DAY_LETTERS[currentIndex] === sundayLetter){
-            easterDate.setDate(easterDate.getDate() + fullMoonDelay + i)
+            easterDate.setDate(easterDate.getDate() + easterBorderDelay + i)
             return easterDate;
         }
     }

@@ -4,6 +4,8 @@ const CALENDAR_SHEET_ID = "calendar_sheet";
 const CALENDAR_HEAD_ID = "calendar_head";
 
 let dataSheet;
+let htmlSheet;
+let activeDateCell;
 
 let activeMonth;
 let activeYear;
@@ -22,31 +24,31 @@ async function switchToDate(newDate){
     activeMonth = newDate.getMonth();
     activeYear = newDate.getFullYear();
     if(newDate.getMonth() != oldMonth || newDate.getFullYear() != oldYear){
-        let holidayData = await Fetcher.requestHolidaysFromDate(newDate);
-        placeHTMLSheet(new CalendarSheet(new Date(activeYear, activeMonth, activeDay), holidayData));
+        placeHTMLSheet(new CalendarSheet(new Date(activeYear, activeMonth, activeDay)));
     }
 
-    checkEday()
+    markActiveDate();
 }
 
-function isEday(){
-    console.log(activeMonth, activeDay)
-    return activeMonth == 0 && activeDay == 27;
-}
-
-function checkEday(){
-    if(isEday()){
-        console.log("E-DAY!")
-        let dateDivs = document.querySelectorAll(".dateContainer");
-        for(let div of dateDivs){
-            let num = parseInt(div.innerHTML);
-            if(isNaN(num)) return;
-            console.log("still here")
-            div.innerHTML = "e" + "<sup>" + Math.floor(100 * Math.log(num)) / 100 + '</sup>'
+function markActiveDate(){
+    if(dataSheet.monthNum === activeMonth){
+        let aDate = activeDate();
+        let dateCells = htmlSheet.querySelectorAll('.day');
+        if(activeDateCell){
+            console.log("removing...")
+            activeDateCell.classList.remove('active');
+        }
+        for(let i = 0; i < dateCells.length; i++){
+            if(CalendarTools.datesEqual(dataSheet.dataStorage[i].date, aDate)){
+                
+                console.log("adding...")
+                activeDateCell = dateCells[i];
+                activeDateCell.classList.add('active');
+            }
         }
     }
 }
-    
+
 /**
  * 
  * @param {CalendarSheet} sheet 
@@ -60,11 +62,16 @@ function placeHTMLSheet(sheet){
 
     heading = document.getElementById(CALENDAR_HEAD_ID);
     heading.innerText = CalendarTools.monthYearStringInd(activeMonth, activeYear);
-    let htmlSheet = sheet.toHTML();
+    htmlSheet = sheet.toHTML();
 
 
     htmlSheet.setAttribute("id", CALENDAR_SHEET_ID);
     CALENDAR_TARGET.prepend(htmlSheet);
+    
+}
+
+function activeDate(){
+    return new Date(activeYear, activeMonth, activeDay);
 }
 
 
