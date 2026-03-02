@@ -17,14 +17,12 @@ class CalendarSheet{
         this.firstDateOfTable.setDate(this.firstDateOfTable.getDate() - this.firstofMonthIndex)
 
         this.dataStorage = [];  
-        this.dateIndices = {};
 
 
         let cellDate = new Date(this.firstDateOfTable)
 
         for(let i = 0; i < 6 * 7; i++){ // 6 weeks * 7 days/week
             this.dataStorage.push(new DateData(cellDate))
-            this.dateIndices[Fetcher.dateToJsonKey(cellDate)] = i;
             this.saveDateSpecificClasses(this.dataStorage[i])
             cellDate.setDate(cellDate.getDate() + 1);
 
@@ -58,6 +56,18 @@ class CalendarSheet{
             dateData.addHTMLClass("weekday");
         }
 
+        let holidays = Holidays.getHolidays(dateData.date);
+        if(holidays !== '') dateData.addHTMLClass('holiday')
+        
+        let holidayArr = holidays.split(',');
+        for(let hDay of holidayArr){
+            if(hDay !== ''){
+                dateData.addHoliday(hDay);
+                hDay.replace(' ', '-');
+                dateData.addHTMLClass(hDay);
+            }
+        }
+        
     }
 
     /**
@@ -81,14 +91,20 @@ class CalendarSheet{
         return this.dataStorage[CalendarSheet.getIndexFromGrid(w, d)]
     }
 
+
+    getDataFromDate(date){
+        return this.dataStorage[date.getDate() + this.firstofMonthIndex - 1];
+    }
+
     /**
      * 
-     * @param {Date} date has to be within the calendar sheet
+     * @param {Date} date
+     * @returns {Array<string>}
      */
-    getDataFromDate(date){
-        let index  = this.dateIndices[Fetcher.dateToJsonKey(date)];
-        if(!index) console.error("Invalid date", error);
-        return this.dataStorage[index];
+    getHolidays(date) {
+        let data = this.getDataFromDate(date);
+        if(!data) return null;
+        else return data.holidays;
     }
 
     isDateOnSheet(date = new Date()){ // is it visible on the calendar sheet?
@@ -190,7 +206,8 @@ class DateData{
      * @param {Date} date 
      */
     constructor(date){
-        this.date = new Date(date)
+        this.date = new Date(date);
+        this.holidays  =[];
     }
 
     /**
@@ -205,6 +222,10 @@ class DateData{
 
     getHTMLClasses(){
         return this.classes? this.classes : []
+    }
+
+    addHoliday(holidayName){
+        this.holidays.push(holidayName);
     }
 
 }

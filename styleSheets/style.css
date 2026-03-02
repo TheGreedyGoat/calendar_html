@@ -147,7 +147,7 @@ main{
 
                     .calendar_sheet td, .calendar_sheet th{
                         font-weight: 700;
-                        font-size: 150%;
+                        font-size: 100%;
                         width:35px;
                         height: 35px;
                         align-items: center;
@@ -191,10 +191,14 @@ main{
                             background-color: rgba(0, 0, 255, 0.603);
                         }
                         sup{
-                            font-size: 40%;
+                            /* font-size: 40%; */
                         }
                     .holiday{
                         background-image: url("../assets/images/confetti.png");
+                    }
+
+                    .other{
+                        color: rgb(129, 129, 129);
                     }
                 
                 #monthButtonContainer{
