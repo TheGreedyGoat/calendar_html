@@ -20,7 +20,7 @@ function refresh(){
 }
 
 function refreshDailyData(dailyData){
-    // refreshNotes(dailyData.notes);
+    displayTodayshNotes(dailyData.notes);
     refreshHoliday(dailyData.holidays);
 }
 
@@ -39,3 +39,5 @@ function refreshHoliday(holidayArr){
     }
     HOLIDAY_SECTION.innerText = 'Heute ist ' + holidayStr + '.';
 }
+
+

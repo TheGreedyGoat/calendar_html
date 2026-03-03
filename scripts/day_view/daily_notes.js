@@ -1,9 +1,9 @@
-const NOTE_LIST = document.getElementById("noteList")
+const NOTE_LIST = document.getElementById("noteList");
 
-const NOT_INPUT_LINE = document.getElementById("noteInputLine")
+const NOT_INPUT_LINE = document.getElementById("noteInputLine");
 
-const noteInputField =  document.getElementById("noteInputField")
-const addNoteButton = document.getElementById("addNoteButton")
+const NOTE_INPUT_FIELD =  document.getElementById("noteInputField");
+const addNoteButton = document.getElementById("addNoteButton");
 
 const NOTE_LINE_CLASS = "noteLine";
 
@@ -11,9 +11,10 @@ const NOTE_LINE_CLASS = "noteLine";
  * Passt die Höhe des Notiz-Inputs den Textzeilen an
  */
 function setupNoteInputField(){
-    noteInputField.addEventListener("input", function(){
-        noteInputField.style.height = "auto";
-        noteInputField.style.height = noteInputField.scrollHeight + "px";
+    NOTE_INPUT_FIELD.addEventListener("input", function(){
+        NOTE_INPUT_FIELD.style.height = "auto";
+        NOTE_INPUT_FIELD.style.height = NOTE_INPUT_FIELD.scrollHeight + "px";
+        console.log(NOTE_INPUT_FIELD.style.height)
     });
 
     refresh();
@@ -25,8 +26,8 @@ function setupNoteInputField(){
 function sendNoteWriteRequest(){
     sendMessage(window.parent, "click", {clickType : "note Added"}) // für den Kilcksound, der ist wichtig!
 
-    let note = noteInputField.value == ""? null : noteInputField.value;
-    if(noteInputField.value != ''){
+    let note = NOTE_INPUT_FIELD.value == ""? null : NOTE_INPUT_FIELD.value;
+    if(NOTE_INPUT_FIELD.value != ''){
         sendMessage(window.parent, "click", {
             clickType: "add note",
             clickValue: {
@@ -37,9 +38,9 @@ function sendNoteWriteRequest(){
 
         let newNoteLine = document.createElement("li")  //neue Notiz wird erstmal selbst angehängt
         newNoteLine.classList.add(NOTE_LINE_CLASS);
-        newNoteLine.innerText = noteInputField.value;
+        newNoteLine.innerText = NOTE_INPUT_FIELD.value;
         NOTE_LIST.prepend(newNoteLine)
-        noteInputField.value = "";
+        NOTE_INPUT_FIELD.value = "";
     }
 }
 

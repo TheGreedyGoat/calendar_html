@@ -25,7 +25,6 @@ function processMessage(message){
         case "log":
             break;
         default:
-            console.log("Dunno what to do with that :( (month)")
             break;
     }
 }
@@ -49,7 +48,6 @@ function processClickMessage(clickData){
             swipeToMonth()
             break;
         default:
-            console.log("Dunno what you just clicked :( (month)");
             break;
     }
 }

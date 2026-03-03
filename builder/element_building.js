@@ -7,7 +7,7 @@ getData(year);
 
 
 async function getData(year) {
-  const url = `https://date.nager.at/api/v3/publicholidays/2002/DE`;
+  const url = `https://pokeapi.co/api/v2/pokemon/5/`;
 
     try {
         const response = await fetch(url);
@@ -26,6 +26,7 @@ async function getData(year) {
 
 function dosStuffWithThatJSONThingy(jsonThingy){
     hData = jsonThingy;
-    console.log(jsonThingy);
+    console.log(jsonThingy['name']);
+    document.querySelector('#target').src = jsonThingy['sprites']['front_default']
 }
 
