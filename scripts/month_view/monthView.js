@@ -11,6 +11,8 @@ let activeDateCell;
 let currentSheetDate; // of the sheet
 let activeDayDate;  // of the active daily page
 
+
+
 /**
  * 
  * @param {Date} newDate 
