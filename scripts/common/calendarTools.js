@@ -13,11 +13,11 @@ class CalendarTools{
         return `${date.getDate()}. ${CalendarTools.months[date.getMonth()]} ${date.getFullYear()}`
     }
 
-    static monthYearStringDate(date = new Date()){
-        return this.monthYearStringInd(date.getMonth(), date.getFullYear());
+    static monthYearStringByDate(date = new Date()){
+        return this.monthYearStringByNums(date.getMonth(), date.getFullYear());
     }
 
-    static monthYearStringInd(m, y){
+    static monthYearStringByNums(m, y){
         return `${CalendarTools.months[m]} ${y}`;
     }
 
