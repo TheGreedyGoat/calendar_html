@@ -98,13 +98,3 @@ class CalendarSchedule{
 
 
 }
-
-
-let startD = new Date(2026, 2, 3, 12, 0);
-let endD = new Date(2026, 2, 3, 18, 30);
-
-let testSchedule =  new CalendarSchedule('Testtermin', startD, endD, 'none');
-
-console.log(CalendarSchedule.masterSchedules)
-
-

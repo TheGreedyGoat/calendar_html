@@ -143,4 +143,25 @@ class Holidays{
         hDays += fixed? fixed : '';
         return hDays;
     }
+
+    /**
+     * 
+     * @param {CalendarSheet} sheet 
+     */
+    static addHolidaysToDataSheet(sheet){ 
+        for(let i  = 0; i < sheet.dataStorage.length; i++){
+            let dateData = dataStorage[i].dateData;
+            let holidays = Holidays.getHolidays(dateData.date);
+        if(holidays !== '') dateData.addHTMLClass('holiday')
+        
+        let holidayArr = holidays.split(',');
+        for(let hDay of holidayArr){
+            if(hDay !== ''){
+                dateData.addHoliday(hDay);
+                hDay.replace(' ', '-');
+                dateData.addHTMLClass(hDay);
+            }
+        }
+        }
+    }
 }

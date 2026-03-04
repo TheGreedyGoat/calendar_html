@@ -30,7 +30,7 @@ function switchToDate(newDate){
 
 
     if(newDate.getMonth() != oldMonth || newDate.getFullYear() != oldYear){
-        placeHTMLSheet(new CalendarSheet(newDate));
+        renderHTMLSheet(new CalendarSheet(newDate));
     }
     checkForSpecialFormatting();
     markActiveDate();
@@ -38,7 +38,7 @@ function switchToDate(newDate){
 
 function switchMonth(newMonthsDate){
     currentSheetDate = newMonthsDate;
-    placeHTMLSheet(new CalendarSheet(newMonthsDate));
+    renderHTMLSheet(new CalendarSheet(newMonthsDate));
     checkForSpecialFormatting();
 }
 /**
@@ -62,10 +62,12 @@ function markActiveDate(){
  * 
  * @param {CalendarSheet} sheet 
  */
-function placeHTMLSheet(sheet){
+function renderHTMLSheet(sheet){
     if(CALENDAR_TARGET.firstChild.id == CALENDAR_SHEET_ID){
         CALENDAR_TARGET.removeChild(CALENDAR_TARGET.firstChild);
     }
+
+    Holidays.addHolidaysOfYear();
 
     dataSheet = sheet
 
@@ -162,7 +164,7 @@ function checkForSpecialFormatting(){
     }
     
     heading = document.getElementById(CALENDAR_HEAD_ID);
-    heading.innerHTML = CalendarTools.monthYearStringInd(currentSheetDate.getMonth(), format(currentSheetDate.getFullYear(), 4));
+    heading.innerHTML = CalendarTools.monthYearStringByNums(currentSheetDate.getMonth(), format(currentSheetDate.getFullYear(), 4));
     document.querySelector('main').style.backgroundImage = 'url(assets/images/wallpapers/' + wallpaper + ')';
     
 }

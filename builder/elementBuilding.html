@@ -3,14 +3,102 @@
 
 <html>
     <head>
-        
+        <style>
+            #display_schedules{
+                border: solid black;
+            }
+            #add_schedule{
+                display: flex;
+                flex-direction: column;
+                border:solid black;
+            }
+                .selection_container{
+                    position: relative;
+                    display: flex;
+                    border: dotted red;
+                }
+                    .selectionFlexElement{
+                        position: relative; /* Wichtig für absolute Kinder */
+                        background: #eee;
+                        /* padding: 20px; */
+                    }
+                    .schedule_date_selection{
+                        position: absolute;
+                        left: 5px;
+                        z-index: 1;
+                        background-color: red;
+                    }
+
+            
+        </style>
     </head>
 
     <body>
-        <img id = 'target'></img>
+        <section id  = 'display_schedules'>schedules...</section>
 
+        <section id = 'add_schedule'>
+            <h2>Neuer Termin...</h2>
+            <input type="text" placeholder="Titel eingeben...">
+
+            <div class = 'selection_container' id = 'start_selection_container'>
+                <section class = 'selectionFlexElement'>
+                   Beginn: <button id = 'show_start_selection' onclick="toggleVisibility(0)"> 16.April2026</button>
+                </section> 
+                <section class = 'selectionFlexElement'>
+                    <form class="schedule_date_selection" id = 'choose_start_date' hidden></form>
+                </section>
+                
+            </div>
+
+            <div class = 'selection_container' id = 'end_selection_container'>
+                <section class = 'selectionFlexElement'>
+                    Ende: <button id = 'show_end_selection' onclick="toggleVisibility(1)"> 16.April2026</button>
+                </section>
+                <section class = 'selectionFlexElement'>
+
+                    <form class="schedule_date_selection" id = 'choose_end_date' hidden></form>
+                </section>
+            </div>
+            <div>Wiederholen:
+                
+                <select name="recurrence" id="choose_recurrence_unit">
+                    <option value="">Jeden Tag</option>
+                    <option value="">Jede Woche</option>
+                    <option value="">Jeden Montag</option>
+                    <option value="">Jedes Jahr</option>
+                    <option value="">Benutzerdefiniert...</option>
+                </select>
+            </div>
+        </section>
+
+
+
+        <script src = '../scripts/common/calendarSheet.js'></script>
         <script src  = '../builder/calendar_schedule.js'></script>
-        <script src  ="../builder/element_building.js"></script>
+
+        
+        <script>
+            const startForm  = document.getElementById('choose_start_date');
+            const endForm  = document.getElementById('choose_end_date');
+            const forms = [startForm, endForm]
+
+            let defaultDate = new Date();
+
+            startForm.appendChild(new CalendarSheet(defaultDate).toHTML());
+            endForm.appendChild(new CalendarSheet(defaultDate).toHTML());
+
+
+            function toggleVisibility(i){
+                let t  = forms[i];
+                t.hidden = !t.hidden;
+                if(!t.hidden) forms[(i + 1) % 2].hidden = true;
+            }
+
+            function hideBothCalendars(){
+                startForm.hidden = true;
+                endForm.hidden = true;
+            }
+        </script>
     </body>
     
 </html>

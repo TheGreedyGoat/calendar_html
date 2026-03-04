@@ -1,5 +1,6 @@
 
 class CalendarSheet{
+    static weekdays = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
     /**
      * 
      * @param {date} date 
@@ -55,19 +56,6 @@ class CalendarSheet{
         else{
             dateData.addHTMLClass("weekday");
         }
-
-        let holidays = Holidays.getHolidays(dateData.date);
-        if(holidays !== '') dateData.addHTMLClass('holiday')
-        
-        let holidayArr = holidays.split(',');
-        for(let hDay of holidayArr){
-            if(hDay !== ''){
-                dateData.addHoliday(hDay);
-                hDay.replace(' ', '-');
-                dateData.addHTMLClass(hDay);
-            }
-        }
-        
     }
 
     /**
@@ -142,7 +130,7 @@ class CalendarSheet{
     static addWeekdayShorthands(sheet){
         let headRow = document.createElement("tr");
         headRow.classList.add("calendarWeekRow");
-        for(let wdString of CalendarTools.weekdays){
+        for(let wdString of CalendarSheet.weekdays){
             let headCell = document.createElement("th");
             headCell.classList.add("calendarWeekCell");
             headCell.classList.add(wdString);
@@ -224,6 +212,10 @@ class DateData{
         return this.classes? this.classes : []
     }
 
+    /**
+     * 
+     * @param {string} holidayName 
+     */
     addHoliday(holidayName){
         this.holidays.push(holidayName);
     }
