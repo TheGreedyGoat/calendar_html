@@ -6,15 +6,22 @@ class CalendarSheet{
      * @param {date} date 
      */
     constructor(date){
-        let dateOfFIrstDay = new Date(date.getFullYear(), date.getMonth(), 1)
-        
+        this.setup(date);
+    }
 
-        this.firstofMonthIndex = (dateOfFIrstDay.getDay() + 6) % 7 // SUN = 0, 0 + 6 = 6, 6 % 7 = 6
+    /**
+     * 
+     * @param {Date} date 
+     */
+    setup(date){
+        this.dateOfFirstDay = new Date(date.getFullYear(), date.getMonth(), 1)
+
+        this.firstofMonthIndex = (this.dateOfFirstDay.getDay() + 6) % 7 // SUN = 0, 0 + 6 = 6, 6 % 7 = 6
         this.firstOfNextMonthIndex = 10
 
-        this.monthNum  = dateOfFIrstDay.getMonth()
-        this.year = dateOfFIrstDay.getFullYear()
-        this.firstDateOfTable = new Date(dateOfFIrstDay)
+        this.monthNum  = this.dateOfFirstDay.getMonth()
+        this.year = this.dateOfFirstDay.getFullYear()
+        this.firstDateOfTable = new Date(this.dateOfFirstDay)
         this.firstDateOfTable.setDate(this.firstDateOfTable.getDate() - this.firstofMonthIndex)
 
         this.dataStorage = [];  
@@ -33,7 +40,18 @@ class CalendarSheet{
                 this.firstOfNextMonthIndex = i
             }
         }
+    }
 
+    /**
+     * @param {number} differenceSigned 
+     */
+    increaseOrDecreaseMonth(differenceSigned){
+        let newDate = new Date(this.dateOfFirstDay.getTime());
+        // console.log(newDate, newDate.getMonth());
+        newDate.setMonth(newDate.getMonth() + differenceSigned);
+
+
+        this.setup(newDate);
     }
 
     /**
@@ -41,6 +59,7 @@ class CalendarSheet{
      * @param {DateData} dateData
      */
     saveDateSpecificClasses(dateData){
+        dateData.clearHTMLClasses();
 
         if(dateData.date.getMonth() != this.monthNum){
             dateData.addHTMLClass("other");
@@ -91,7 +110,7 @@ class CalendarSheet{
      */
     getHolidays(date) {
         let data = this.getDataFromDate(date);
-        if(!data) return null;
+        if(!data) return null;      // <- if the date is not within the sheet. Probably need better handling
         else return data.holidays;
     }
 
@@ -105,8 +124,7 @@ class CalendarSheet{
             &&  date.getFullYear() == this.year
     }
     
-    toHTML(addHeader = true, isEDay = true){
-        if(this.htmlSheet) return this.htmlSheet;
+    toHTML(addHeader = true){
         this.htmlSheet = document.createElement("table");
         this.htmlSheet.classList.add("calendar_sheet");
 
@@ -116,7 +134,7 @@ class CalendarSheet{
             let row = document.createElement("tr");
             row.classList.add("weekRow")
             for(let d = 0; d < 7; d++){
-                let htmlCell = this.buildHTMLCell(w, d, isEDay)
+                let htmlCell = this.buildHTMLCell(w, d)
                 row.appendChild(htmlCell);
             }
             this.htmlSheet.appendChild(row);
@@ -125,21 +143,6 @@ class CalendarSheet{
         
         return this.htmlSheet;
     }
-
-
-    static addWeekdayShorthands(sheet){
-        let headRow = document.createElement("tr");
-        headRow.classList.add("calendarWeekRow");
-        for(let wdString of CalendarSheet.weekdays){
-            let headCell = document.createElement("th");
-            headCell.classList.add("calendarWeekCell");
-            headCell.classList.add(wdString);
-            headCell.innerText = wdString
-            headRow.appendChild(headCell)
-        }
-        sheet.appendChild(headRow);
-    }
-
 
     buildHTMLCell(w, d){
         let cellDate = this.getDataAtGridIndex(w, d).date
@@ -167,6 +170,18 @@ class CalendarSheet{
         return htmlCell;
     }
 
+    static addWeekdayShorthands(sheet){
+        let headRow = document.createElement("tr");
+        headRow.classList.add("calendarWeekRow");
+        for(let wdString of CalendarSheet.weekdays){
+            let headCell = document.createElement("th");
+            headCell.classList.add("calendarWeekCell");
+            headCell.classList.add(wdString);
+            headCell.innerText = wdString
+            headRow.appendChild(headCell)
+        }
+        sheet.appendChild(headRow);
+    }
     /**
      * 
      * @param {HTMLTableCellElement} htmlCell the htmnl cell to set the attributes to
@@ -204,8 +219,11 @@ class DateData{
      */
     addHTMLClass(className){
         className = className.replaceAll(' ', '-');
-        this.classes = this.classes? this.classes : [];
         this.classes.push(className);
+    }
+
+    clearHTMLClasses(){
+        this.classes = [];
     }
 
     getHTMLClasses(){

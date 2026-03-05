@@ -1,5 +1,5 @@
 
-class CalendarSchedule{
+class Schedule{
     static masterSchedules = [];
     static cache = {
         // id : [y_m_d, ...]
@@ -10,7 +10,7 @@ class CalendarSchedule{
      * @param {string} title 
      * @param {Date} start 
      * @param {Date} end 
-     * @param {string} recurrence the unit of the recurrence (none, days, weeks, months, years)
+     * @param {string} recurrence the unit of the recurrence (none, daily, weekly, monthly or yearly)
      * @param {number} recurrenceFrequ how many of the given time units should be in between recurrences? eg every 3 days
      */
     constructor(title, start, end, recurrence = 'none', recurrenceFrequ = 1){
@@ -28,13 +28,13 @@ class CalendarSchedule{
             this.recurrenceFrequ = recurrenceFrequ
         }
 
-        this.id = CalendarSchedule.ids++; // bräuchten später ein besseres System
+        this.id = Schedule.ids++; // bräuchten später ein besseres System
 
         this.title = title;     // 'Geburtstag von Jutta'
         this.start = start;
         this.end = end;
 
-        CalendarSchedule.masterSchedules.push(this);
+        Schedule.masterSchedules.push(this);
     }
 
     /**
@@ -46,22 +46,48 @@ class CalendarSchedule{
     }
 
     /**
-     * clear the cache and load new schedules within given interval
-     * @param {Date} startDate 
-     * @param {Date} endDate 
+     * returns the number of days covered by a given interval
+     * @param {Date} start 
+     * @param {Date} end 
+     * @returns {number}
      */
-    static updateCache(startDate, endDate){
-        CalendarSchedule.cache = {};
+    static daysWithinInterval(start, end){
+        let days = 0
+        let currentDate = new Date(start);
+        currentDate.setMilliseconds(0);
+        currentDate.setSeconds(0);
+        currentDate.setMinutes(0);
+        currentDate.setHours(0);
+        while(currentDate <= end){
+            days++;
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+        return days;
+    }
+
+    /**
+     * clear the cache and load new schedules within given interval
+     * @param {Date} intervStart 
+     * @param {Date} intervEnd 
+     */
+    static updateCache(intervStart, intervEnd){
+        Schedule.cache = {};
 
         this.masterSchedules.forEach((schedule) => {
             let currentDate = new Date(schedule.start);
             let scheduleID = schedule.id;
+            let numDaysOfSchedule = Schedule.daysWithinInterval(schedule.start, schedule.end);
 
-            while(currentDate <= endDate){ // aufhören, wenn wir über der Obergrenze sind
-                if(currentDate >= startDate){
-                    if(!cache[scheduleID]) cache[scheduleID] = []
-                    cache[scheduleID].push(CalendarSchedule.dateString(currentDate));
+            while(currentDate <= intervEnd){ // aufhören, wenn wir über der Obergrenze sind
+                let currentCopy = new Date(currentDate);
+                for(let i = 0; i < numDaysOfSchedule; i++){
+                    if(currentCopy >= intervStart){
+                        if(!Schedule.cache[scheduleID]) Schedule.cache[scheduleID] = []
+                        Schedule.cache[scheduleID].push(Schedule.dateString(currentCopy));
+                    }
+                    currentCopy.setDate(currentCopy.getDate() + 1);
                 }
+                
 
                 if(schedule.recurrence === 'none') break;   // <= no recurrence, continue with next master
                 switch(schedule.recurrence){
@@ -95,6 +121,19 @@ class CalendarSchedule{
         return !(start > end) && date >= start && date <= end;
     }
 
-
-
 }
+
+
+// let s1 = {
+//     title: 'Termin_1',
+//     start: new Date(2024,2,4),
+//     end: new Date(2024, 2, 6),
+
+// };
+
+// new Schedule(s1.title, s1.start, s1.end, 'yearly');
+
+// console.log(Schedule.masterSchedules);
+// Schedule.updateCache(new Date(2026,2,1), new Date(2026,2,31));
+
+// console.log(Schedule.cache);

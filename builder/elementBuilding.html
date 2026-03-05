@@ -22,11 +22,14 @@
                         background: #eee;
                         /* padding: 20px; */
                     }
-                    .schedule_date_selection{
+                    .selection-calendar-wrapper{
                         position: absolute;
                         left: 5px;
                         z-index: 1;
                         background-color: red;
+                    }
+                    .day:hover{
+                        background-color: blueviolet;;
                     }
 
             
@@ -44,10 +47,19 @@
                 <section class = 'selectionFlexElement'>
                    Beginn: <button id = 'show_start_selection' onclick="toggleVisibility(0)"> 16.April2026</button>
                 </section> 
+
                 <section class = 'selectionFlexElement'>
-                    <form class="schedule_date_selection" id = 'choose_start_date' hidden></form>
+                    <div class = 'selection-calendar-wrapper' id = 'start_calendar_wrapper' hidden>
+                        <form class="schedule_date_selection" id = 'choose_start_date'>
+
+                        </form>
+                        <button onclick="switchSheetMonth(startSheet, -1);">p</button>
+
+                        <button  onclick="switchSheetMonth(startSheet, +1);">n</button>
+                    </div>
+
                 </section>
-                
+
             </div>
 
             <div class = 'selection_container' id = 'end_selection_container'>
@@ -55,8 +67,11 @@
                     Ende: <button id = 'show_end_selection' onclick="toggleVisibility(1)"> 16.April2026</button>
                 </section>
                 <section class = 'selectionFlexElement'>
-
-                    <form class="schedule_date_selection" id = 'choose_end_date' hidden></form>
+                    <div class = 'selection-calendar-wrapper' id = 'end_calendar_wrapper' hidden>
+                        <form class="schedule_date_selection" id = 'choose_end_date'></form>
+                        <button> p</button>
+                        <button> n</button>
+                    </div>
                 </section>
             </div>
             <div>Wiederholen:
@@ -78,25 +93,43 @@
 
         
         <script>
-            const startForm  = document.getElementById('choose_start_date');
-            const endForm  = document.getElementById('choose_end_date');
-            const forms = [startForm, endForm]
+            const START_FORM  = document.getElementById('choose_start_date');
+            const START_WRAPPER = document.querySelector('#start_calendar_wrapper');
+
+            const END_FORM  = document.getElementById('choose_end_date');
+            const END_WRAPPER = document.querySelector('#end_calendar_wrapper');
+            const FORMS = [START_FORM, END_FORM]
+            const WRAPPERS = [START_WRAPPER, END_WRAPPER]
 
             let defaultDate = new Date();
+            let startSheet = new CalendarSheet(defaultDate);
+            let endSheet = new CalendarSheet(defaultDate);
 
-            startForm.appendChild(new CalendarSheet(defaultDate).toHTML());
-            endForm.appendChild(new CalendarSheet(defaultDate).toHTML());
+            renderSheets();
 
+            function switchSheetMonth(sheet, diffSigned){
+                sheet.increaseOrDecreaseMonth(diffSigned);
+                renderSheets();
+            }
+
+            function renderSheets(){
+                START_FORM.innerHTML = '';
+                END_FORM.innerHTML = '';
+
+                console.log(startSheet)
+                START_FORM.appendChild(startSheet.toHTML());
+                END_FORM.appendChild(endSheet.toHTML());
+            }
 
             function toggleVisibility(i){
-                let t  = forms[i];
+                let t  = WRAPPERS[i];
                 t.hidden = !t.hidden;
-                if(!t.hidden) forms[(i + 1) % 2].hidden = true;
+                if(!t.hidden) WRAPPERS[(i + 1) % 2].hidden = true;
             }
 
             function hideBothCalendars(){
-                startForm.hidden = true;
-                endForm.hidden = true;
+                START_WRAPPER.hidden = true;
+                END_WRAPPER.hidden = true;
             }
         </script>
     </body>
