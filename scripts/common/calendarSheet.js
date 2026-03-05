@@ -6,6 +6,8 @@ class CalendarSheet{
      * @param {date} date 
      */
     constructor(date){
+        this.htmlSheet = document.createElement("table");
+        this.htmlSheet.classList.add("calendar_sheet");
         this.setup(date);
     }
 
@@ -14,6 +16,9 @@ class CalendarSheet{
      * @param {Date} date 
      */
     setup(date){
+        if(this.dateOfFirstDay && date.getMonth() == this.dateOfFirstDay.getMonth() && date.getFullYear() == this.dateOfFirstDay.getFullYear()){
+            return;
+        }
         this.dateOfFirstDay = new Date(date.getFullYear(), date.getMonth(), 1)
 
         this.firstofMonthIndex = (this.dateOfFirstDay.getDay() + 6) % 7 // SUN = 0, 0 + 6 = 6, 6 % 7 = 6
@@ -40,12 +45,30 @@ class CalendarSheet{
                 this.firstOfNextMonthIndex = i
             }
         }
+
+        this.buildDOM();
+    }
+
+    buildDOM(){
+        this.htmlSheet.innerText = ''
+        // if(addHeader) CalendarSheet.addWeekdayShorthands(this.htmlSheet);
+        this.htmlSheet.appendChild(CalendarSheet.getHeaderRow());
+        for(let w = 0; w < 6; w++){
+            let row = document.createElement("tr");
+            row.classList.add("weekRow")
+            for(let d = 0; d < 7; d++){
+                let htmlCell = this.buildHTMLCell(w, d)
+                row.appendChild(htmlCell);
+                this.dataStorage[CalendarSheet.getIndexFromGrid(w,d)].setHTMLCell(htmlCell);
+            }
+            this.htmlSheet.appendChild(row);
+        }
     }
 
     /**
      * @param {number} differenceSigned 
      */
-    increaseOrDecreaseMonth(differenceSigned){
+    IncreaseOrDecreaseMonth(differenceSigned){
         let newDate = new Date(this.dateOfFirstDay.getTime());
         // console.log(newDate, newDate.getMonth());
         newDate.setMonth(newDate.getMonth() + differenceSigned);
@@ -124,23 +147,7 @@ class CalendarSheet{
             &&  date.getFullYear() == this.year
     }
     
-    toHTML(addHeader = true){
-        this.htmlSheet = document.createElement("table");
-        this.htmlSheet.classList.add("calendar_sheet");
-
-        if(addHeader) CalendarSheet.addWeekdayShorthands(this.htmlSheet);
-
-        for(let w = 0; w < 6; w++){
-            let row = document.createElement("tr");
-            row.classList.add("weekRow")
-            for(let d = 0; d < 7; d++){
-                let htmlCell = this.buildHTMLCell(w, d)
-                row.appendChild(htmlCell);
-            }
-            this.htmlSheet.appendChild(row);
-        }
-
-        
+    toHTML(){
         return this.htmlSheet;
     }
 
@@ -150,12 +157,12 @@ class CalendarSheet{
         let htmlCell = document.createElement("td");  // day
         let cellDiv = document.createElement("div"); // dateContainer
         
-        cellDiv.addEventListener("click", function(event){
-            sendMessageToAllWindows("click", {
-                clickType: "date cell",
-                clickValue: cellDate
-            });
-        })
+        // cellDiv.addEventListener("click", function(event){
+        //     sendMessageToAllWindows("click", {
+        //         clickType: "date cell",
+        //         clickValue: cellDate
+        //     });
+        // })
         
         let content = cellDate.getDate();
         
@@ -170,7 +177,19 @@ class CalendarSheet{
         return htmlCell;
     }
 
-    static addWeekdayShorthands(sheet){
+    /**
+     * Um jederzeit von außen die Funktionalität bestimmen zu können
+     * @param {function} func Funktion, die ein Datum entgegennimmt
+     */
+    addDateClickEvent(func){
+        for(let data of this.dataStorage){
+            data.htmlCell.addEventListener('click', () => {
+                func(data.date);
+            })
+        }
+    }
+
+    static getHeaderRow(){
         let headRow = document.createElement("tr");
         headRow.classList.add("calendarWeekRow");
         for(let wdString of CalendarSheet.weekdays){
@@ -180,7 +199,7 @@ class CalendarSheet{
             headCell.innerText = wdString
             headRow.appendChild(headCell)
         }
-        sheet.appendChild(headRow);
+        return headRow;
     }
     /**
      * 
@@ -230,6 +249,9 @@ class DateData{
         return this.classes? this.classes : []
     }
 
+    setHTMLCell(cell){
+        this.htmlCell = cell;
+    }
     /**
      * 
      * @param {string} holidayName 

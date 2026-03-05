@@ -12,25 +12,36 @@
                 flex-direction: column;
                 border:solid black;
             }
+            .selector-showHide{
+                height: 20px;
+                width: 60px;
+            }
                 .selection_container{
                     position: relative;
                     display: flex;
-                    border: dotted red;
+                    height: 20px;
+                    /* border: dotted red; */
                 }
-                    .selectionFlexElement{
-                        position: relative; /* Wichtig für absolute Kinder */
-                        background: #eee;
-                        /* padding: 20px; */
+                .selector-flexWrapper{
+
+                }
+                    .selector-innerWrapper{
+                        /* position: absolute; */
+                        background-color: blue;
+                        z-index: 2;
+                        outline: solid red;
                     }
-                    .selection-calendar-wrapper{
-                        position: absolute;
-                        left: 5px;
-                        z-index: 1;
-                        background-color: red;
+                    .selector-headWrapper{
+                        display: flex;
+                        justify-content: space-between;
                     }
-                    .day:hover{
-                        background-color: blueviolet;;
+                    .selector-month{
+                        z-index: 2;
                     }
+                    
+                        .day:hover{
+                            background-color: blueviolet;;
+                        }
 
             
         </style>
@@ -41,39 +52,16 @@
 
         <section id = 'add_schedule'>
             <h2>Neuer Termin...</h2>
-            <input type="text" placeholder="Titel eingeben...">
+            <input type="text" placeholder="Titel eingeben..."/></section>
 
-            <div class = 'selection_container' id = 'start_selection_container'>
-                <section class = 'selectionFlexElement'>
-                   Beginn: <button id = 'show_start_selection' onclick="toggleVisibility(0)"> 16.April2026</button>
-                </section> 
+            <section class = 'selection_container' id = 'start_selection_container'>
 
-                <section class = 'selectionFlexElement'>
-                    <div class = 'selection-calendar-wrapper' id = 'start_calendar_wrapper' hidden>
-                        <form class="schedule_date_selection" id = 'choose_start_date'>
+            </section>
 
-                        </form>
-                        <button onclick="switchSheetMonth(startSheet, -1);">p</button>
+            <section class = 'selection_container' id = 'end_selection_container'>
+                
+            </section>
 
-                        <button  onclick="switchSheetMonth(startSheet, +1);">n</button>
-                    </div>
-
-                </section>
-
-            </div>
-
-            <div class = 'selection_container' id = 'end_selection_container'>
-                <section class = 'selectionFlexElement'>
-                    Ende: <button id = 'show_end_selection' onclick="toggleVisibility(1)"> 16.April2026</button>
-                </section>
-                <section class = 'selectionFlexElement'>
-                    <div class = 'selection-calendar-wrapper' id = 'end_calendar_wrapper' hidden>
-                        <form class="schedule_date_selection" id = 'choose_end_date'></form>
-                        <button> p</button>
-                        <button> n</button>
-                    </div>
-                </section>
-            </div>
             <div>Wiederholen:
                 
                 <select name="recurrence" id="choose_recurrence_unit">
@@ -89,48 +77,26 @@
 
 
         <script src = '../scripts/common/calendarSheet.js'></script>
+        <script src  = 'dateSelector.js'></script>
         <script src  = '../builder/calendar_schedule.js'></script>
 
         
         <script>
-            const START_FORM  = document.getElementById('choose_start_date');
-            const START_WRAPPER = document.querySelector('#start_calendar_wrapper');
+            const START_CONTAINER = document.querySelector('#start_selection_container');
+            const END_CONTAINER = document.querySelector('#end_selection_container');
+            const START_SELECTOR = new DateSelector(new Date(), 'start_selector');
+            const END_SELECTOR = new DateSelector(new Date(), 'end_selector');
 
-            const END_FORM  = document.getElementById('choose_end_date');
-            const END_WRAPPER = document.querySelector('#end_calendar_wrapper');
-            const FORMS = [START_FORM, END_FORM]
-            const WRAPPERS = [START_WRAPPER, END_WRAPPER]
+            START_SELECTOR.place(START_CONTAINER);
+            END_SELECTOR.place(END_CONTAINER);
 
-            let defaultDate = new Date();
-            let startSheet = new CalendarSheet(defaultDate);
-            let endSheet = new CalendarSheet(defaultDate);
+            START_SELECTOR.showHide.addEventListener('click', ()=> {
+                END_SELECTOR.hide();
+            })
+            END_SELECTOR.showHide.addEventListener('click', ()=> {
+                START_SELECTOR.hide();
+            })
 
-            renderSheets();
-
-            function switchSheetMonth(sheet, diffSigned){
-                sheet.increaseOrDecreaseMonth(diffSigned);
-                renderSheets();
-            }
-
-            function renderSheets(){
-                START_FORM.innerHTML = '';
-                END_FORM.innerHTML = '';
-
-                console.log(startSheet)
-                START_FORM.appendChild(startSheet.toHTML());
-                END_FORM.appendChild(endSheet.toHTML());
-            }
-
-            function toggleVisibility(i){
-                let t  = WRAPPERS[i];
-                t.hidden = !t.hidden;
-                if(!t.hidden) WRAPPERS[(i + 1) % 2].hidden = true;
-            }
-
-            function hideBothCalendars(){
-                START_WRAPPER.hidden = true;
-                END_WRAPPER.hidden = true;
-            }
         </script>
     </body>
     

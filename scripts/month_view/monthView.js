@@ -5,7 +5,6 @@ const CALENDAR_HEAD_ID = "calendar_head";
 const DATE_CONTAINER_CLASS_NAME = ".dateContainer";
 
 let dataSheet;
-let htmlSheet;
 let activeDateCell;
 
 let currentSheetDate; // of the sheet
@@ -18,34 +17,28 @@ let activeDayDate;  // of the active daily page
  * @param {Date} newDate 
  */
 function switchToDate(newDate){
-    
-    let oldMonth;
-    let oldYear;
-    if(currentSheetDate){
-        oldMonth = currentSheetDate.getMonth();
-        oldYear = currentSheetDate.getFullYear();
-    }
     activeDayDate = newDate;
     currentSheetDate = newDate;
-
-
-    if(newDate.getMonth() != oldMonth || newDate.getFullYear() != oldYear){
-        renderHTMLSheet(new CalendarSheet(newDate));
+    if(!dataSheet){
+        dataSheet = new CalendarSheet(newDate);
+        dataSheet.addDateClickEvent((date) => {
+            sendMessageToAllWindows("click", {
+                    clickType: "date cell",
+                    clickValue: date
+                });
+        });
+        CALENDAR_TARGET.prepend(dataSheet.toHTML());
+    }else{
+        dataSheet.setup(newDate);
     }
     checkForSpecialFormatting();
     markActiveDate();
-}
-
-function switchMonth(newMonthsDate){
-    currentSheetDate = newMonthsDate;
-    renderHTMLSheet(new CalendarSheet(newMonthsDate));
-    checkForSpecialFormatting();
 }
 /**
  * 
  */
 function markActiveDate(){
-        let dateCells = htmlSheet.querySelectorAll('.day');
+        let dateCells = dataSheet.htmlSheet.querySelectorAll('.day');
         if(activeDateCell){
             activeDateCell.classList.remove('active');
         }
@@ -56,26 +49,6 @@ function markActiveDate(){
                 activeDateCell.classList.add('active');
             }
         }
-}
-
-/**
- * 
- * @param {CalendarSheet} sheet 
- */
-function renderHTMLSheet(sheet){
-    if(CALENDAR_TARGET.firstChild.id == CALENDAR_SHEET_ID){
-        CALENDAR_TARGET.removeChild(CALENDAR_TARGET.firstChild);
-    }
-
-    Holidays.addHolidaysOfYear();
-
-    dataSheet = sheet
-
-    htmlSheet = sheet.toHTML();
-
-    htmlSheet.setAttribute("id", CALENDAR_SHEET_ID);
-    CALENDAR_TARGET.prepend(htmlSheet);
-    
 }
 
 
@@ -95,8 +68,9 @@ function dateClicked(date){
  * @param {number} n 
  */
 function addMonth(n = 1){
-    let newMonthsDate =   new Date(currentSheetDate.getFullYear(), currentSheetDate.getMonth() + n, 1);
-    switchMonth(newMonthsDate);
+    
+    dataSheet.IncreaseOrDecreaseMonth(n);
+    checkForSpecialFormatting();
 }
 
 /**
@@ -130,7 +104,7 @@ function sendDataToDayView(date = newDate()){
  * to check how we write numbers, wich wallpaper to choose etc.
  */
 function checkForSpecialFormatting(){
-    let dateContainers = htmlSheet.querySelectorAll(DATE_CONTAINER_CLASS_NAME);
+    let dateContainers = dataSheet.htmlSheet.querySelectorAll(DATE_CONTAINER_CLASS_NAME);
     let holidaysArr = Holidays.getHolidays(activeDayDate).split(',');
     
     let format = function(n){return n};
