@@ -28,10 +28,11 @@ function switchToDate(newDate){
                 });
         });
         CALENDAR_TARGET.prepend(dataSheet.toHTML());
+        setHolidays()
     }else{
-        dataSheet.setup(newDate);
+        updateSheet();
     }
-    checkForSpecialFormatting();
+    
     markActiveDate();
 }
 /**
@@ -52,6 +53,12 @@ function markActiveDate(){
 }
 
 
+function updateSheet(){
+    dataSheet.setup(currentSheetDate);
+    setHolidays();
+    checkForSpecialFormatting();
+}
+
 /**
  * 
  * @param {Date} date 
@@ -68,9 +75,8 @@ function dateClicked(date){
  * @param {number} n 
  */
 function addMonth(n = 1){
-    
-    dataSheet.IncreaseOrDecreaseMonth(n);
-    checkForSpecialFormatting();
+    currentSheetDate.setMonth(currentSheetDate.getMonth() + n);
+    updateSheet();
 }
 
 /**
@@ -98,6 +104,29 @@ function sendDataToDayView(date = newDate()){
         holidays: holidays
     });
 
+}
+
+/**
+ * setzt die Feiertage in den Datenzellen des Kalenderblattes und aktualisiert die Klassen entsprechend
+ */
+function setHolidays(){
+    for(let data of dataSheet.dataStorage){
+        let holidaysArr = Holidays.getHolidays(data.date).split(',');
+        console.log(holidaysArr);
+        let domCell = data.htmlCell;
+
+        if(holidaysArr && holidaysArr[0] != '') domCell.classList.add('holiday');
+        for(let holiday of holidaysArr){
+            if(holiday != ''){
+                data.addHoliday(holiday);
+                console.log(holiday);      // => Pokemon Day
+                holiday = holiday.replaceAll(" ", "-");
+                console.log(holiday);      // => auch Pokemon Day, Leerzeichen ist noch da
+                domCell.classList.add(holiday);
+            }
+        }
+
+    }
 }
 
 /**

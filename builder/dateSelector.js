@@ -6,10 +6,13 @@ class DateSelector{
      * @param {string} id 
      */
     constructor(date, id){
+        this.value = date;
         this.sheet = new CalendarSheet(date);
         this.id = id;
 
         this.showHide = document.createElement('button');
+        this.showHide.innerText = this.value.toLocaleDateString();
+
         this.flexWrapper =document.createElement('div');
         this.innerWrapper = document.createElement('div');
         this.form = document.createElement('form');
@@ -86,6 +89,19 @@ class DateSelector{
             this.sheet.IncreaseOrDecreaseMonth(+1)
         });
 
+        this.sheet.addDateClickEvent((value) => {
+            console.log(value);
+            this.setValue(value);
+        });
+    }
+
+    /**
+     * 
+     * @param {Date} value 
+     */
+    setValue(value){
+        this.value = value;
+        this.showHide.innerText = value.toLocaleDateString();
     }
 
 
