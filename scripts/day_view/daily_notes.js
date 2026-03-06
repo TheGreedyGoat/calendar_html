@@ -17,10 +17,9 @@ function setupNoteInputField(){
         console.log(NOTE_INPUT_FIELD.style.height)
     });
 
-    refresh();
 }
 
-/**
+/** 
  * Wir prüfen erstmal, ob überhaupt was geschrieben wurde, wenn ja, senden wir die neue Notiz ans Hauptfenster
  */
 function sendNoteWriteRequest(){

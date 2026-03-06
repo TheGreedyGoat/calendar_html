@@ -1,15 +1,16 @@
 
 const CLICK_SOUND = new Audio("assets/sounds/minecraft_click.mp3");
 // !!!!----MONTH----!!!!
+let startDate = new Date();
 RECIEVERS.push(window);
-sendMessage(window, "setup", new Date());
+sendMessage(window, "setup", startDate);
 
 const frames = document.getElementsByTagName("iFrame")
 for(let i = 0; i < frames.length; i++){
     let frame = frames[i];
     frame.onload = function(){
         RECIEVERS.push(frame.contentWindow);
-        sendMessage(frame.contentWindow, "setup", {date: new Date()})
+        sendMessage(frame.contentWindow, "setup", {date: startDate})
     }
 }
 
@@ -24,6 +25,8 @@ function processMessage(message){
             break;
         case "log":
             break;
+        case 'send_daily_data':
+            sendDataToDayView(message.data);
         default:
             break;
     }

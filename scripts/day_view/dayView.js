@@ -7,6 +7,8 @@ let activeDate = new Date();
 function setupPage(setupDate = new Date()){
     activeDate = setupDate;
     setupNoteInputField();
+    refresh();
+    sendMessage(window.parent, 'send_daily_data', setupDate)
 }
 
 function setActiveDate(newDate = new Date()){

@@ -292,13 +292,5 @@ class DateData{
     setHTMLCell(cell){
         this.htmlCell = cell;
     }
-    /**
-     * 
-     * @param {string} holidayName 
-     */
-    addHoliday(holidayName){
-        if(!this.holidays) this.holidays = [];
-        this.holidays.push(holidayName);
-    }
 
 }

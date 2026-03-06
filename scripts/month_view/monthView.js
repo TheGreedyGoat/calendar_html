@@ -28,7 +28,9 @@ function switchToDate(newDate){
                 });
         });
         CALENDAR_TARGET.prepend(dataSheet.toHTML());
-        setHolidays()
+        Holidays.addHolidaysToDataSheet(dataSheet);
+        sendDataToDayView(activeDayDate)
+        checkForSpecialFormatting();
     }else{
         updateSheet();
     }
@@ -55,7 +57,7 @@ function markActiveDate(){
 
 function updateSheet(){
     dataSheet.setup(currentSheetDate);
-    setHolidays();
+    Holidays.addHolidaysToDataSheet(dataSheet);
     checkForSpecialFormatting();
 }
 
@@ -95,8 +97,9 @@ function addNote(noteMessageObject){
 function sendDataToDayView(date = newDate()){
     //get all the data 
     let notes = CalendarTools.getOnlyNotesOfDate(date);
-    let holidays = dataSheet.getDataFromDate(date).holidays;
-
+    let holidayString = Holidays.getHolidays(date);
+    let holidays = holidayString === '' ? ['Kein Feiertag, geh arbeiten'] : holidayString.split(',');
+    
     //send it
 
     sendMessageToAllWindows('daily_data', {
@@ -104,29 +107,6 @@ function sendDataToDayView(date = newDate()){
         holidays: holidays
     });
 
-}
-
-/**
- * setzt die Feiertage in den Datenzellen des Kalenderblattes und aktualisiert die Klassen entsprechend
- */
-function setHolidays(){
-    for(let data of dataSheet.dataStorage){
-        let holidaysArr = Holidays.getHolidays(data.date).split(',');
-        console.log(holidaysArr);
-        let domCell = data.htmlCell;
-
-        if(holidaysArr && holidaysArr[0] != '') domCell.classList.add('holiday');
-        for(let holiday of holidaysArr){
-            if(holiday != ''){
-                data.addHoliday(holiday);
-                console.log(holiday);      // => Pokemon Day
-                holiday = holiday.replaceAll(" ", "-");
-                console.log(holiday);      // => auch Pokemon Day, Leerzeichen ist noch da
-                domCell.classList.add(holiday);
-            }
-        }
-
-    }
 }
 
 /**

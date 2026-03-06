@@ -102,7 +102,9 @@ class Holidays{
         Holidays.HOLIDAYS_BY_YEAR[year] = {}
         for(let i = 0; i < holidays.length; i++){
             let date  = holidays[i];
-            if(!Holidays.HOLIDAYS_BY_YEAR[year][date.getMonth()]) Holidays.HOLIDAYS_BY_YEAR[year][date.getMonth()] = {};
+            if(!Holidays.HOLIDAYS_BY_YEAR[year][date.getMonth()]) {
+                Holidays.HOLIDAYS_BY_YEAR[year][date.getMonth()] = {};
+            }
             Holidays.HOLIDAYS_BY_YEAR[year][date.getMonth()][date.getDate()] = Holidays.D_HOLIDAY_NAMES[i];
         }
     }
@@ -150,14 +152,13 @@ class Holidays{
      */
     static addHolidaysToDataSheet(sheet){ 
         for(let i  = 0; i < sheet.dataStorage.length; i++){
-            let dateData = dataStorage[i].dateData;
+            let dateData = sheet.dataStorage[i];
             let holidays = Holidays.getHolidays(dateData.date);
         if(holidays !== '') dateData.addHTMLClass('holiday')
         
         let holidayArr = holidays.split(',');
         for(let hDay of holidayArr){
             if(hDay !== ''){
-                dateData.addHoliday(hDay);
                 hDay.replace(' ', '-');
                 dateData.addHTMLClass(hDay);
             }
