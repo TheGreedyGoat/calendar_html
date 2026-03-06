@@ -29,7 +29,6 @@ function switchToDate(newDate){
         });
         CALENDAR_TARGET.prepend(dataSheet.toHTML());
         Holidays.addHolidaysToDataSheet(dataSheet);
-        sendDataToDayView(activeDayDate)
         checkForSpecialFormatting();
     }else{
         updateSheet();

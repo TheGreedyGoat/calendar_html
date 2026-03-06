@@ -4,100 +4,38 @@
 <html>
     <head>
         <style>
-            #display_schedules{
-                border: solid black;
-            }
-            #add_schedule{
-                display: flex;
-                flex-direction: column;
-                border:solid black;
-            }
-            .selector-showHide{
-                height: 20px;
-                width: 60px;
-            }
-                .selection_container{
-                    position: relative;
-                    display: flex;
-                    height: 20px;
-                    /* border: dotted red; */
-                }
-                .selector-flexWrapper{
+            #time_wrapper{
+                display: grid;
+                grid-template-columns: auto auto ;
+                grid-gap: 5px;
+                padding: 5px;
+                width: fit-content;
 
-                }
-                    .selector-innerWrapper{
-                        /* position: absolute; */
-                        background-color: blue;
-                        z-index: 2;
-                        outline: solid red;
-                    }
-                    .selector-headWrapper{
-                        display: flex;
-                        justify-content: space-between;
-                    }
-                    .selector-month{
-                        z-index: 2;
-                    }
-                    
-                        .day:hover{
-                            background-color: blueviolet;;
-                        }
+                background-color: blue;
+            }
+            #time_wrapper > .start{
+                background-color: aqua;
+                /* width: 100px; */
+            }
+            #time_wrapper > .end{
+                background-color:cornflowerblue;
+                color:beige;
+            }
 
             
         </style>
     </head>
 
     <body>
-        <section id  = 'display_schedules'>schedules...</section>
+        <main>
 
-        <section id = 'add_schedule'>
-            <h2>Neuer Termin...</h2>
-            <input type="text" placeholder="Titel eingeben..."/></section>
-
-            <section class = 'selection_container' id = 'start_selection_container'>
-
-            </section>
-
-            <section class = 'selection_container' id = 'end_selection_container'>
-                
-            </section>
-
-            <div>Wiederholen:
-                
-                <select name="recurrence" id="choose_recurrence_unit">
-                    <option value="">Jeden Tag</option>
-                    <option value="">Jede Woche</option>
-                    <option value="">Jeden Montag</option>
-                    <option value="">Jedes Jahr</option>
-                    <option value="">Benutzerdefiniert...</option>
-                </select>
-            </div>
-        </section>
-
-
-
-        <script src = '../scripts/common/calendarSheet.js'></script>
-        <script src  = 'dateSelector.js'></script>
-        <script src  = '../builder/calendar_schedule.js'></script>
-
-        
-        <script>
-            const START_CONTAINER = document.querySelector('#start_selection_container');
-            const END_CONTAINER = document.querySelector('#end_selection_container');
-            const START_SELECTOR = new DateSelector(new Date(), 'start_selector');
-            const END_SELECTOR = new DateSelector(new Date(), 'end_selector');
-
-            START_SELECTOR.place(START_CONTAINER);
-            END_SELECTOR.place(END_CONTAINER);
-
-            START_SELECTOR.showHide.addEventListener('click', ()=> {
-                END_SELECTOR.hide();
-            })
-            END_SELECTOR.showHide.addEventListener('click', ()=> {
-                START_SELECTOR.hide();
-            })
-
-        </script>
+        </main>
     </body>
     
+    <script src="templates.js"></script>
+    <script src = '../scripts/common/calendarSheet.js'></script>
+    <script src  = 'dateSelector.js'></script>
+    <script>
+        
+    </script>
 </html>

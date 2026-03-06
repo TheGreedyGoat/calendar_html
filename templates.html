@@ -1,0 +1,37 @@
+
+
+<template id = 'schedule_creator_template'>
+    <div id = 'main_div'>
+        <div id = 'title_wrapper'>
+            Titel: <input type="text" name="title" id="title_input">
+        </div>
+        <div id = 'time_wrapper'>
+            <div class = 'start'>Beginn:</div> 
+            <form id = 'start_selector_target' class = 'start'>Selector</form>
+            <div class = 'end'>Ende:</div> 
+            <form class = 'end' id = 'end_selector_target'> Selector</form >
+             <div>Ganztägig</div> <input type="checkbox" name="isWholwDay" id="whole_day_check">
+        </div>
+        <div id = 'recurrence_wrapper'>
+            <div>Wiederholen:</div>
+            <input type="checkbox", id = 'recurrenceCheck'>
+        </div>
+    </div>
+</template>
+
+<template id = 'date_selector_template'>
+    <div id = 'date_selector_outest_wrapper'>
+        <button id="showHide" class="selector-showHide" type="button"></button>
+        <div class="selector-flexWrapper">
+            <div id="innerWrapper" class="selector-innerWrapper" hidden="">
+                <div class="selector-headWrapper">
+                    <button id="prevMonth" class="selector-month">&lt;</button>
+                    <h3>März 2026</h3>
+                    <button id="nextMonth" class="selector-month">&gt;</button>
+                </div>
+                <form id="form" class="selector-form"></form>
+            </div>
+        </div>
+    </div>
+
+</template>

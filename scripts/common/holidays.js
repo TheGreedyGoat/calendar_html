@@ -1,4 +1,9 @@
-
+const TABLE = [
+    {
+        'goldenNumber': 14,
+        'delay': 1
+    }
+];
 
 class Holidays{
     
@@ -154,15 +159,15 @@ class Holidays{
         for(let i  = 0; i < sheet.dataStorage.length; i++){
             let dateData = sheet.dataStorage[i];
             let holidays = Holidays.getHolidays(dateData.date);
-        if(holidays !== '') dateData.addHTMLClass('holiday')
-        
-        let holidayArr = holidays.split(',');
-        for(let hDay of holidayArr){
-            if(hDay !== ''){
-                hDay.replace(' ', '-');
-                dateData.addHTMLClass(hDay);
+            if(holidays !== '') dateData.addHTMLClass('holiday')
+            
+            let holidayArr = holidays.split(',');
+            for(let hDay of holidayArr){
+                if(hDay !== ''){
+                    hDay.replace(' ', '-');
+                    dateData.addHTMLClass(hDay);
+                }
             }
-        }
         }
     }
 }
