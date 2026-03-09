@@ -1,11 +1,11 @@
 
-class CalendarSheet{
+class CalendarSheet {
     static weekdays = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
     /**
      * 
      * @param {date} date 
      */
-    constructor(date){
+    constructor(date) {
         this.setup(date);
     }
 
@@ -13,8 +13,8 @@ class CalendarSheet{
      * 
      * @param {Date} date 
      */
-    setup(date){
-        if(this.dateOfFirstDay && date.getMonth() == this.dateOfFirstDay.getMonth() && date.getFullYear() == this.dateOfFirstDay.getFullYear()){
+    setup(date) {
+        if (this.dateOfFirstDay && date.getMonth() == this.dateOfFirstDay.getMonth() && date.getFullYear() == this.dateOfFirstDay.getFullYear()) {
             return;
         }
         this.dateOfFirstDay = new Date(date.getFullYear(), date.getMonth(), 1)
@@ -22,14 +22,14 @@ class CalendarSheet{
         this.firstofMonthIndex = (this.dateOfFirstDay.getDay() + 6) % 7 // SUN = 0, 0 + 6 = 6, 6 % 7 = 6
         this.firstOfNextMonthIndex = 10
 
-        this.monthNum  = this.dateOfFirstDay.getMonth()
+        this.monthNum = this.dateOfFirstDay.getMonth()
         this.year = this.dateOfFirstDay.getFullYear()
         this.firstDateOfTable = new Date(this.dateOfFirstDay)
         this.firstDateOfTable.setDate(this.firstDateOfTable.getDate() - this.firstofMonthIndex)
 
-        if(!this.dataStorage){
+        if (!this.dataStorage) {
             this.buildDataStorage();
-        }else{
+        } else {
             this.updateDates();
         }
     }
@@ -37,32 +37,32 @@ class CalendarSheet{
     /**
      * DON'T CALL FROM OUTSIDE! Use this.setup(date) instead!
      */
-    buildDataStorage(){
-        this.dataStorage = [];  
+    buildDataStorage() {
+        this.dataStorage = [];
 
-        for(let i = 0; i < 6 * 7; i++){ // 6 weeks * 7 days/week
+        for (let i = 0; i < 6 * 7; i++) { // 6 weeks * 7 days/week
             this.dataStorage.push(new DateData())
         }
 
-        
+
         this.buildDOMTable();
         this.updateDates();
-        
+
     }
 
-    
+
     /**
      * DON'T CALL FROM OUTSIDE! Use this.setup(date) instead!
      */
-    updateDates(){
+    updateDates() {
         let cellDate = new Date(this.firstDateOfTable)
-        for(let i = 0; i < 6 * 7; i++){ // 6 weeks * 7 days/week
+        for (let i = 0; i < 6 * 7; i++) { // 6 weeks * 7 days/week
             this.dataStorage[i].setDate(cellDate);
 
             cellDate.setDate(cellDate.getDate() + 1);
-            if(i > this.firstofMonthIndex 
-                && cellDate.getMonth() != this.monthNum 
-                && cellDate.getDate() == 1){
+            if (i > this.firstofMonthIndex
+                && cellDate.getMonth() != this.monthNum
+                && cellDate.getDate() == 1) {
                 this.firstOfNextMonthIndex = i
             }
         }
@@ -73,46 +73,46 @@ class CalendarSheet{
     /**
      * call to completely rebuild the dom only! To update values use updateDOM() instead
      */
-    buildDOMTable(){
+    buildDOMTable() {
         this.htmlSheet = document.createElement("table");
         this.htmlSheet.classList.add("calendar_sheet");
         this.htmlSheet.innerText = ''
 
         // if(addHeader) CalendarSheet.addWeekdayShorthands(this.htmlSheet);
         this.htmlSheet.appendChild(CalendarSheet.getHeaderRow());
-        
-        for(let w = 0; w < 6; w++){
+
+        for (let w = 0; w < 6; w++) {
             let row = document.createElement("tr");
             row.classList.add("weekRow")
-            for(let d = 0; d < 7; d++){
-                
+            for (let d = 0; d < 7; d++) {
+
                 let htmlCell = document.createElement("td");  // day
                 let cellDiv = document.createElement("div"); // dateContainer
                 cellDiv.classList.add("dateContainer");
                 htmlCell.appendChild(cellDiv);
 
                 row.appendChild(htmlCell);
-                this.dataStorage[CalendarSheet.getIndexFromGrid(w,d)].setHTMLCell(htmlCell);
+                this.dataStorage[CalendarSheet.getIndexFromGrid(w, d)].setHTMLCell(htmlCell);
             }
             this.htmlSheet.appendChild(row);
         }
     }
 
-    updateDOM(){
+    updateDOM() {
         let isEven = true;
-        for(let data of this.dataStorage){
+        for (let data of this.dataStorage) {
             data.htmlCell.querySelector('.dateContainer').innerText = data.date.getDate();
             this.saveDateSpecificClasses(data);
-            data.addHTMLClass(isEven? 'even' : 'odd');
+            data.addHTMLClass(isEven ? 'even' : 'odd');
             isEven = !isEven;
         }
     }
-    
-    buildHTMLCell(w, d){
+
+    buildHTMLCell(w, d) {
         let cellDate = this.getDataAtGridIndex(w, d).date
         let content = cellDate.getDate();
         cellDiv.innerHTML = content;
-        let evenOdd = CalendarSheet.getIndexFromGrid(w,d) % 2 === 0? "even":"odd";
+        let evenOdd = CalendarSheet.getIndexFromGrid(w, d) % 2 === 0 ? "even" : "odd";
         htmlCell.classList.add(evenOdd);
         this.setHTMLAttributes(htmlCell, w, d);
 
@@ -124,7 +124,7 @@ class CalendarSheet{
     /**
      * @param {number} differenceSigned 
      */
-    IncreaseOrDecreaseMonth(differenceSigned){
+    IncreaseOrDecreaseMonth(differenceSigned) {
         let newDate = new Date(this.dateOfFirstDay.getTime());
         newDate.setMonth(newDate.getMonth() + differenceSigned);
 
@@ -136,27 +136,27 @@ class CalendarSheet{
      * ermittelt und speichert alle Klassen der übergebenen Zelle im dataStorage
      * @param {DateData} dateData
      */
-    saveDateSpecificClasses(dateData){
+    saveDateSpecificClasses(dateData) {
 
-        
+
         dateData.clearHTMLClasses();
 
         dateData.addHTMLClass('day');
-        if(dateData.date.getMonth() != this.monthNum){
+        if (dateData.date.getMonth() != this.monthNum) {
             dateData.addHTMLClass("other");
         }
-        else{
+        else {
             dateData.addHTMLClass("current");
         }
         //sunday
-        if(dateData.date.getDay() == 0){
+        if (dateData.date.getDay() == 0) {
             dateData.addHTMLClass("sunday");
         }
         // weekday
-        else{
+        else {
             dateData.addHTMLClass("weekday");
         }
-        
+
     }
 
     /**
@@ -165,7 +165,7 @@ class CalendarSheet{
      * @param {number} d repräsentiert die Spalte (day)
      * @returns gibt den zugehörigen 1D - Index zurück
      */
-    static getIndexFromGrid(w, d){
+    static getIndexFromGrid(w, d) {
         return w * 7 + d
     }
 
@@ -176,12 +176,12 @@ class CalendarSheet{
      * @param {number} d repräsentiert die Spalte (day)
      * @returns 
      */
-    getDataAtGridIndex(w, d){
+    getDataAtGridIndex(w, d) {
         return this.dataStorage[CalendarSheet.getIndexFromGrid(w, d)]
     }
 
 
-    getDataFromDate(date){
+    getDataFromDate(date) {
         return this.dataStorage[date.getDate() + this.firstofMonthIndex - 1];
     }
 
@@ -192,21 +192,21 @@ class CalendarSheet{
      */
     getHolidays(date) {
         let data = this.getDataFromDate(date);
-        if(!data) return null;      // <- if the date is not within the sheet. Probably need better handling
+        if (!data) return null;      // <- if the date is not within the sheet. Probably need better handling
         else return data.holidays;
     }
 
-    isDateOnSheet(date = new Date()){ // is it visible on the calendar sheet?
+    isDateOnSheet(date = new Date()) { // is it visible on the calendar sheet?
         let i = this.getIndexFromDate()
-        return  i >= 0 && i < this.dataStorage.length
+        return i >= 0 && i < this.dataStorage.length
     }
 
-    isDatePartOfMonth(date = new Date()){ // is it part of the core month?
+    isDatePartOfMonth(date = new Date()) { // is it part of the core month?
         return date.getMonth() == this.monthNum
-            &&  date.getFullYear() == this.year
+            && date.getFullYear() == this.year
     }
-    
-    toHTML(){
+
+    toHTML() {
         return this.htmlSheet;
     }
 
@@ -215,18 +215,19 @@ class CalendarSheet{
      * Um jederzeit von außen die Funktionalität bestimmen zu können
      * @param {function} func Funktion, die ein Datum entgegennimmt
      */
-    addDateClickEvent(func){
-        for(let data of this.dataStorage){
+    // Die Funktion, die für jede einzelne Zelle einen EvenListener aufsetzen soll
+    addDateClickEvent(func) {
+        for (let data of this.dataStorage) {
             data.htmlCell.addEventListener('click', () => {
                 func(data.date);
             })
         }
     }
 
-    static getHeaderRow(){
+    static getHeaderRow() {
         let headRow = document.createElement("tr");
         headRow.classList.add("calendarWeekRow");
-        for(let wdString of CalendarSheet.weekdays){
+        for (let wdString of CalendarSheet.weekdays) {
             let headCell = document.createElement("th");
             headCell.classList.add("calendarWeekCell");
             headCell.classList.add(wdString);
@@ -241,14 +242,14 @@ class CalendarSheet{
      * @param {number} w 
      * @param {number} d 
      */
-    setHTMLAttributes(htmlCell, w, d){
+    setHTMLAttributes(htmlCell, w, d) {
         let elemClasses = htmlCell.classList;
         elemClasses.add("day");
 
         let dateData = this.getDataAtGridIndex(w, d);
         let classes = dateData.getHTMLClasses();
 
-        for(let i = 0; i < classes.length; i++){
+        for (let i = 0; i < classes.length; i++) {
             elemClasses.add(classes[i]);
         }
     }
@@ -261,35 +262,35 @@ class CalendarSheet{
  * -Feiertage
  * -DOM-Elemente
  */
-class DateData{
+class DateData {
     /**
      * @param {Date} date 
      */
-    constructor(){
+    constructor() {
     }
 
     /**
      * 
      * @param {string} className 
      */
-    addHTMLClass(className){
+    addHTMLClass(className) {
         className = className.replaceAll(' ', '-');
         this.classes.push(className);
         this.htmlCell.classList.add(className);
     }
-    setDate(date){
+    setDate(date) {
         this.date = new Date(date);
     }
-    clearHTMLClasses(){
+    clearHTMLClasses() {
         this.classes = [];
         this.htmlCell.setAttribute('class', '');
     }
 
-    getHTMLClasses(){
-        return this.classes? this.classes : []
+    getHTMLClasses() {
+        return this.classes ? this.classes : []
     }
 
-    setHTMLCell(cell){
+    setHTMLCell(cell) {
         this.htmlCell = cell;
     }
 
