@@ -1,14 +1,14 @@
 <template id='schedule_creator_template'>
-    <div id='main_div'>
-        <div id='title_wrapper'>
-            Titel: <input type="text" name="schedule-title" id="title_input" value='Sauffne!'>
+    <div id='main_div' class='schedule-main-wrapper'>
+        <div id='title_wrapper' class="title-wrapper">
+            <input type="text" name="schedule-title" id="title_input" value='' placeholder="Titel hinzufügen">
         </div>
-        <div id='time_wrapper'>
+        <div id='date_selector_wrapper' , class='date-selector-wrapper'>
             <div class='start'>Beginn:</div>
             <div id='start_selector_target' class='start'>Selector</div>
-            <div class='end'>Ende:</div>
-            <div class='end' id='end_selector_target'> Selector</div>
-            <div>Ganztägig</div> <input type="checkbox" name="isWholwDay" id="whole_day_check">
+            <div class='end' hidden>Ende:</div>
+            <div class='end' id='end_selector_target' hidden> Selector</div>
+            <div>Ganztägig</div> <input type="checkbox" name="isWholeDay" id="whole_day_check" checked>
         </div>
         <div id='recurrence_wrapper'>
             <span>Wiederholen:</span>

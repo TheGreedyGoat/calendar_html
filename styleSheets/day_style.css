@@ -1,57 +1,66 @@
-:root{
+:root {
     --pixel-Size: 5px;
 }
 
-html, body{
-    font-family:  'minecraftia', sans-serif;
+input,
+button {
+    font-family: 'minecraftia', sans-serif;
+}
+
+html,
+body {
+    font-family: 'minecraftia', sans-serif;
     font-size: 12px;
 }
 
-body{
+body {
     background-image: url("../assets/images/b_boardBackground.png");
 }
-.pin{
+
+.pin {
     position: absolute;
     top: 0;
 
     left: 150px;
 }
-#date_title{
+
+#date_title {
     height: 90px;
     width: fit-content;
     padding-left: 30px;
     padding-right: 30px;
-    background-image: 
-    url("../assets/images/sticky_note/note_TL.png"),
-    url("../assets/images/sticky_note/note_TC.png"),
-    url("../assets/images/sticky_note/note_TR.png"),
+    background-image:
+        url("../assets/images/sticky_note/note_TL.png"),
+        url("../assets/images/sticky_note/note_TC.png"),
+        url("../assets/images/sticky_note/note_TR.png"),
 
-    url("../assets/images/sticky_note/note_BL.png"),
-    url("../assets/images/sticky_note/note_BC.png"),
-    url("../assets/images/sticky_note/note_BR.png");
-    
+        url("../assets/images/sticky_note/note_BL.png"),
+        url("../assets/images/sticky_note/note_BC.png"),
+        url("../assets/images/sticky_note/note_BR.png");
+
     background-repeat: no-repeat;
 
-    background-position: 
-    left top, center top, right top,
-    left bottom, center bottom, right bottom;
+    background-position:
+        left top, center top, right top,
+        left bottom, center bottom, right bottom;
 
-    background-size: 
-    auto, calc(100% - 90px) 45px, auto,
-    auto, calc(100% - 90px) 45px, auto;
+    background-size:
+        auto, calc(100% - 90px) 45px, auto,
+        auto, calc(100% - 90px) 45px, auto;
 
     text-align: center;
     align-content: center;
 
 
 }
+
 /**/
-#noteSection{
+#noteSection {
 
     max-width: 50%;
     min-height: 300px;
     height: fit-content;
-    padding:0;
+    padding: 0;
 
     display: flex;
     flex-direction: column;
@@ -59,82 +68,86 @@ body{
     outline: dotted green;
 }
 
-    #notesTitle{
-        /* outline: dotted blue; */
-        min-height: 50px;
-        background-color: black;
-        color: white;
-        text-shadow: none;
-        font-size: 150%;
-        margin: 0;
-        padding-left: 10px;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-    }
+#notesTitle {
+    /* outline: dotted blue; */
+    min-height: 50px;
+    background-color: black;
+    color: white;
+    text-shadow: none;
+    font-size: 150%;
+    margin: 0;
+    padding-left: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
 
-    #noteList{
-        height: fit-content;
-        min-height: 300px;
-        padding: 5px;
-        list-style: none;
-        border: solid black 5px;
-        background-color: rgb(255, 242, 212);
+#noteList {
+    height: fit-content;
+    min-height: 300px;
+    padding: 5px;
+    list-style: none;
+    border: solid black 5px;
+    background-color: rgb(255, 242, 212);
 
-        margin: 0;
+    margin: 0;
 
-    }
+}
 
-        .noteLine{
-            /* outline: dotted purple; */
-            font-size: 15px;
-            border-bottom: solid black;
-            margin-top: 15px;
-        }
+.noteLine {
+    /* outline: dotted purple; */
+    font-size: 15px;
+    border-bottom: solid black;
+    margin-top: 15px;
+}
 
-        #noteInputLine{
-            outline: dotted pink;
-            margin: 0;
-            padding: 0px;
+#noteInputLine {
+    outline: dotted pink;
+    margin: 0;
+    padding: 0px;
 
-            width: 95%;
+    width: 95%;
 
 
-        }
-            #noteInputDiv{
-                    /* padding: 5px; */
-                    padding: 0;
-                    display:flex;
-                    
-                    justify-content: space-between;
+}
 
-            }
-                #noteInputField, noteInputField:focus{
-                    width: 100%;
-                    height: 40px;
-                    margin: 0;
-                    padding: 0;
+#noteInputDiv {
+    /* padding: 5px; */
+    padding: 0;
+    display: flex;
 
-                    font-family: 'Minecraftia', sans-serif;
-                    font-size: 25px;
+    justify-content: space-between;
 
-                    background: none;
-                    outline: none;
-                    border: solid 1px #ccc;
-                    resize: none;
-                    
-                    box-sizing: content-box;
-                    align-content: end;
-                    /* outline: dotted red; */
+}
 
-                }
-                #addNoteButton{
-                    font-family: 'Minecraftia', sans-serif;
-                    font-size: 20px;
-                    background: none;
-                    border: none
-                }
-#holiday_section{
+#noteInputField,
+noteInputField:focus {
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+
+    font-family: 'Minecraftia', sans-serif;
+    font-size: 25px;
+
+    background: none;
+    outline: none;
+    border: solid 1px #ccc;
+    resize: none;
+
+    box-sizing: content-box;
+    align-content: end;
     /* outline: dotted red; */
 
 }
 
+#addNoteButton {
+    font-family: 'Minecraftia', sans-serif;
+    font-size: 20px;
+    background: none;
+    border: none
+}
+
+#holiday_section {
+    /* outline: dotted red; */
+
+}

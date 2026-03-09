@@ -1,5 +1,5 @@
 
-class Schedule{
+class Schedule {
     static masterSchedules = [];
     static cache = {
         // id : [y_m_d, ...]
@@ -13,22 +13,21 @@ class Schedule{
      * @param {string} recurrence the unit of the recurrence (none, daily, weekly, monthly or yearly)
      * @param {number} recurrenceFrequ how many of the given time units should be in between recurrences? eg every 3 days
      */
-    constructor(title, start, end, recurrence = 'none', recurrenceFrequ = 1){
-
-        if(start.getTime() >= end.getTime()){
+    constructor(title, start, end, recurrence = 'none', recurrenceFrequ = 1) {
+        if (start.getTime() >= end.getTime()) {
             //ungültige Zeitspanne
             throw new Error('Ereignisbeginn darf nicht vor dem Ende liegen!');
         }
-        if(title === ''){
+        if (title === '') {
             throw new Error('Ereignisname muss ein nicht leerer String sein!');
         }
 
         this.recurrence = recurrence;
-        if(recurrence != 'none'){
+        if (recurrence != 'none') {
             this.recurrenceFrequ = recurrenceFrequ
         }
 
-        this.id = Schedule.ids++; // bräuchten später ein besseres System
+        this.id = 'schedule_' + Schedule.ids++;
 
         this.title = title;     // 'Geburtstag von Jutta'
         this.start = start;
@@ -37,12 +36,16 @@ class Schedule{
         Schedule.masterSchedules.push(this);
     }
 
+    static createSchedule(dataObj) {
+        return new Schedule(dataObj.title, dataObj.startDate, dataObj.endDate, dataObj.recurrence, dataObj.recurrenceFrequ)
+    }
+
     /**
      * 
      * @param {Date} date 
      */
-    static dateString(date){
-        return`${date.getFullYear()}_${date.getMonth()}_${date.getDate()}`;
+    static dateString(date) {
+        return `${date.getFullYear()}_${date.getMonth()}_${date.getDate()}`;
     }
 
     /**
@@ -51,14 +54,14 @@ class Schedule{
      * @param {Date} end 
      * @returns {number}
      */
-    static daysWithinInterval(start, end){
+    static daysWithinInterval(start, end) {
         let days = 0
         let currentDate = new Date(start);
         currentDate.setMilliseconds(0);
         currentDate.setSeconds(0);
         currentDate.setMinutes(0);
         currentDate.setHours(0);
-        while(currentDate <= end){
+        while (currentDate <= end) {
             days++;
             currentDate.setDate(currentDate.getDate() + 1);
         }
@@ -70,7 +73,7 @@ class Schedule{
      * @param {Date} intervStart 
      * @param {Date} intervEnd 
      */
-    static updateCache(intervStart, intervEnd){
+    static updateCache(intervStart, intervEnd) {
         Schedule.cache = {};
 
         this.masterSchedules.forEach((schedule) => {
@@ -78,19 +81,19 @@ class Schedule{
             let scheduleID = schedule.id;
             let numDaysOfSchedule = Schedule.daysWithinInterval(schedule.start, schedule.end);
 
-            while(currentDate <= intervEnd){ // aufhören, wenn wir über der Obergrenze sind
+            while (currentDate <= intervEnd) { // aufhören, wenn wir über der Obergrenze sind
                 let currentCopy = new Date(currentDate);
-                for(let i = 0; i < numDaysOfSchedule; i++){
-                    if(currentCopy >= intervStart){
-                        if(!Schedule.cache[scheduleID]) Schedule.cache[scheduleID] = []
+                for (let i = 0; i < numDaysOfSchedule; i++) {
+                    if (currentCopy >= intervStart) {
+                        if (!Schedule.cache[scheduleID]) Schedule.cache[scheduleID] = []
                         Schedule.cache[scheduleID].push(Schedule.dateString(currentCopy));
                     }
                     currentCopy.setDate(currentCopy.getDate() + 1);
                 }
-                
 
-                if(schedule.recurrence === 'none') break;   // <= no recurrence, continue with next master
-                switch(schedule.recurrence){
+
+                if (schedule.recurrence === 'none') break;   // <= no recurrence, continue with next master
+                switch (schedule.recurrence) {
                     case 'yearly':
                         currentDate.setFullYear(currentDate.getFullYear() + schedule.recurrenceFrequ);
                         break;
@@ -109,6 +112,8 @@ class Schedule{
 
             }
         })
+        console.log(Schedule.cache);
+        console.log(Schedule.masterSchedules)
     }
 
     /**
@@ -117,23 +122,9 @@ class Schedule{
      * @param {Date} start start of the interval
      * @param {Date} end end of the interval
      */
-    static isDateInIntervall(date, start, end){
+    static isDateInIntervall(date, start, end) {
         return !(start > end) && date >= start && date <= end;
     }
 
 }
 
-
-// let s1 = {
-//     title: 'Termin_1',
-//     start: new Date(2024,2,4),
-//     end: new Date(2024, 2, 6),
-
-// };
-
-// new Schedule(s1.title, s1.start, s1.end, 'yearly');
-
-// console.log(Schedule.masterSchedules);
-// Schedule.updateCache(new Date(2026,2,1), new Date(2026,2,31));
-
-// console.log(Schedule.cache);

@@ -64,11 +64,9 @@ class ScheduleFormular {
 
         this.wholeDayCheck.addEventListener('change', () => {
             console.log(this.wholeDayCheck.checked);
-            const endSection = this.DOM.querySelectorAll('.end');
-            for (let elem of endSection) {
-                elem.hidden = this.wholeDayCheck.checked;
-            }
+            this.onWholeDayCheck();
         });
+        this.onWholeDayCheck();
         this.recurrenceCheck.addEventListener('change', () => {
             this.onRecurrenceCheck();
         });
@@ -76,6 +74,13 @@ class ScheduleFormular {
         this.submit.addEventListener('click', () => {
             this.submitSchedule();
         });
+    }
+
+    onWholeDayCheck() {
+        const endSection = this.DOM.querySelectorAll('.end');
+        for (let elem of endSection) {
+            elem.hidden = this.wholeDayCheck.checked;
+        }
     }
 
     onRecurrenceCheck() {
@@ -92,12 +97,14 @@ class ScheduleFormular {
     }
 
     submitSchedule() {
+        console.log('???')
         this.inputValues.title = this.titleInput.value;
         if (this.inputValues.title === '') {
             alert('Bitte gib einen Titel ein, du Eumel!');
             return;
         }
         let startDate = this.startSelector.selectedDate;;
+        console.log(this.startSelector.selectedDate)
         let endDate;
         if (this.wholeDayCheck.checked) {
             startDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
@@ -107,7 +114,6 @@ class ScheduleFormular {
             endDate.setSeconds(59);
         } else {
             endDate = this.endSelector.selectedDate;
-            console.log(this.endSelector.selectedDate)
         }
         this.inputValues.startDate = startDate;
         this.inputValues.endDate = endDate;
@@ -117,17 +123,10 @@ class ScheduleFormular {
         } else {
             this.inputValues.recurrence = 'none';
         }
-
+        sendMessage(window.parent, 'new_schedule_data', this.inputValues);
     }
 
 }
 
-const TARGET = document.querySelector('main');
 
-window.addEventListener('message', (message) => {
-    if (message.data === 'templates loaded') {
-        let form = new ScheduleFormular(new Date(2026, 2, 9));
-        form.place(TARGET);
-    }
-})
 

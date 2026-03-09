@@ -1,0 +1,46 @@
+#schedule_section {
+    outline: dotted red;
+    background-color: aliceblue;
+    width: 300px;
+}
+
+.title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    outline: solid green;
+}
+
+.date-selector-wrapper {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 5px;
+    padding: 5px;
+    width: fit-content;
+
+    background-color: blue;
+}
+
+.date-selector-wrapper>.start {
+    background-color: aqua;
+    /* width: 100px; */
+}
+
+.date-selector-wrapper>.end {
+    background-color: cornflowerblue;
+    color: beige;
+}
+
+.selector-innerWrapper {
+    position: absolute;
+    left: 30%;
+    background-color: aquamarine;
+    color: black;
+}
+
+.selector-headWrapper {
+    display: flex;
+}
+
+.day:hover {
+    background-color: red;
+}

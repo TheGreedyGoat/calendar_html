@@ -37,6 +37,7 @@ class DateSelector {
     selectDate(date) {
         this.selectedDate = new Date(date);
         this.showHide.innerText = this.selectedDate.toLocaleDateString('de-DE', DateSelector.selectPreviewFormat);
+        this.updateHeader();
     }
 
     setupDOM() {
@@ -80,15 +81,18 @@ class DateSelector {
 
     switchMonth(delta) {
         this.sheet.IncreaseOrDecreaseMonth(delta);
+        this.updateHeader();
+    }
+
+    updateHeader() {
         let str = this.sheet.dateOfFirstDay.toLocaleDateString('de-DE', {
             month: 'short',
             year: 'numeric'
         });
 
         this.sheetHeader.innerText = str;
+
     }
-
-
     toggleVisibility() {
         this.innerWrapper.hidden = !this.innerWrapper.hidden
     }

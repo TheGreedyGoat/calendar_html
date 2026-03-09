@@ -6,16 +6,16 @@ RECIEVERS.push(window);
 sendMessage(window, "setup", startDate);
 
 const frames = document.getElementsByTagName("iFrame")
-for(let i = 0; i < frames.length; i++){
+for (let i = 0; i < frames.length; i++) {
     let frame = frames[i];
-    frame.onload = function(){
+    frame.onload = function () {
         RECIEVERS.push(frame.contentWindow);
-        sendMessage(frame.contentWindow, "setup", {date: startDate})
+        sendMessage(frame.contentWindow, "setup", { date: startDate })
     }
 }
 
-function processMessage(message){
-    switch(message.type){
+function processMessage(message) {
+    switch (message.type) {
         case "setup":
             switchToDate(message.data);
             break;
@@ -27,13 +27,16 @@ function processMessage(message){
             break;
         case 'send_daily_data':
             sendDataToDayView(message.data);
+            break;
+        case 'new_schedule_data':
+            saveNewSchedule(message.data);
         default:
             break;
     }
 }
 
-function processClickMessage(clickData){
-    switch(clickData.clickType){
+function processClickMessage(clickData) {
+    switch (clickData.clickType) {
         case "date cell":
             dateClicked(clickData.clickValue);
             break;

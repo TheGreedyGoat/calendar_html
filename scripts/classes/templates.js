@@ -12,14 +12,12 @@ class Templates {
 
     static getTemplateString(templateID) {
         const template = this.doc.querySelector('#' + templateID);
-        console.log('template', template)
         if (!template) {
             throw new Error('template with id ' + templateID + ' does not exist!');
         }
 
         const fragment = template.content;
 
-        console.log('fragment', fragment)
         return fragment.children[0].outerHTML;
     }
 }
