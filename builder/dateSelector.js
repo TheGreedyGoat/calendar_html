@@ -3,6 +3,12 @@ class DateSelector {
 
     static domTemplateString;
     static currentID = 0;
+    static selectPreviewFormat = {
+        weekday: 'short',
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    }
     /**
      * 
      * @param {Date} date 
@@ -18,17 +24,20 @@ class DateSelector {
         this.selectedDate = date;
         this.setupDOM();
         this.switchMonth(0);
-        document.querySelector('#test').appendChild(this.DOM);
 
     }
 
     //Die zu übergebene Methode in der Date-Selector Klasse
     onDateClick = (date) => {
-        console.log(this)
-        this.selectedDate = new Date(date);
+        this.selectDate(date);
         this.sheet.setup(date);
         this.innerWrapper.hidden = true;
     };
+
+    selectDate(date) {
+        this.selectedDate = new Date(date);
+        this.showHide.innerText = this.selectedDate.toLocaleDateString('de-DE', DateSelector.selectPreviewFormat);
+    }
 
     setupDOM() {
 
@@ -59,12 +68,7 @@ class DateSelector {
         })
 
         this.showHide = this.queryID('showHide');
-        this.showHide.innerText = this.selectedDate.toLocaleDateString('de-DE', {
-            weekday: 'short',
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-        });
+        this.showHide.innerText = this.selectedDate.toLocaleDateString('de-DE', DateSelector.selectPreviewFormat);
         this.showHide.addEventListener('click', () => {
             this.toggleVisibility();
         });
@@ -85,8 +89,16 @@ class DateSelector {
     }
 
 
-    toggleVisibility(hide) {
+    toggleVisibility() {
         this.innerWrapper.hidden = !this.innerWrapper.hidden
+    }
+
+    /**
+     * 
+     * @param {boolean} visible 
+     */
+    setVisibility(visible) {
+        this.innerWrapper.hidden = !visible;
     }
 
     specificElementID(generalID) {
@@ -103,11 +115,11 @@ class DateSelector {
     setMonth(monthIndex) {
         this.date.setMonth(monthIndex);
     }
+
+    place(target) {
+        target.innerHTML = '';
+        target.appendChild(this.DOM);
+    }
 }
 
 
-window.addEventListener('message', (message) => {
-    if (message.data === 'templates loaded') {
-        new DateSelector(new Date());
-    }
-})

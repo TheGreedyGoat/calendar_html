@@ -1,19 +1,29 @@
 <template id='schedule_creator_template'>
     <div id='main_div'>
         <div id='title_wrapper'>
-            Titel: <input type="text" name="title" id="title_input">
+            Titel: <input type="text" name="schedule-title" id="title_input" value='Sauffne!'>
         </div>
         <div id='time_wrapper'>
             <div class='start'>Beginn:</div>
-            <form id='start_selector_target' class='start'>Selector</form>
+            <div id='start_selector_target' class='start'>Selector</div>
             <div class='end'>Ende:</div>
-            <form class='end' id='end_selector_target'> Selector</form>
+            <div class='end' id='end_selector_target'> Selector</div>
             <div>Ganztägig</div> <input type="checkbox" name="isWholwDay" id="whole_day_check">
         </div>
         <div id='recurrence_wrapper'>
-            <div>Wiederholen:</div>
-            <input type="checkbox" , id='recurrenceCheck'>
+            <span>Wiederholen:</span>
+            <input type="checkbox" , id='recurrence_check'>
+            <div id='select_recurrence_wrapper'>
+                alle <input type="number" id='recurrence_amount' />
+                <select name="recurrencetype" id="select_recurrence_type">
+                    <option value="yearly">Jahre</option>
+                    <option value="monthly">Monate</option>
+                    <option value="weekly">Wochen</option>
+                    <option value="daily">Tage</option>
+                </select>
+            </div>
         </div>
+        <button name='submit' , id='submit_schedule'>Hinzufügen</button>
     </div>
 </template>
 
@@ -21,7 +31,7 @@
     <div id='outest_wrapper'>
         <button id="showHide" class="selector-showHide" type="button"></button>
         <div id='flex_wrapper' class="selector-flexWrapper">
-            <div id="inner_wrapper" class="selector-innerWrapper">
+            <div id="inner_wrapper" class="selector-innerWrapper" hidden>
                 <div class="selector-headWrapper">
                     <button id="prevMonth" class="selector-month">&lt;</button>
                     <h3 id='sheet_header'>März 2026</h3>

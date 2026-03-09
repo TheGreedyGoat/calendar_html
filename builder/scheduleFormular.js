@@ -1,35 +1,22 @@
 
-const TEMPLATES_URL = '../templates.html';
+class ScheduleFormular {
 
-class ScheduleFormular{
-    
-    static SCHEDULE_CREATOR_TEMPLATE_STRING;
-    static PARSER;
-    static async #loadTemplate(){
-        const response = await fetch(TEMPLATES_URL)
-        const html = await response.text();
-        ScheduleFormular.PARSER = new DOMParser();
-        const doc = ScheduleFormular.PARSER.parseFromString(html, 'text/html');
-        const template = doc.querySelector('#schedule_creator_template');
-        const fragment = template.content;
-        this.SCHEDULE_CREATOR_TEMPLATE_STRING = fragment.children[0].outerHTML;
-    }
+    static domTemplateString;
+    static Parser;
 
-    static #getDOM(){
-        return this.PARSER.parseFromString(this.SCHEDULE_CREATOR_TEMPLATE_STRING, 'text/html').querySelector('#main_div');
-    }
-
-    static async createInstance(startDate){
-        if(!this.SCHEDULE_CREATOR_TEMPLATE_STRING){
-            await this.#loadTemplate();
+    static #getDOM() {
+        if (!ScheduleFormular.domTemplateString) {
+            ScheduleFormular.domTemplateString = Templates.getTemplateString('schedule_creator_template');
+            ScheduleFormular.Parser = new DOMParser();
         }
-        return new ScheduleFormular(startDate);
+        return this.Parser.parseFromString(this.domTemplateString, 'text/html').querySelector('#main_div');
     }
-/**
- * 
- * @param {Date} startDate 
- */
-    constructor(startDate){
+
+    /**
+     * 
+     * @param {Date} startDate 
+     */
+    constructor(startDate) {
         let endDate = new Date(startDate);
         endDate.setHours(endDate.getHours() + 1);
         this.inputValues = {
@@ -44,35 +31,103 @@ class ScheduleFormular{
 
         this.DOM = ScheduleFormular.#getDOM();
 
-        this.startSelecorTarget = this.DOM.querySelector('#start_selector_target');
-        this.endSelecorTarget = this.DOM.querySelector('#end_selector_target');
+        this.titleInput = this.DOM.querySelector('#title_input');
 
+        this.startSelectorTarget = this.DOM.querySelector('#start_selector_target');
         this.startSelector = new DateSelector(startDate, 'start');
-        this.startSelector.place(this.startSelecorTarget);
+        this.startSelector.place(this.startSelectorTarget);
+
+        this.endSelectorTarget = this.DOM.querySelector('#end_selector_target');
         this.endSelector = new DateSelector(endDate, 'end')
-        this.endSelector.place(this.endSelecorTarget);
-        
-        
-        // this.startDateSelector = new DateSelector(this.inputValues.startDate);
-        // this.endDateSelector = new DateSelector(this.inputValues.endDate);
+        this.endSelector.place(this.endSelectorTarget);
+
+        this.wholeDayCheck = this.DOM.querySelector('#whole_day_check');
+
+        this.recurrenceCheck = this.DOM.querySelector('#recurrence_check');
+        this.recurrenceWrapper = this.DOM.querySelector('#select_recurrence_wrapper');
+        this.recurrenceAmount = this.DOM.querySelector('#recurrence_amount');
+        this.selectRecurrence = this.DOM.querySelector('#select_recurrence_type');
+
+        this.submit = this.DOM.querySelector('#submit_schedule');
+
+        this.setupFields();
+
+    }
+
+    setupFields() {
+        this.startSelector.showHide.addEventListener('click', () => {
+            this.endSelector.setVisibility(false);
+        });
+        this.endSelector.showHide.addEventListener('click', () => {
+            this.startSelector.setVisibility(false);
+        });
+
+        this.wholeDayCheck.addEventListener('change', () => {
+            console.log(this.wholeDayCheck.checked);
+            const endSection = this.DOM.querySelectorAll('.end');
+            for (let elem of endSection) {
+                elem.hidden = this.wholeDayCheck.checked;
+            }
+        });
+        this.recurrenceCheck.addEventListener('change', () => {
+            this.onRecurrenceCheck();
+        });
+        this.onRecurrenceCheck();
+        this.submit.addEventListener('click', () => {
+            this.submitSchedule();
+        });
+    }
+
+    onRecurrenceCheck() {
+        this.recurrenceWrapper.hidden = !this.recurrenceCheck.checked;
     }
 
     /**
      * 
      * @param {Element} target 
      */
-    place(target){
+    place(target) {
         target.innerHTML = '';
         target.appendChild(this.DOM);
+    }
+
+    submitSchedule() {
+        this.inputValues.title = this.titleInput.value;
+        if (this.inputValues.title === '') {
+            alert('Bitte gib einen Titel ein, du Eumel!');
+            return;
+        }
+        let startDate = this.startSelector.selectedDate;;
+        let endDate;
+        if (this.wholeDayCheck.checked) {
+            startDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+            endDate = new Date(startDate);
+            endDate.setHours(23);
+            endDate.setMinutes(59);
+            endDate.setSeconds(59);
+        } else {
+            endDate = this.endSelector.selectedDate;
+            console.log(this.endSelector.selectedDate)
+        }
+        this.inputValues.startDate = startDate;
+        this.inputValues.endDate = endDate;
+        if (this.recurrenceCheck.checked) {
+            this.inputValues.recurrence = this.selectRecurrence.value;
+            this.inputValues.recurrenceFreq = this.recurrenceAmount.value;
+        } else {
+            this.inputValues.recurrence = 'none';
+        }
+
     }
 
 }
 
 const TARGET = document.querySelector('main');
 
-createSC()
-async function createSC(){
-    let sC = await ScheduleFormular.createInstance(new Date());
-    sC.place(TARGET);
-    console.log(document.body.innerHTML);
-}
+window.addEventListener('message', (message) => {
+    if (message.data === 'templates loaded') {
+        let form = new ScheduleFormular(new Date(2026, 2, 9));
+        form.place(TARGET);
+    }
+})
+
