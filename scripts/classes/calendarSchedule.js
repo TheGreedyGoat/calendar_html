@@ -75,7 +75,6 @@ class Schedule {
      */
     static updateCache(intervStart, intervEnd) {
         Schedule.cache = {};
-
         this.masterSchedules.forEach((schedule) => {
             let currentDate = new Date(schedule.start);
             let scheduleID = schedule.id;
@@ -83,7 +82,9 @@ class Schedule {
 
             while (currentDate <= intervEnd) { // aufhören, wenn wir über der Obergrenze sind
                 let currentCopy = new Date(currentDate);
+                console.log(currentCopy)
                 for (let i = 0; i < numDaysOfSchedule; i++) {
+                    // console.log(currentCopy, intervStart);
                     if (currentCopy >= intervStart) {
                         if (!Schedule.cache[scheduleID]) Schedule.cache[scheduleID] = []
                         Schedule.cache[scheduleID].push(Schedule.dateString(currentCopy));
@@ -112,8 +113,6 @@ class Schedule {
 
             }
         })
-        console.log(Schedule.cache);
-        console.log(Schedule.masterSchedules)
     }
 
     /**
@@ -124,6 +123,37 @@ class Schedule {
      */
     static isDateInIntervall(date, start, end) {
         return !(start > end) && date >= start && date <= end;
+    }
+
+    /**
+     * 
+     * @param {CalendarSheet} dataSheet 
+     */
+    static addSchedulesToDataSheet(dataSheet) {
+        let start = new Date(dataSheet.dataStorage[0].date);
+        start.setHours(0);
+        start.setMinutes(0);
+        start.setSeconds(0);
+        start.setMilliseconds(0);
+        let end = new Date(dataSheet.dataStorage[dataSheet.dataStorage.length - 1].date);
+        end.setHours(23);
+        end.setMinutes(59);
+        end.setSeconds(59);
+
+        Schedule.updateCache(start, end);
+        console.log(Schedule.cache)
+
+        for (let data of dataSheet.dataStorage) {
+            for (const key in Schedule.cache) {
+                let instantceArray = Schedule.cache[key];
+                for (let inst of instantceArray) {
+                    if (inst === Schedule.dateString(data.date)) {
+                        data.addHTMLClass('schedule');
+                    }
+                }
+            }
+        }
+
     }
 
 }

@@ -17,22 +17,21 @@ body {
     background-image: url("../assets/images/b_boardBackground.png");
 }
 
-.pin {
-    position: absolute;
-    top: 0;
-
-    left: 150px;
+main {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
 }
 
-#date_title {
-    height: 90px;
-    width: fit-content;
-    padding-left: 30px;
-    padding-right: 30px;
+main>* {
     background-image:
         url("../assets/images/sticky_note/note_TL.png"),
         url("../assets/images/sticky_note/note_TC.png"),
         url("../assets/images/sticky_note/note_TR.png"),
+
+        url("../assets/images/sticky_note/note_CL.png"),
+        url("../assets/images/sticky_note/note_CC.png"),
+        url("../assets/images/sticky_note/note_CR.png"),
 
         url("../assets/images/sticky_note/note_BL.png"),
         url("../assets/images/sticky_note/note_BC.png"),
@@ -42,11 +41,27 @@ body {
 
     background-position:
         left top, center top, right top,
+        left center, center center, right center,
         left bottom, center bottom, right bottom;
 
     background-size:
         auto, calc(100% - 90px) 45px, auto,
+        45px calc(100% - 90px), calc(100% - 90px) calc(100% - 90px), 45px calc(100% - 90px),
         auto, calc(100% - 90px) 45px, auto;
+}
+
+/* .pin {
+    position: absolute;
+    top: 0;
+
+    left: 150px;
+} */
+
+#date_title {
+    height: 90px;
+    width: fit-content;
+    padding-left: 30px;
+    padding-right: 30px;
 
     text-align: center;
     align-content: center;
@@ -54,10 +69,14 @@ body {
 
 }
 
+#holiday_display {
+    grid-column: 2 / 2;
+    grid-row: 1;
+}
+
 /**/
 #noteSection {
 
-    max-width: 50%;
     min-height: 300px;
     height: fit-content;
     padding: 0;
@@ -65,7 +84,7 @@ body {
     display: flex;
     flex-direction: column;
 
-    outline: dotted green;
+    /* outline: dotted green; */
 }
 
 #notesTitle {
@@ -86,8 +105,6 @@ body {
     min-height: 300px;
     padding: 5px;
     list-style: none;
-    border: solid black 5px;
-    background-color: rgb(255, 242, 212);
 
     margin: 0;
 
@@ -101,7 +118,6 @@ body {
 }
 
 #noteInputLine {
-    outline: dotted pink;
     margin: 0;
     padding: 0px;
 
@@ -120,7 +136,7 @@ body {
 }
 
 #noteInputField,
-noteInputField:focus {
+#noteInputField:focus {
     width: 100%;
     height: 40px;
     margin: 0;
@@ -131,7 +147,7 @@ noteInputField:focus {
 
     background: none;
     outline: none;
-    border: solid 1px #ccc;
+    border: none;
     resize: none;
 
     box-sizing: content-box;

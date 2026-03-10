@@ -275,8 +275,10 @@ class DateData {
      */
     addHTMLClass(className) {
         className = className.replaceAll(' ', '-');
-        this.classes.push(className);
-        this.htmlCell.classList.add(className);
+        if (!this.classes.includes(className)) {
+            this.classes.push(className);
+            this.htmlCell.classList.add(className);
+        }
     }
     setDate(date) {
         this.date = new Date(date);

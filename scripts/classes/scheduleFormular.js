@@ -48,6 +48,7 @@ class ScheduleFormular {
         this.recurrenceAmount = this.DOM.querySelector('#recurrence_amount');
         this.selectRecurrence = this.DOM.querySelector('#select_recurrence_type');
 
+
         this.submit = this.DOM.querySelector('#submit_schedule');
 
         this.setupFields();

@@ -31,7 +31,7 @@ class DateSelector {
     onDateClick = (date) => {
         this.selectDate(date);
         this.sheet.setup(date);
-        this.innerWrapper.hidden = true;
+        this.setVisibility(false);
     };
 
     selectDate(date) {
@@ -74,7 +74,12 @@ class DateSelector {
             this.toggleVisibility();
         });
 
-        this.innerWrapper = this.queryID('inner_wrapper')
+
+        this.focusWrapper = this.queryID('selector_focus_wrapper');
+        this.focusWrapper.addEventListener('click', () => {
+            this.setVisibility(false);
+        });
+        this.innerWrapper = this.queryID('inner_wrapper');
         this.sheet.addDateClickEvent(this.onDateClick);
 
     }
@@ -94,7 +99,7 @@ class DateSelector {
 
     }
     toggleVisibility() {
-        this.innerWrapper.hidden = !this.innerWrapper.hidden
+        this.focusWrapper.hidden = !this.focusWrapper.hidden
     }
 
     /**
@@ -102,7 +107,7 @@ class DateSelector {
      * @param {boolean} visible 
      */
     setVisibility(visible) {
-        this.innerWrapper.hidden = !visible;
+        this.focusWrapper.hidden = !visible;
     }
 
     specificElementID(generalID) {

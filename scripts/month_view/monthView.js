@@ -30,6 +30,11 @@ function switchToDate(newDate) {
         CALENDAR_TARGET.prepend(dataSheet.toHTML());
         Holidays.addHolidaysToDataSheet(dataSheet);
         checkForSpecialFormatting();
+        new Schedule('Juttas Geburtstag', new Date(2026, 2, 13), new Date(2026, 2, 13, 23, 59, 59), 'yearly', 1);
+        new Schedule('Paules Geburtstag', new Date(2026, 2, 22), new Date(2026, 2, 22, 23, 59, 59), 'yearly', 1);
+        new Schedule('Bad putzen!', new Date(2026, 2, 1, 12), new Date(2026, 2, 1, 23, 59, 59), 'weekly', 1);
+        updateCache();
+
     } else {
         updateSheet();
     }
@@ -58,6 +63,11 @@ function updateSheet() {
     dataSheet.setup(currentSheetDate);
     Holidays.addHolidaysToDataSheet(dataSheet);
     checkForSpecialFormatting();
+    updateCache();
+}
+
+function updateCache() {
+    Schedule.addSchedulesToDataSheet(dataSheet);
 }
 
 /**

@@ -1,13 +1,53 @@
 #schedule_section {
-    outline: dotted red;
-    background-color: aliceblue;
+    /* outline: dotted red; */
     width: 300px;
+    padding: 5px;
+    align-items: center;
+    display: block;
 }
 
 .title-wrapper {
     display: flex;
     justify-content: space-between;
-    outline: solid green;
+    background-color: antiquewhite;
+    min-height: 40px;
+}
+
+
+.schedule-main-wrapper>* {
+    /* border: dotted red; */
+    padding: 5px;
+    font-size: large;
+}
+
+input,
+input:focus {
+    background: none;
+    border: none;
+}
+
+.check-wrapper {
+    border: black solid 5px;
+    width: 15px;
+    height: 15px;
+    padding: 0;
+}
+
+input[type='checkbox'] {
+    appearance: none;
+    margin: 0;
+    padding: 5px;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    left: -15px;
+    top: -15px;
+    z-index: 0;
+}
+
+input[type='checkbox']:checked {
+    background-image: url('../assets/images/check.png');
+
 }
 
 .date-selector-wrapper {
@@ -17,28 +57,97 @@
     padding: 5px;
     width: fit-content;
 
-    background-color: blue;
 }
 
-.date-selector-wrapper>.start {
-    background-color: aqua;
-    /* width: 100px; */
-}
-
-.date-selector-wrapper>.end {
-    background-color: cornflowerblue;
-    color: beige;
+.selector-focus-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100dvw;
+    height: 100dvh;
+    background-color: rgba(0, 0, 0, 0.356);
+    z-index: 1;
 }
 
 .selector-innerWrapper {
-    position: absolute;
-    left: 30%;
-    background-color: aquamarine;
-    color: black;
+    width: fit-content;
+    position: fixed;
+    left: 0;
+
+    height: fit-content;
+
+    background-image:
+        url("../assets/images/calendar_background/Calendar_Top_Left.png"),
+        url("../assets/images/calendar_background/Calendar_Top_Center.png"),
+        url("../assets/images/calendar_background/Calendar_Top_Right.png"),
+
+        url("../assets/images/calendar_background/Calendar_Center_Left.png"),
+        url("../assets/images/calendar_background/Calendar_Center_Center.png"),
+        url("../assets/images/calendar_background/Calendar_Center_Right.png"),
+
+        url("../assets/images/calendar_background/Calendar_Bottom_Left.png"),
+        url("../assets/images/calendar_background/Calendar_Bottom_Center.png"),
+        url("../assets/images/calendar_background/Calendar_Bottom_Right.png");
+
+    background-repeat: no-repeat;
+    background-position:
+        left top, center top, right top,
+        left center, center center, right center,
+        left bottom, center bottom, right bottom;
+
+    background-size:
+        auto, calc(100% - 130px) 70px, auto,
+        70px calc(100% - 130px), calc(100% - 130px) calc(100% - 130px), 70px calc(100% - 130px),
+        auto, calc(100% - 130px) 70px, auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+}
+
+h3 {
+    margin: 0;
+    margin-top: 20px
+}
+
+.calendar_sheet {
+    margin: 25px;
+}
+
+.selector-innerWrapper[hidden] {
+    display: none;
+}
+
+.month-button-wrapper {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.selector-month {
+    width: 70px;
+    border: none;
+    background-image: url('../assets/images/calendar_background/Calendar_Bottom_Left.png');
+}
+
+.selector-month:hover {
+    background-image: url('../assets/images/calendar_background/Calendar_Bottom_Left_Hover.png');
+}
+
+.selector-month.next {
+    scale: -1 1;
 }
 
 .selector-headWrapper {
     display: flex;
+}
+
+.recurrence-wrapper {
+    display: flex;
+    align-content: center;
+    justify-content: space-evenly;
 }
 
 .day:hover {

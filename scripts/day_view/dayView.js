@@ -1,6 +1,6 @@
 
 const DATE_TITLE_ELEMENT = document.getElementById("date_title")
-const HOLIDAY_SECTION = document.querySelector("#holiday_section")
+const HOLIDAY_SECTION = document.querySelector("#holiday_display")
 const SCHEDULE_EDITOR_TARGET = document.querySelector('#schedule_section');
 
 let activeDate = new Date();
