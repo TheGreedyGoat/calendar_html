@@ -82,7 +82,6 @@ class Schedule {
 
             while (currentDate <= intervEnd) { // aufhören, wenn wir über der Obergrenze sind
                 let currentCopy = new Date(currentDate);
-                console.log(currentCopy)
                 for (let i = 0; i < numDaysOfSchedule; i++) {
                     // console.log(currentCopy, intervStart);
                     if (currentCopy >= intervStart) {
@@ -141,7 +140,6 @@ class Schedule {
         end.setSeconds(59);
 
         Schedule.updateCache(start, end);
-        console.log(Schedule.cache)
 
         for (let data of dataSheet.dataStorage) {
             for (const key in Schedule.cache) {

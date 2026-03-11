@@ -13,22 +13,25 @@ class DateSelector {
      * 
      * @param {Date} date 
      */
-    constructor(date) {
+    constructor(date, calendarTarget) {
         if (!DateSelector.domTemplateString) {
             DateSelector.domTemplateString = Templates.getTemplateString('date_selector_template');
         }
 
+
+
         this.id = 'selector' + DateSelector.currentID++;
 
-
         this.selectedDate = date;
-        this.setupDOM();
+        this.setupDOM(calendarTarget);
         this.switchMonth(0);
 
     }
 
     //Die zu übergebene Methode in der Date-Selector Klasse
     onDateClick = (date) => {
+
+        sendMessage(window.parent, 'click', { clicKType: 'general' });
         this.selectDate(date);
         this.sheet.setup(date);
         this.setVisibility(false);
@@ -40,7 +43,7 @@ class DateSelector {
         this.updateHeader();
     }
 
-    setupDOM() {
+    setupDOM(calendarTarget) {
 
         const parser = new DOMParser();
         this.DOM = parser.parseFromString(DateSelector.domTemplateString, 'text/html').querySelector('#outest_wrapper');
@@ -62,25 +65,28 @@ class DateSelector {
         this.prevMonthBtn = this.queryID('prevMonth');
         this.nextMonthBtn = this.queryID('nextMonth');
         this.prevMonthBtn.addEventListener('click', () => {
+            sendMessage(window.parent, 'click', { clicKType: 'general' });
             this.switchMonth(-1);
         })
         this.nextMonthBtn.addEventListener('click', () => {
+            sendMessage(window.parent, 'click', { clicKType: 'general' });
             this.switchMonth(+1);
         })
 
         this.showHide = this.queryID('showHide');
         this.showHide.innerText = this.selectedDate.toLocaleDateString('de-DE', DateSelector.selectPreviewFormat);
         this.showHide.addEventListener('click', () => {
+            sendMessage(window.parent, 'click', { clicKType: 'general' });
             this.toggleVisibility();
         });
 
-
-        this.focusWrapper = this.queryID('selector_focus_wrapper');
-        this.focusWrapper.addEventListener('click', () => {
-            this.setVisibility(false);
-        });
         this.innerWrapper = this.queryID('inner_wrapper');
         this.sheet.addDateClickEvent(this.onDateClick);
+
+        console.log(calendarTarget)
+        if (calendarTarget != undefined) {
+            calendarTarget.appendChild(this.innerWrapper);
+        }
 
     }
 
@@ -99,7 +105,7 @@ class DateSelector {
 
     }
     toggleVisibility() {
-        this.focusWrapper.hidden = !this.focusWrapper.hidden
+        this.innerWrapper.hidden = !this.innerWrapper.hidden
     }
 
     /**
@@ -107,7 +113,7 @@ class DateSelector {
      * @param {boolean} visible 
      */
     setVisibility(visible) {
-        this.focusWrapper.hidden = !visible;
+        this.innerWrapper.hidden = !visible;
     }
 
     specificElementID(generalID) {
@@ -128,6 +134,10 @@ class DateSelector {
     place(target) {
         target.innerHTML = '';
         target.appendChild(this.DOM);
+    }
+
+    placeCalendar(target) {
+        target.appendChild(this.innerWrapper);
     }
 }
 

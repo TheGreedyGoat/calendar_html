@@ -5,7 +5,6 @@ body {
     font-size: 20px;
     padding: 0;
     margin: 0;
-
     overflow: hidden;
 }
 
@@ -36,9 +35,6 @@ main {
     width: 50%;
     height: 100%;
     margin: 0;
-
-
-    display: flex;
     flex-direction: column;
     z-index: -1;
 }
@@ -64,8 +60,8 @@ main {
     aspect-ratio: 1/1;
     height: 500px;
 
-    position: absolute;
-    top: 50px;
+    /* position: absolute;
+    top: 50px; */
     align-self: center;
     justify-self: center;
 }
@@ -205,9 +201,6 @@ main {
     background-color: rgba(0, 0, 255, 0.603);
 }
 
-sup {
-    /* font-size: 40%; */
-}
 
 .holiday>.dateContainer {
     background-image: url('../assets/images/sun3.png');
@@ -266,7 +259,36 @@ sup {
     transform: scaleX(-1);
 }
 
+#window {
+    width: 100%;
+    height: 100%;
+    margin: 0;
 
+    background-image: url('../assets/images/road_background.png');
+    background-position: top;
+    overflow: hidden;
+    z-index: 0;
+}
+
+#car {
+    position: relative;
+    top: -330px;
+    left: 500px;
+    top: 220px;
+    width: 200px;
+
+    transition: left 1s;
+    z-index: 1;
+}
+
+#window_frame {
+    align-self: center;
+    justify-self: center;
+    width: 300px;
+    height: 500px;
+    padding: 50px;
+    z-index: 2;
+}
 
 /* ----RIGHT SIDE---- */
 
@@ -274,12 +296,16 @@ sup {
             
     } */
 #frameHolder {
-
-
     width: calc(100dvw - 100px);
     height: calc(100% - 100px);
     padding: 50px;
     margin: 0;
+}
+
+#frameHolder,
+#window_frame {
+
+
 
 
     background-image:

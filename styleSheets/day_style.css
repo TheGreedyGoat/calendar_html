@@ -24,6 +24,8 @@ main {
 }
 
 main>* {
+    grid-column: 1 / 3;
+    min-height: 150px;
     background-image:
         url("../assets/images/sticky_note/note_TL.png"),
         url("../assets/images/sticky_note/note_TC.png"),
@@ -45,41 +47,47 @@ main>* {
         left bottom, center bottom, right bottom;
 
     background-size:
-        auto, calc(100% - 90px) 45px, auto,
-        45px calc(100% - 90px), calc(100% - 90px) calc(100% - 90px), 45px calc(100% - 90px),
-        auto, calc(100% - 90px) 45px, auto;
+        auto, calc(100% - 85px) 46px, auto,
+        46px calc(100% - 90px), calc(100% - 90px) calc(100% - 90px), 46px calc(100% - 90px),
+        auto, calc(100% - 85px) 46px, auto;
+    font-size: large;
 }
 
-/* .pin {
-    position: absolute;
-    top: 0;
 
-    left: 150px;
-} */
+
+
+#title_area {
+    width: 100%;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
 
 #date_title {
-    height: 90px;
-    width: fit-content;
-    padding-left: 30px;
-    padding-right: 30px;
-
     text-align: center;
     align-content: center;
-
-
+    color: brown;
+    font-weight: 900;
 }
 
 #holiday_display {
-    grid-column: 2 / 2;
-    grid-row: 1;
+    margin-bottom: 30px;
+}
+
+#schedule_section {
+    grid-row: 2;
 }
 
 /**/
-#noteSection {
+#note_section {
 
+    grid-row: 3;
     min-height: 300px;
     height: fit-content;
     padding: 0;
+    padding-left: 5px;
 
     display: flex;
     flex-direction: column;
@@ -161,9 +169,4 @@ main>* {
     font-size: 20px;
     background: none;
     border: none
-}
-
-#holiday_section {
-    /* outline: dotted red; */
-
 }

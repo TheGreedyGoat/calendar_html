@@ -15,13 +15,14 @@
             </div>
 
         </div>
-        <div id='recurrence_wrapper' class="recurrence-wrapper">
+        <div id='recurrence_wrapper' class="recurrence-outer-wrapper">
             <span>Wiederholen:</span>
             <div class='check-wrapper'>
                 <input type="checkbox" , id='recurrence_check'>
             </div>
-            <div id='select_recurrence_wrapper'>
-                alle <input type="number" id='recurrence_amount' />
+            <div id='select_recurrence_wrapper' class='recurrence-inner-wrapper'>
+                <p>alle</p>
+                <input type="number" id='recurrence_amount' class='recurrence-amount' />
                 <select name="recurrencetype" id="select_recurrence_type">
                     <option value="yearly">Jahre</option>
                     <option value="monthly">Monate</option>
@@ -30,7 +31,7 @@
                 </select>
             </div>
         </div>
-        <button name='submit' , id='submit_schedule'>Hinzufügen</button>
+        <button name='submit' , id='submit_schedule' class='submit-schedule'>Hinzufügen</button>
     </div>
 </template>
 
@@ -38,18 +39,18 @@
     <div id='outest_wrapper'>
         <button id="showHide" class="selector-showHide" type="button"></button>
         <div id='flex_wrapper' class="selector-flexWrapper">
-            <div id='selector_focus_wrapper' class='selector-focus-wrapper' hidden>
-                <div id="inner_wrapper" class="selector-innerWrapper">
 
-                    <h3 id='sheet_header'>März 2026</h3>
+            <div id="inner_wrapper" class="selector-innerWrapper" hidden>
 
-                    <div id="form" class="selector-form"></div>
-                    <div class='month-button-wrapper'>
-                        <button id="prevMonth" class="selector-month"></button>
-                        <button id="nextMonth" class="selector-month next"></button>
-                    </div>
+                <h3 id='sheet_header'>März 2026</h3>
+
+                <div id="form" class="selector-form"></div>
+                <div class='month-button-wrapper'>
+                    <button id="prevMonth" class="selector-month"></button>
+                    <button id="nextMonth" class="selector-month next"></button>
                 </div>
             </div>
+
         </div>
     </div>
 

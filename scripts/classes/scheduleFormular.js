@@ -34,11 +34,11 @@ class ScheduleFormular {
         this.titleInput = this.DOM.querySelector('#title_input');
 
         this.startSelectorTarget = this.DOM.querySelector('#start_selector_target');
-        this.startSelector = new DateSelector(startDate, 'start');
+        this.startSelector = new DateSelector(startDate);
         this.startSelector.place(this.startSelectorTarget);
 
         this.endSelectorTarget = this.DOM.querySelector('#end_selector_target');
-        this.endSelector = new DateSelector(endDate, 'end')
+        this.endSelector = new DateSelector(endDate)
         this.endSelector.place(this.endSelectorTarget);
 
         this.wholeDayCheck = this.DOM.querySelector('#whole_day_check');
@@ -64,15 +64,21 @@ class ScheduleFormular {
         });
 
         this.wholeDayCheck.addEventListener('change', () => {
+
+            sendMessage(window.parent, 'click', { clicKType: 'general' });
             console.log(this.wholeDayCheck.checked);
             this.onWholeDayCheck();
         });
         this.onWholeDayCheck();
         this.recurrenceCheck.addEventListener('change', () => {
+
+            sendMessage(window.parent, 'click', { clicKType: 'general' });
             this.onRecurrenceCheck();
         });
         this.onRecurrenceCheck();
         this.submit.addEventListener('click', () => {
+
+            sendMessage(window.parent, 'click', { clicKType: 'general' });
             this.submitSchedule();
         });
     }
@@ -97,6 +103,11 @@ class ScheduleFormular {
         target.appendChild(this.DOM);
     }
 
+    setCalendarTarget(target) {
+        this.startSelector.placeCalendar(target);
+        this.endSelector.placeCalendar(target);
+    }
+
     submitSchedule() {
         console.log('???')
         this.inputValues.title = this.titleInput.value;
@@ -116,6 +127,7 @@ class ScheduleFormular {
         } else {
             endDate = this.endSelector.selectedDate;
         }
+
         this.inputValues.startDate = startDate;
         this.inputValues.endDate = endDate;
         if (this.recurrenceCheck.checked) {
