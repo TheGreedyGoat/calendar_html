@@ -1,5 +1,4 @@
-const CAR = document.getElementById('car');
-const WINDOW = document.querySelector('#window');
+
 let moveLeft = true;
 
 window.setTimeout(carDrive, 3000);
@@ -9,7 +8,7 @@ function carDrive() {
     let newLeft = cLeft + 900 * (moveLeft ? -1 : 1);
     CAR.style.left = (newLeft + 'px');
     moveLeft = !moveLeft;
-    window.setTimeout(uTurn, 10000);
+    window.setTimeout(uTurn, 3000);
 }
 
 function uTurn() {

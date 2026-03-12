@@ -3,6 +3,8 @@ const CALENDAR_WRAPPER_ID = "calendar_wrapper";
 const CALENDAR_SHEET_ID = "calendar_sheet";
 const CALENDAR_HEAD_ID = "calendar_head";
 const DATE_CONTAINER_CLASS_NAME = ".dateContainer";
+const CAR = document.getElementById('car');
+const SCENE_WINDOW = document.querySelector('#window');
 
 let dataSheet;
 let activeDateCell;
@@ -32,13 +34,13 @@ function switchToDate(newDate) {
         checkForSpecialFormatting();
         new Schedule('Juttas Geburtstag', new Date(2026, 2, 13), new Date(2026, 2, 13, 23, 59, 59), 'yearly', 1);
         new Schedule('Paules Geburtstag', new Date(2026, 2, 22), new Date(2026, 2, 22, 23, 59, 59), 'yearly', 1);
-        new Schedule('Bad putzen!', new Date(2026, 2, 1, 12), new Date(2026, 2, 1, 23, 59, 59), 'weekly', 1);
-        updateCache();
+        new Schedule('Bad putzen!', new Date(2026, 2, 12, 12), new Date(2026, 2, 12, 23, 59, 59), 'weekly', 1);
 
     } else {
         updateSheet();
     }
 
+    updateScheduleCache();
     markActiveDate();
 }
 /**
@@ -63,11 +65,15 @@ function updateSheet() {
     dataSheet.setup(currentSheetDate);
     Holidays.addHolidaysToDataSheet(dataSheet);
     checkForSpecialFormatting();
-    updateCache();
 }
 
-function updateCache() {
+function updateScheduleCache() {
     Schedule.addSchedulesToDataSheet(dataSheet);
+}
+function saveNewSchedule(scheduleData) {
+    new Schedule(scheduleData.title, scheduleData.startDate, scheduleData.endDate, scheduleData.recurrence, scheduleData.recurrenceFrequ);
+    console.log(Schedule.masterSchedules);
+    updateScheduleCache();
 }
 
 /**
@@ -107,13 +113,14 @@ function sendDataToDayView(date = newDate()) {
     //get all the data 
     let notes = CalendarTools.getOnlyNotesOfDate(date);
     let holidayString = Holidays.getHolidays(date);
-    let holidays = holidayString === '' ? ['Kein Feiertag, geh arbeiten'] : holidayString.split(',');
-
+    let holidays = holidayString === '' ? [] : holidayString.split(',');
+    let schedules = Schedule.getSchedulesOfDate(date);
     //send it
 
     sendMessageToAllWindows('daily_data', {
         notes: notes,
-        holidays: holidays
+        holidays: holidays,
+        schedules: schedules
     });
 
 }
@@ -127,6 +134,8 @@ function checkForSpecialFormatting() {
 
     let format = function (n) { return n };
     let wallpaper = 'UglyWallpaper.png'
+    let windowScene = 'road_background.png';
+    let car = 'car.png';
     if (holidaysArr != null) {
         for (let i = 0; i < holidaysArr.length; i++) {
             let holiday = holidaysArr[i];
@@ -140,7 +149,9 @@ function checkForSpecialFormatting() {
                     format = piFormat;
                     break;
                 case 'Star Wars Day':
-                    wallpaper = 'R2C3.png'
+                    wallpaper = 'R2C3.png';
+                    windowScene = 'SW_backGround.png';
+                    car = 'falcon.png'
                     break;
                 default:
                     break;
@@ -157,7 +168,8 @@ function checkForSpecialFormatting() {
     heading = document.getElementById(CALENDAR_HEAD_ID);
     heading.innerHTML = CalendarTools.monthYearStringByNums(currentSheetDate.getMonth(), format(currentSheetDate.getFullYear(), 4));
     document.querySelector('main').style.backgroundImage = 'url(assets/images/wallpapers/' + wallpaper + ')';
-
+    SCENE_WINDOW.style.backgroundImage = 'url(assets/images/window/' + windowScene + ')';
+    CAR.setAttribute('src', '/assets/images/window/' + car);
 }
 
 /**
@@ -177,9 +189,4 @@ function piFormat(num, digits = 1) {
     let pow = Math.pow(10, digits)
     let piMult = Math.round(pow * num / Math.PI) / pow;
     return piMult + '&#960';
-}
-
-function saveNewSchedule(scheduleData) {
-    new Schedule(scheduleData.title, scheduleData.startDate, scheduleData.endDate, scheduleData.recurrence, scheduleData.recurrenceFrequ);
-    console.log(Schedule.masterSchedules);
 }

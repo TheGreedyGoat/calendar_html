@@ -2,6 +2,33 @@
     --pixel-Size: 5px;
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 35px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background-image: url('../assets/images/scrollbar/track/scrollbar_track.png');
+    background-repeat: no-repeat;
+    background-size: 35px 100%;
+    overflow: visible;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+
+    background-image:
+        url('../assets/images/scrollbar/handle/scroll_handle_top.png'),
+        url('../assets/images/scrollbar/handle/scroll_handle_center.png'),
+        url('../assets/images/scrollbar/handle/scroll_handle_bottom.png');
+    background-repeat: no-repeat;
+    background-position: top, center, bottom;
+    background-size: auto, 100% calc(100% - 30px), auto;
+
+}
+
+
 input,
 button {
     font-family: 'minecraftia', sans-serif;
@@ -24,8 +51,10 @@ main {
 }
 
 main>* {
+    min-height: 80px;
     grid-column: 1 / 3;
-    min-height: 150px;
+    padding-bottom: 25px;
+
     background-image:
         url("../assets/images/sticky_note/note_TL.png"),
         url("../assets/images/sticky_note/note_TC.png"),
@@ -76,36 +105,36 @@ main>* {
     margin-bottom: 30px;
 }
 
-#schedule_section {
-    grid-row: 2;
+#new_schedule_section {
+    height: fit-content;
+    grid-row: 3;
+    grid-column: 1;
+    padding: 5px;
+    align-items: center;
 }
 
 /**/
 #note_section {
 
-    grid-row: 3;
-    min-height: 300px;
     height: fit-content;
-    padding: 0;
-    padding-left: 5px;
-
-    display: flex;
-    flex-direction: column;
-
-    /* outline: dotted green; */
+    grid-row: 4;
+    /* grid-column: 1; */
+    padding-top: 5px;
 }
 
-#notesTitle {
-    /* outline: dotted blue; */
+h3 {
     min-height: 50px;
     background-color: black;
     color: white;
-    text-shadow: none;
     font-size: 150%;
-    margin: 0;
+    margin: 0 !important;
     padding-left: 10px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+}
+
+.line-through {
+    text-decoration: line-through;
+    text-decoration-color: brown;
+    text-decoration-thickness: 5px;
 }
 
 #noteList {
@@ -115,13 +144,13 @@ main>* {
     list-style: none;
 
     margin: 0;
+    margin-left: 5px;
 
 }
 
 .noteLine {
-    /* outline: dotted purple; */
     font-size: 15px;
-    border-bottom: solid black;
+    border-bottom: solid black 5px;
     margin-top: 15px;
 }
 

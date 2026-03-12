@@ -10,6 +10,11 @@ class Templates {
 
     }
 
+    /**
+     * returns a template string
+     * @param {number} templateID die Id der Vorlage
+     * @returns {string}
+     */
     static getTemplateString(templateID) {
         const template = this.doc.querySelector('#' + templateID);
         if (!template) {

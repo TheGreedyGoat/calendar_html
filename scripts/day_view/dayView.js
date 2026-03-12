@@ -1,7 +1,15 @@
 
 const DATE_TITLE_ELEMENT = document.getElementById("date_title");
 const HOLIDAY_SECTION = document.querySelector("#holiday_display");
-const SCHEDULE_EDITOR_TARGET = document.querySelector('#schedule_section');
+
+const NEW_SCHEDULE_HEADER = document.querySelector('#new_schedule_header');
+const NEW_SCHEDULE_WRAPPER = document.querySelector('#new_schedule_wrapper');
+const SCHEDULE_HEADER = document.querySelector('#schedule_header');
+const SCHEDULE_LIST = document.querySelector('#schedule_list');
+
+
+let scheduleForm;
+
 const HIST_LIST = document.querySelector('#hist_list');
 
 let activeDate = new Date();
@@ -15,10 +23,21 @@ function setupPage(setupDate = new Date()) {
     window.addEventListener('message', (message) => {
         if (message.data === 'templates loaded') {
             console.log('templates loaded');
-            let form = new ScheduleFormular(new Date(2026, 2, 9));
-            form.place(SCHEDULE_EDITOR_TARGET);
+            scheduleForm = new ScheduleFormular(new Date());
+            scheduleForm.place(NEW_SCHEDULE_WRAPPER);
             const main = document.querySelector('main');
-            form.setCalendarTarget(main)
+            scheduleForm.setCalendarTarget(main);
+
+            SCHEDULE_HEADER.addEventListener('click', () => {
+                sendMessage(window.parent, 'click', { clickType: 'showHideSchedule' });
+                SCHEDULE_LIST.hidden = !SCHEDULE_LIST.hidden
+            });
+
+            NEW_SCHEDULE_HEADER.addEventListener('click', () => {
+                sendMessage(window.parent, 'click', { clickType: 'showHideNewSchedule' });
+                NEW_SCHEDULE_WRAPPER.hidden = !NEW_SCHEDULE_WRAPPER.hidden;
+
+            });
         }
     })
     refresh();
@@ -57,6 +76,29 @@ function refresh() {
 function refreshDailyData(dailyData) {
     displayTodayshNotes(dailyData.notes);
     refreshHoliday(dailyData.holidays);
+    displayTodaysSchedules(dailyData.schedules);
+}
+
+/**
+ * 
+ * @param {Array} schedules 
+ */
+function displayTodaysSchedules(schedules) {
+
+    SCHEDULE_LIST.innerHTML = '';
+    for (let value of schedules) {
+        let line = document.createElement('li');
+        let header = document.createElement('h4');
+
+        line.appendChild(header);
+        SCHEDULE_LIST.appendChild(line);
+
+        header.innerText = value.title;
+        line.innerHTML +=
+            `Beginn: ${value.start.toLocaleDateString()}, Ende: ${value.end.toLocaleDateString()}`
+
+
+    }
 }
 
 /**
@@ -64,6 +106,16 @@ function refreshDailyData(dailyData) {
  * @param {Array<string>} holidayArr 
  */
 function refreshHoliday(holidayArr) {
+    const extraTexts = {
+        'Pokemon Day': "Gotta Catch 'em all!",
+        'Star Wars Day': "May the 4th be with you!",
+        'PI-Day': "Go, get yourself some &#960. You deserve it!",
+        "Heiligabend": 'HOHOHO!',
+        "1.Weihnachtstag": 'HOHOHO!',
+        "1.Weihnachtstag": 'HOHOHO!',
+        'Ostersonntag': 'Ran an die Eier!'
+
+    }
     let holidayStr = '';
     if (holidayArr.length == 0) holidayStr = 'kein Feiertag'
     else {
@@ -71,7 +123,11 @@ function refreshHoliday(holidayArr) {
             holidayStr += (i == 0 ? '' : ' & ') + holidayArr[i];
         }
     }
-    HOLIDAY_SECTION.innerText = 'Heute ist ' + holidayStr + '.';
+    HOLIDAY_SECTION.innerText = 'Heute ist ' + holidayStr + '.\n';
+    if (extraTexts[holidayStr]) {
+        HOLIDAY_SECTION.innerText += extraTexts[holidayStr]
+    }
+
 }
 
 

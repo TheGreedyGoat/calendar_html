@@ -1,8 +1,12 @@
 
 class Schedule {
-    static masterSchedules = [];
+    static masterSchedules = {
+        // id : {
+        //
+        //}
+    };
     static cache = {
-        // id : [y_m_d, ...]
+        // yyyy_m_d : [id, progress] (progress: eg. day no 2 of max 3)
     }
     static ids = 0;
     /**
@@ -33,7 +37,7 @@ class Schedule {
         this.start = start;
         this.end = end;
 
-        Schedule.masterSchedules.push(this);
+        Schedule.masterSchedules[this.id] = this;
     }
 
     static createSchedule(dataObj) {
@@ -46,6 +50,18 @@ class Schedule {
      */
     static dateString(date) {
         return `${date.getFullYear()}_${date.getMonth()}_${date.getDate()}`;
+    }
+
+    /**
+     * 
+     * @param {string} dateString YYYY_M_D
+     */
+    static dateFromDateString(dateString) {
+        let values = dateString.split('_');
+        let y = parseInt(values[0]);
+        let m = parseInt(values[1]);
+        let d = parseInt(values[2]);
+        return new Date(y, m, d);
     }
 
     /**
@@ -75,9 +91,10 @@ class Schedule {
      */
     static updateCache(intervStart, intervEnd) {
         Schedule.cache = {};
-        this.masterSchedules.forEach((schedule) => {
+        for (let id in this.masterSchedules) {
+            let schedule = this.masterSchedules[id];
             let currentDate = new Date(schedule.start);
-            let scheduleID = schedule.id;
+            let scheduleID = id;
             let numDaysOfSchedule = Schedule.daysWithinInterval(schedule.start, schedule.end);
 
             while (currentDate <= intervEnd) { // aufhören, wenn wir über der Obergrenze sind
@@ -85,8 +102,9 @@ class Schedule {
                 for (let i = 0; i < numDaysOfSchedule; i++) {
                     // console.log(currentCopy, intervStart);
                     if (currentCopy >= intervStart) {
-                        if (!Schedule.cache[scheduleID]) Schedule.cache[scheduleID] = []
-                        Schedule.cache[scheduleID].push(Schedule.dateString(currentCopy));
+                        let dateString = Schedule.dateString(currentCopy);
+                        if (!Schedule.cache[dateString]) Schedule.cache[dateString] = [];
+                        Schedule.cache[dateString].push([id, `${i}/${numDaysOfSchedule}`]);
                     }
                     currentCopy.setDate(currentCopy.getDate() + 1);
                 }
@@ -111,8 +129,10 @@ class Schedule {
                 }
 
             }
-        })
+        }
     }
+
+
 
     /**
      * checks if a date is within a given interval (including the limits)
@@ -143,16 +163,49 @@ class Schedule {
 
         for (let data of dataSheet.dataStorage) {
             for (const key in Schedule.cache) {
-                let instantceArray = Schedule.cache[key];
-                for (let inst of instantceArray) {
-                    if (inst === Schedule.dateString(data.date)) {
-                        data.addHTMLClass('schedule');
-                    }
+                if (key === Schedule.dateString(data.date)) {
+                    data.addHTMLClass('schedule');
                 }
+
             }
         }
 
     }
 
+
+    static getSchedulesOfDate(date) {
+        //get cache entry
+        let cacheEntries = Schedule.cache[Schedule.dateString(date)];
+        if (!cacheEntries) return [];
+        let results = [];
+        for (let i = 0; i < cacheEntries.length; i++) {
+            let currentEntry = cacheEntries[i];
+            //use id to get masterSchedule
+            let scheduleID = currentEntry[0];
+            let mSchedule = Schedule.masterSchedules[scheduleID];
+            //assemble data
+            let title = mSchedule.title;
+            let progress = currentEntry[1].split('/');
+            let start = new Date(date);
+            start.setDate(start.getDate() - parseInt(progress[0]));
+            let end = new Date(start);
+            end.setDate(end.getDate() + parseInt(progress[1] - 1));
+            results.push({
+                title: title,
+                start: start,
+                end: end
+            });
+        }
+
+        return results
+    }
+    /**
+     * 
+     * @param {string} id 
+     * @returns {boolean}
+     */
+    static hasID(id) {
+        return Schedule.masterSchedules[id] != undefined;
+    }
 }
 

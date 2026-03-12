@@ -264,7 +264,6 @@ main {
     height: 100%;
     margin: 0;
 
-    background-image: url('../assets/images/road_background.png');
     background-position: top;
     overflow: hidden;
     z-index: 0;
@@ -276,8 +275,7 @@ main {
     left: 500px;
     top: 220px;
     width: 200px;
-
-    transition: left 1s;
+    transition: left 2s;
     z-index: 1;
 }
 

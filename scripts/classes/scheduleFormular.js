@@ -94,6 +94,7 @@ class ScheduleFormular {
         this.recurrenceWrapper.hidden = !this.recurrenceCheck.checked;
     }
 
+
     /**
      * 
      * @param {Element} target 
@@ -101,6 +102,7 @@ class ScheduleFormular {
     place(target) {
         target.innerHTML = '';
         target.appendChild(this.DOM);
+        this.parent = target;
     }
 
     setCalendarTarget(target) {
