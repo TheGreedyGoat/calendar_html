@@ -40,19 +40,26 @@ main {
 }
 
 
-#to_day_view {
-    background: none;
+.switch_view {
+    width: 90px;
+    height: 100px;
     border: none;
-    width: fit-content;
-    height: fit-content;
+    background: none;
+    background-image: url('../assets/images/arrow2.png');
     align-self: normal;
 
     position: absolute;
     right: 50%;
 }
 
-#to_day_view:hover img {
-    filter: grayscale();
+.switch_view:active {
+    background-image: url('../assets/images/arrow.png');
+}
+
+#to_month_view {
+    transform: scaleX(-1);
+    right: 0;
+    left: 50%;
 }
 
 #calendar_wrapper {
@@ -339,11 +346,13 @@ main {
 
     background-repeat: no-repeat;
 
-
 }
+
+#frameHolder:hover {}
 
 iframe {
     height: 100%;
     width: 100%;
     border: none;
+
 }

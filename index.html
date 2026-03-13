@@ -14,8 +14,9 @@
     <!--soll sich bewegen -->
     <main>
         <section id="left_section">
-            <button id="to_day_view" onclick="sendMessage(window, 'click', {clickType: 'to day view'})">
-                <img src="assets/images/arrow.png" alt="">
+            <button id="to_day_view" class="switch_view"
+                onclick="sendMessage(window, 'click', {clickType: 'to day view'})">
+                <!-- <img src="assets/images/arrow.png" alt="Button to day view"> -->
             </button>
             <div id='window_frame'>
                 <div id='window'>
@@ -37,8 +38,14 @@
                 </div>
             </div>
         </section>
-        <div id="frameHolder" onclick="sendMessage(window, 'click', {clickType: 'to month view'})">
-            <iframe src="dayView.html" id="day_view" width="100dvw" height="100%" frameborder="0"></iframe>
+        <section id='right_section'><button id="to_month_view" class="switch_view"
+                onclick="sendMessage(window, 'click', {clickType: 'to month view'})">
+                <!-- <img src="assets/images/arrow.png" alt="Button to day view"> -->
+            </button>
+            <div id="frameHolder" onclick="sendMessage(window, 'click', {clickType: 'to month view'})">
+
+                <iframe src="dayView.html" id="day_view" width="100dvw" height="100%" frameborder="0"></iframe>
+        </section>
         </div>
     </main>
 
@@ -53,6 +60,8 @@
     <script src='scripts/classes/calendarSchedule.js'></script>
     <script src="scripts/month_view/fixedHolidays.js"></script>
     <script src="scripts/month_view/swiping.js"></script>
+    <script src='scripts/common/fetcher.js'></script>
+    <script src="scripts/month_view/easterEggs.js"></script>
     <script src="scripts/month_view/monthView.js"></script>
     <script src="scripts/month_view/month_message_processing.js"></script>
     <script src="scripts/month_view/wroom.js"></script>
