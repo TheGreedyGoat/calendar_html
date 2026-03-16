@@ -15,7 +15,7 @@
     <main>
         <section id="left_section">
             <button id="to_day_view" class="switch_view"
-                onclick="sendMessage(window, 'click', {clickType: 'to day view'})">
+                onclick="handler.sendMessage(window, 'click', {clickType: 'to day view'})">
                 <!-- <img src="assets/images/arrow.png" alt="Button to day view"> -->
             </button>
             <div id='window_frame'>
@@ -31,18 +31,18 @@
 
                     <div id="monthButtonContainer">
                         <button class="monthButton" id="lastMonth"
-                            onclick="sendMessage(window, 'click',{clickType: 'month scroll',clickValue: -1});"></button>
+                            onclick="handler.sendMessage(window, 'click',{clickType: 'month scroll',clickValue: -1});"></button>
                         <button class="monthButton" id="nextMonth"
-                            onclick="sendMessage(window, 'click',{clickType: 'month scroll',clickValue: +1});"></button>
+                            onclick="handler.sendMessage(window, 'click',{clickType: 'month scroll',clickValue: +1});"></button>
                     </div>
                 </div>
             </div>
         </section>
         <section id='right_section'><button id="to_month_view" class="switch_view"
-                onclick="sendMessage(window, 'click', {clickType: 'to month view'})">
+                onclick="handler.sendMessage(window, 'click', {clickType: 'to month view'})">
                 <!-- <img src="assets/images/arrow.png" alt="Button to day view"> -->
             </button>
-            <div id="frameHolder" onclick="sendMessage(window, 'click', {clickType: 'to month view'})">
+            <div id="frameHolder">
 
                 <iframe src="dayView.html" id="day_view" width="100dvw" height="100%" frameborder="0"></iframe>
         </section>
@@ -51,8 +51,6 @@
 
 
 
-
-    <script src="scripts/common/messageCenter.js"></script>
     <script src="scripts/common/holidays.js"></script>
     <script src="scripts/common/calendarTools.js"></script>
     <script src="scripts/common/calendarSheet.js"></script>
@@ -63,8 +61,12 @@
     <script src='scripts/common/fetcher.js'></script>
     <script src="scripts/month_view/easterEggs.js"></script>
     <script src="scripts/month_view/monthView.js"></script>
-    <script src="scripts/month_view/month_message_processing.js"></script>
     <script src="scripts/month_view/wroom.js"></script>
+
+    <script src="scripts/month_view/month_message_processing.js"></script>
+    <script src="scripts/common/messageCenter.js"></script>
+
+    <script src="scripts/month_view/monthSetup.js"></script>
 </body>
 
 </html>

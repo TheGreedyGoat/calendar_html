@@ -5,6 +5,7 @@ const CALENDAR_HEAD_ID = "calendar_head";
 const DATE_CONTAINER_CLASS_NAME = ".dateContainer";
 const CAR = document.getElementById('car');
 const SCENE_WINDOW = document.querySelector('#window');
+const DAY_VIEW = document.querySelector('#day_view');
 
 let dataSheet;
 let activeDateCell;
@@ -24,7 +25,7 @@ function switchToDate(newDate) {
     if (!dataSheet) {
         dataSheet = new CalendarSheet(newDate);
         dataSheet.addDateClickEvent((date) => {
-            sendMessageToAllWindows("click", {
+            handler.sendMessage(window, "click", {
                 clickType: "date cell",
                 clickValue: date
             });
@@ -117,7 +118,7 @@ function sendDataToDayView(date = newDate()) {
     let schedules = Schedule.getSchedulesOfDate(date);
     //send it
 
-    sendMessageToAllWindows('daily_data', {
+    handler.sendMessage(DAY_VIEW.contentWindow, 'daily_data', {
         notes: notes,
         holidays: holidays,
         schedules: schedules

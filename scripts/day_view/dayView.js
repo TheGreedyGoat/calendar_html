@@ -17,8 +17,9 @@ let activeDate = new Date();
 
 
 
-function setupPage(setupDate = new Date()) {
-    activeDate = setupDate;
+function setupPage(setupData) {
+
+    activeDate = setupData.date;
     setupNoteInputField();
     window.addEventListener('message', (message) => {
         if (message.data === 'templates loaded') {
@@ -29,19 +30,19 @@ function setupPage(setupDate = new Date()) {
             scheduleForm.setCalendarTarget(main);
 
             SCHEDULE_HEADER.addEventListener('click', () => {
-                sendMessage(window.parent, 'click', { clickType: 'showHideSchedule' });
+                handler.sendMessage(window.parent, 'click', { clickType: 'showHideSchedule' });
                 SCHEDULE_LIST.hidden = !SCHEDULE_LIST.hidden
             });
 
             NEW_SCHEDULE_HEADER.addEventListener('click', () => {
-                sendMessage(window.parent, 'click', { clickType: 'showHideNewSchedule' });
+                handler.sendMessage(window.parent, 'click', { clickType: 'showHideNewSchedule' });
                 NEW_SCHEDULE_WRAPPER.hidden = !NEW_SCHEDULE_WRAPPER.hidden;
 
             });
         }
     })
     refresh();
-    sendMessage(window.parent, 'send_daily_data', setupDate)
+    handler.sendMessage(window.parent, 'send_daily_data', activeDate)
 }
 
 function setActiveDate(newDate = new Date()) {
