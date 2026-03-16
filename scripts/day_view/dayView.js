@@ -21,28 +21,42 @@ function setupPage(setupData) {
 
     activeDate = setupData.date;
     setupNoteInputField();
-    window.addEventListener('message', (message) => {
-        if (message.data === 'templates loaded') {
-            console.log('templates loaded');
-            scheduleForm = new ScheduleFormular(new Date());
-            scheduleForm.place(NEW_SCHEDULE_WRAPPER);
-            const main = document.querySelector('main');
-            scheduleForm.setCalendarTarget(main);
-
-            SCHEDULE_HEADER.addEventListener('click', () => {
-                handler.sendMessage(window.parent, 'click', { clickType: 'showHideSchedule' });
-                SCHEDULE_LIST.hidden = !SCHEDULE_LIST.hidden
-            });
-
-            NEW_SCHEDULE_HEADER.addEventListener('click', () => {
-                handler.sendMessage(window.parent, 'click', { clickType: 'showHideNewSchedule' });
-                NEW_SCHEDULE_WRAPPER.hidden = !NEW_SCHEDULE_WRAPPER.hidden;
-
-            });
-        }
-    })
     refresh();
-    handler.sendMessage(window.parent, 'send_daily_data', activeDate)
+    messageHandler.sendMessage(window.parent, 'send_daily_data', activeDate);
+    setupScrollButtons();
+}
+
+function onTemplatesLoaded() {
+    console.log('templates loaded');
+    scheduleForm = new ScheduleFormular(new Date());
+    scheduleForm.place(NEW_SCHEDULE_WRAPPER);
+    const main = document.querySelector('main');
+    scheduleForm.setCalendarTarget(main);
+    setupHideButtons();
+}
+
+function setupHideButtons() {
+    let h3 = document.querySelectorAll('h3.post-it');
+    for (let head of h3) {
+        let sibling = head.nextElementSibling;
+        if (sibling) sibling.hidden = true;
+        head.addEventListener('click', () => {
+            messageHandler.sendMessage(window.parent, 'click', 'showHide');
+            if (!head.nextElementSibling) return;
+            head.nextElementSibling.hidden = !head.nextElementSibling.hidden;
+        });
+    }
+}
+
+function setupScrollButtons() {
+    const yesterday = document.querySelector('#to_yesterday');
+    yesterday.addEventListener('click', () => {
+        messageHandler.sendMessage(window.parent, 'click', { clickType: 'day scroll', clickValue: -1 }); // -1 day
+    });
+    const tomorrow = document.querySelector('#to_tomorrow');
+    tomorrow.addEventListener('click', () => {
+        messageHandler.sendMessage(window.parent, 'click', { clickType: 'day scroll', clickValue: +1 }); // +1 day
+    });
 }
 
 function setActiveDate(newDate = new Date()) {
@@ -74,10 +88,12 @@ function refresh() {
     Fetcher.tryFetch(`http://history.muffinlabs.com/date/${activeDate.getMonth() + 1}/${activeDate.getDate()}`, historyFetchCallback);
 }
 
-function refreshDailyData(dailyData) {
+function onDailyDataRecieved(dailyData) {
+
     displayTodayshNotes(dailyData.notes);
     refreshHoliday(dailyData.holidays);
     displayTodaysSchedules(dailyData.schedules);
+    setActiveDate(dailyData.date);
 }
 
 /**
@@ -87,6 +103,13 @@ function refreshDailyData(dailyData) {
 function displayTodaysSchedules(schedules) {
 
     SCHEDULE_LIST.innerHTML = '';
+    if (schedules.length === 0) {
+
+        let line = document.createElement('li');
+        SCHEDULE_LIST.appendChild(line);
+
+        line.innerText = 'Heute keine Termine (also ja, du darfst zocken)';
+    }
     for (let value of schedules) {
         let line = document.createElement('li');
         let header = document.createElement('h4');
@@ -97,8 +120,6 @@ function displayTodaysSchedules(schedules) {
         header.innerText = value.title;
         line.innerHTML +=
             `Beginn: ${value.start.toLocaleDateString()}, Ende: ${value.end.toLocaleDateString()}`
-
-
     }
 }
 

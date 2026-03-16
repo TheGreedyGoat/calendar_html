@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="styleSheets/style.css" />
     <title>Kalender</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 </head>
 
@@ -15,7 +16,7 @@
     <main>
         <section id="left_section">
             <button id="to_day_view" class="switch_view"
-                onclick="handler.sendMessage(window, 'click', {clickType: 'to day view'})">
+                onclick="messageHandler.sendMessage(window, 'click', {clickType: 'to day view'})">
                 <!-- <img src="assets/images/arrow.png" alt="Button to day view"> -->
             </button>
             <div id='window_frame'>
@@ -31,15 +32,15 @@
 
                     <div id="monthButtonContainer">
                         <button class="monthButton" id="lastMonth"
-                            onclick="handler.sendMessage(window, 'click',{clickType: 'month scroll',clickValue: -1});"></button>
+                            onclick="messageHandler.sendMessage(window, 'click',{clickType: 'month scroll',clickValue: -1});"></button>
                         <button class="monthButton" id="nextMonth"
-                            onclick="handler.sendMessage(window, 'click',{clickType: 'month scroll',clickValue: +1});"></button>
+                            onclick="messageHandler.sendMessage(window, 'click',{clickType: 'month scroll',clickValue: +1});"></button>
                     </div>
                 </div>
             </div>
         </section>
         <section id='right_section'><button id="to_month_view" class="switch_view"
-                onclick="handler.sendMessage(window, 'click', {clickType: 'to month view'})">
+                onclick="messageHandler.sendMessage(window, 'click', {clickType: 'to month view'})">
                 <!-- <img src="assets/images/arrow.png" alt="Button to day view"> -->
             </button>
             <div id="frameHolder">
@@ -51,22 +52,24 @@
 
 
 
-    <script src="scripts/common/holidays.js"></script>
-    <script src="scripts/common/calendarTools.js"></script>
-    <script src="scripts/common/calendarSheet.js"></script>
+    < <script src="scripts/common/holidays.js">
+        </script>
+        <script src="scripts/common/calendarTools.js"></script>
+        <script src="scripts/common/calendarSheet.js"></script>
 
-    <script src='scripts/classes/calendarSchedule.js'></script>
-    <script src="scripts/month_view/fixedHolidays.js"></script>
-    <script src="scripts/month_view/swiping.js"></script>
-    <script src='scripts/common/fetcher.js'></script>
-    <script src="scripts/month_view/easterEggs.js"></script>
-    <script src="scripts/month_view/monthView.js"></script>
-    <script src="scripts/month_view/wroom.js"></script>
+        <script src='scripts/classes/calendarSchedule.js'></script>
+        <script src="scripts/month_view/fixedHolidays.js"></script>
 
-    <script src="scripts/month_view/month_message_processing.js"></script>
-    <script src="scripts/common/messageCenter.js"></script>
+        <script src="scripts/month_view/swiping.js"></script>
+        <script src='scripts/common/fetcher.js'></script>
+        <script src="scripts/month_view/easterEggs.js"></script>
+        <script src="scripts/month_view/monthView.js"></script>
+        <script src="scripts/month_view/wroom.js"></script>
 
-    <script src="scripts/month_view/monthSetup.js"></script>
+        <script src="scripts/month_view/month_message_processing.js"></script>
+        <script src="scripts/common/messageCenter.js"></script>
+
+        <script src="scripts/month_view/monthMain.js"></script>
 </body>
 
 </html>

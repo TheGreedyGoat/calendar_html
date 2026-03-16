@@ -10,6 +10,7 @@ function checkForSpecialFormatting() {
     let wallpaper = 'UglyWallpaper.png'
     let windowScene = 'road_background.png';
     let car = 'car.png';
+    carTopBase = 150;
     if (holidaysArr != null) {
         for (let i = 0; i < holidaysArr.length; i++) {
             let holiday = holidaysArr[i];
@@ -26,6 +27,7 @@ function checkForSpecialFormatting() {
                     wallpaper = 'R2C3.png';
                     windowScene = 'SW_backGround.png';
                     car = 'falcon.png'
+                    carTopBase = 100
                     break;
                 case 'Pokemon Day':
                     fetchRandomPokemon();

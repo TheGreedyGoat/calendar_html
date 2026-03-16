@@ -5,7 +5,7 @@ body {
     font-size: 20px;
     padding: 0;
     margin: 0;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 main {
@@ -278,19 +278,18 @@ main {
 
 #car {
     position: relative;
-    top: -330px;
-    left: 500px;
-    top: 220px;
+    left: 600px;
+    top: 150px;
     width: 200px;
-    transition: left 2s;
+    transition: left 2s linear;
     z-index: 1;
 }
 
 #window_frame {
     align-self: center;
     justify-self: center;
-    width: 300px;
-    height: 500px;
+    width: 500px;
+    height: 300px;
     padding: 50px;
     z-index: 2;
 }

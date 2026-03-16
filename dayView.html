@@ -8,12 +8,10 @@
     <link rel="stylesheet" href="styleSheets/day_style.css">
     <link rel="stylesheet" href="styleSheets/schedule_style.css">
 
-    <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/p5.js"></script> -->
 
 </head>
 
 <body id="body">
-    <!-- <img class="pin" src="assets/imagdes/pin.png" alt=""> -->
     <main>
 
         <section id=title_area>
@@ -22,7 +20,7 @@
         </section>
 
         <section id="note_section">
-            <h3 id="notesTitle"> Notizen:</h3>
+            <h3 class='post-it' id="notesTitle"> Notizen:</h3>
             <ul id="noteList">
                 <li id="noteInputLine" class="noteLine">
                     <div id="noteInputDiv">
@@ -33,15 +31,15 @@
             </ul>
         </section>
         <section id='new_schedule_section'>
-            <h3 id='new_schedule_header'>Neuer Termin:</h3>
+            <h3 class='post-it' id='new_schedule_header'>Neuer Termin:</h3>
             <section id='new_schedule_wrapper'>
 
             </section>
         </section>
 
         <section id='todays_schedules'>
-            <h3 id='schedule_header'>Termine:</h3>
-            <ul id='schedule_list' hidden>
+            <h3 class='post-it' id='schedule_header'>Termine:</h3>
+            <ul id='schedule_list'>
                 <li>
                     <h4>Gassi gehen</h4>
                     <ul>
@@ -54,10 +52,14 @@
         </section>
 
         <section id='hist_section'>
-            <h3><span class="line-through">Hyster</span> Historische Ereignisse:</h3>
+            <h3 class='post-it'><span class="line-through">Hyster</span> Historische Ereignisse:</h3>
             <ul id='hist_list'></ul>
         </section>
     </main>
+    <section id='day_scroll_flex'>
+        <button class='day-scroll' id='to_yesterday'></button>
+        <button class='day-scroll' id='to_tomorrow'></button>
+    </section>
 
     <script src="scripts/common/fetcher.js"></script>
     <script src="scripts/common/calendarTools.js"></script>

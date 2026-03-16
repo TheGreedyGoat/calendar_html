@@ -1,18 +1,3 @@
-const CALENDAR_TARGET = document.getElementById("calendar_target")
-const CALENDAR_WRAPPER_ID = "calendar_wrapper";
-const CALENDAR_SHEET_ID = "calendar_sheet";
-const CALENDAR_HEAD_ID = "calendar_head";
-const DATE_CONTAINER_CLASS_NAME = ".dateContainer";
-const CAR = document.getElementById('car');
-const SCENE_WINDOW = document.querySelector('#window');
-const DAY_VIEW = document.querySelector('#day_view');
-
-let dataSheet;
-let activeDateCell;
-
-let currentSheetDate; // of the sheet
-let activeDayDate;  // of the active daily page
-
 
 
 /**
@@ -25,7 +10,7 @@ function switchToDate(newDate) {
     if (!dataSheet) {
         dataSheet = new CalendarSheet(newDate);
         dataSheet.addDateClickEvent((date) => {
-            handler.sendMessage(window, "click", {
+            messageHandler.sendMessage(window, "click", {
                 clickType: "date cell",
                 clickValue: date
             });
@@ -73,15 +58,16 @@ function updateScheduleCache() {
 }
 function saveNewSchedule(scheduleData) {
     new Schedule(scheduleData.title, scheduleData.startDate, scheduleData.endDate, scheduleData.recurrence, scheduleData.recurrenceFrequ);
-    console.log(Schedule.masterSchedules);
+
     updateScheduleCache();
+    sendDataToDayView(activeDayDate)
 }
 
 /**
  * 
  * @param {Date} date 
  */
-function dateClicked(date) {
+function onDateClicked(date) {
     switchToDate(date);
     sendDataToDayView(date);
     swipeToDay();
@@ -95,6 +81,17 @@ function dateClicked(date) {
 function addMonth(n = 1) {
     currentSheetDate.setMonth(currentSheetDate.getMonth() + n);
     updateSheet();
+}
+
+/**
+ * 
+ * @param {number} n 
+ */
+function addDay(n = 1) {
+    let newDate = new Date(activeDayDate);
+    newDate.setDate(newDate.getDate() + n);
+
+    onDateClicked(newDate);
 }
 
 /**
@@ -118,7 +115,8 @@ function sendDataToDayView(date = newDate()) {
     let schedules = Schedule.getSchedulesOfDate(date);
     //send it
 
-    handler.sendMessage(DAY_VIEW.contentWindow, 'daily_data', {
+    messageHandler.sendMessage(DAY_VIEW.contentWindow, 'daily_data', {
+        date: activeDayDate,
         notes: notes,
         holidays: holidays,
         schedules: schedules

@@ -28,6 +28,9 @@
 
 }
 
+ul {
+    list-style-type: square;
+}
 
 input,
 button {
@@ -131,6 +134,10 @@ h3 {
     padding-left: 10px;
 }
 
+h3:hover {
+    color: brown;
+}
+
 .line-through {
     text-decoration: line-through;
     text-decoration-color: brown;
@@ -198,4 +205,19 @@ h3 {
     font-size: 20px;
     background: none;
     border: none
+}
+
+#day_scroll_flex {
+
+    margin: 0;
+    position: absolute;
+    bottom: 20px;
+    /* width: 100%; */
+    display: flex;
+    justify-content: space-between;
+}
+
+.day-scroll {
+    width: 20px;
+    height: 20px;
 }

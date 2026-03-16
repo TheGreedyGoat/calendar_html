@@ -31,6 +31,6 @@ class Templates {
 load();
 async function load() {
     await Templates.loadTemplates();
-    window.postMessage('templates loaded', '*'); // Bescheid geben, dass die Templates soweit sind
+    messageHandler.sendMessage(window, 'templates loaded'); // Bescheid geben, dass die Templates soweit sind
 
 } 

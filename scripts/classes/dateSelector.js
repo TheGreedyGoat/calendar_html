@@ -31,7 +31,7 @@ class DateSelector {
     //Die zu übergebene Methode in der Date-Selector Klasse
     onDateClick = (date) => {
 
-        sendMessage(window.parent, 'click', { clicKType: 'general' });
+        messageHandler.sendMessage(window.parent, 'click', { clicKType: 'general' });
         this.selectDate(date);
         this.sheet.setup(date);
         this.setVisibility(false);
@@ -65,25 +65,24 @@ class DateSelector {
         this.prevMonthBtn = this.queryID('prevMonth');
         this.nextMonthBtn = this.queryID('nextMonth');
         this.prevMonthBtn.addEventListener('click', () => {
-            sendMessage(window.parent, 'click', { clicKType: 'general' });
+            messageHandler.sendMessage(window.parent, 'click', { clicKType: 'general' });
             this.switchMonth(-1);
         })
         this.nextMonthBtn.addEventListener('click', () => {
-            sendMessage(window.parent, 'click', { clicKType: 'general' });
+            messageHandler.sendMessage(window.parent, 'click', { clicKType: 'general' });
             this.switchMonth(+1);
         })
 
         this.showHide = this.queryID('showHide');
         this.showHide.innerText = this.selectedDate.toLocaleDateString('de-DE', DateSelector.selectPreviewFormat);
         this.showHide.addEventListener('click', () => {
-            sendMessage(window.parent, 'click', { clicKType: 'general' });
+            messageHandler.sendMessage(window.parent, 'click', { clicKType: 'general' });
             this.toggleVisibility();
         });
 
         this.innerWrapper = this.queryID('inner_wrapper');
         this.sheet.addDateClickEvent(this.onDateClick);
 
-        console.log(calendarTarget)
         if (calendarTarget != undefined) {
             calendarTarget.appendChild(this.innerWrapper);
         }

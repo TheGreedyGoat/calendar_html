@@ -26,10 +26,6 @@ class MessageHandler {
     }
 
     processMessage(message) {
-        // {
-        //  type: ...,
-        //  data: ...
-        // }
         if (!this.msgCallbacks[message.type]) return;
 
         for (let foo of this.msgCallbacks[message.type]) {
@@ -45,7 +41,6 @@ class MessageHandler {
     }
 
     processClick(clickInfo) {
-        console.log(this) //<== undefined
         if (!this.clickCallbacks[clickInfo.clickType]) return;
 
         for (let foo of this.clickCallbacks[clickInfo.clickType]) {
@@ -81,11 +76,11 @@ class Message {
 
 //========================SETUP=============================================//
 
-let handler = new MessageHandler();
+let messageHandler = new MessageHandler();
 for (let key in messageCallbacks) {
-    handler.addCallback(key, messageCallbacks[key]);
+    messageHandler.addCallback(key, messageCallbacks[key]);
 }
 
 for (let key in clickCallbacks) {
-    handler.addClickCallback(key, clickCallbacks[key]);
+    messageHandler.addClickCallback(key, clickCallbacks[key]);
 }

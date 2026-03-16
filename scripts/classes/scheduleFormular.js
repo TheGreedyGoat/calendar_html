@@ -65,20 +65,20 @@ class ScheduleFormular {
 
         this.wholeDayCheck.addEventListener('change', () => {
 
-            sendMessage(window.parent, 'click', { clicKType: 'general' });
+            messageHandler.sendMessage(window.parent, 'click', { clicKType: 'general' });
             console.log(this.wholeDayCheck.checked);
             this.onWholeDayCheck();
         });
         this.onWholeDayCheck();
         this.recurrenceCheck.addEventListener('change', () => {
 
-            sendMessage(window.parent, 'click', { clicKType: 'general' });
+            messageHandler.sendMessage(window.parent, 'click', { clicKType: 'general' });
             this.onRecurrenceCheck();
         });
         this.onRecurrenceCheck();
         this.submit.addEventListener('click', () => {
 
-            sendMessage(window.parent, 'click', { clicKType: 'general' });
+            messageHandler.sendMessage(window.parent, 'click', { clicKType: 'general' });
             this.submitSchedule();
         });
     }
@@ -111,7 +111,6 @@ class ScheduleFormular {
     }
 
     submitSchedule() {
-        console.log('???')
         this.inputValues.title = this.titleInput.value;
         if (this.inputValues.title === '') {
             alert('Bitte gib einen Titel ein, du Eumel!');
@@ -138,7 +137,7 @@ class ScheduleFormular {
         } else {
             this.inputValues.recurrence = 'none';
         }
-        sendMessage(window.parent, 'new_schedule_data', this.inputValues);
+        messageHandler.sendMessage(window.parent, 'new_schedule_data', this.inputValues);
     }
 
 }

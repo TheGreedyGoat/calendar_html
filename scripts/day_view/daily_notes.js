@@ -2,7 +2,7 @@ const NOTE_LIST = document.getElementById("noteList");
 
 const NOT_INPUT_LINE = document.getElementById("noteInputLine");
 
-const NOTE_INPUT_FIELD =  document.getElementById("noteInputField");
+const NOTE_INPUT_FIELD = document.getElementById("noteInputField");
 const addNoteButton = document.getElementById("addNoteButton");
 
 const NOTE_LINE_CLASS = "noteLine";
@@ -10,8 +10,8 @@ const NOTE_LINE_CLASS = "noteLine";
 /**
  * Passt die Höhe des Notiz-Inputs den Textzeilen an
  */
-function setupNoteInputField(){
-    NOTE_INPUT_FIELD.addEventListener("input", function(){
+function setupNoteInputField() {
+    NOTE_INPUT_FIELD.addEventListener("input", function () {
         NOTE_INPUT_FIELD.style.height = "auto";
         NOTE_INPUT_FIELD.style.height = NOTE_INPUT_FIELD.scrollHeight + "px";
         console.log(NOTE_INPUT_FIELD.style.height)
@@ -22,12 +22,12 @@ function setupNoteInputField(){
 /** 
  * Wir prüfen erstmal, ob überhaupt was geschrieben wurde, wenn ja, senden wir die neue Notiz ans Hauptfenster
  */
-function sendNoteWriteRequest(){
-    sendMessage(window.parent, "click", {clickType : "note Added"}) // für den Kilcksound, der ist wichtig!
+function sendNoteWriteRequest() {
+    messageHandler.sendMessage(window.parent, "click", { clickType: "note Added" }) // für den Kilcksound, der ist wichtig!
 
-    let note = NOTE_INPUT_FIELD.value == ""? null : NOTE_INPUT_FIELD.value;
-    if(NOTE_INPUT_FIELD.value != ''){
-        sendMessage(window.parent, "click", {
+    let note = NOTE_INPUT_FIELD.value == "" ? null : NOTE_INPUT_FIELD.value;
+    if (NOTE_INPUT_FIELD.value != '') {
+        messageHandler.sendMessage(window.parent, "click", {
             clickType: "add note",
             clickValue: {
                 date: activeDate,
@@ -47,18 +47,18 @@ function sendNoteWriteRequest(){
  * 
  * @param {Array<string>} notes 
  */
-function displayTodayshNotes(notes){
+function displayTodayshNotes(notes) {
     let safetyCounter = 1000; //<= because while loops are scary
-    
-    while(NOTE_LIST.firstElementChild.id != NOT_INPUT_LINE.id){ // damit wir nicht das Inputfeld löschen
+
+    while (NOTE_LIST.firstElementChild.id != NOT_INPUT_LINE.id) { // damit wir nicht das Inputfeld löschen
         NOTE_LIST.firstElementChild.remove();
 
-        safetyCounter --;
-        if(safetyCounter == 0) break;
+        safetyCounter--;
+        if (safetyCounter == 0) break;
     }
-    
-    if(notes){
-        for(let i  = 0; i < notes.length; i++){
+
+    if (notes) {
+        for (let i = 0; i < notes.length; i++) {
             let note = notes[i];
             let noteLine = document.createElement("li");
             noteLine.setAttribute("class", NOTE_LINE_CLASS);

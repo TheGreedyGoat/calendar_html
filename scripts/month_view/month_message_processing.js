@@ -1,6 +1,3 @@
-
-
-
 const messageCallbacks = {
     'setup': switchToDate,
     'log': console.log,
@@ -10,11 +7,12 @@ const messageCallbacks = {
 
 
 const clickCallbacks = {
-    'date cell': dateClicked,
+    'date cell': onDateClicked,
     'month scroll': addMonth,
     'add note': addNote,
     'to day view': swipeToDay,
-    'to month view': swipeToMonth
+    'to month view': swipeToMonth,
+    'day scroll': addDay
 }
 
 
